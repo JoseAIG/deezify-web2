@@ -1,0 +1,73 @@
+/* ESTILO BODY */
+body{
+    background-color: #424242 ;
+}
+
+/* ESTILO PERSONALIZADO TARJETAS */
+.card{
+    border-radius: 25px;
+}
+.contenedor-tarjeta{
+    width: 30%;
+    margin: auto;
+}
+
+/* ESTILO DE LOS INPUTS */
+input{
+    background-color: rgba(65, 66, 71, 0.75);
+    border-radius: 25px;
+    border: 0cm;
+    padding: 0.4em;
+    color: white;
+}
+input:focus{
+    outline: none;
+}
+
+/* ESTILO DE LOS LABEL */
+label{
+    margin-top: 1em;
+    margin-bottom: 0.3em;
+}
+
+/* ESTILO BOTON DE ACCION PRINCIPAL */
+button{
+    border-radius: 25px;
+    padding: 0.4em;
+    /* background-color: #1ed760; */
+    background-color: #ffa726;
+    border: 0cm;
+    transition: background-color 1s;
+    color: white;
+}
+button:hover{
+    /* background-color: #1db954; */
+    background-color: #ff9800;
+}
+button:focus{
+    outline: none;
+}
+
+/* ESTILO BOTON VOLVER */
+.boton-volver{
+    background-color: rgba(65, 66, 71, 0.75);
+}
+.boton-volver:hover{
+    background-color: rgba(92, 93, 100, 0.75);
+}
+button a{
+    text-decoration: none;
+    color: white;
+}
+button a:hover{
+    color: white;
+}
+
+/* AJUSTAR ELEMENTOS PARA PANTALLAS DE MENOR TAMANIO */
+@media (max-width: 800px) {
+   
+    .contenedor-tarjeta{
+        width: 70%;
+    }
+
+}
