@@ -15,7 +15,8 @@ app.use(express.urlencoded({extended: true}));
 
 //CONECTARSE A LA BASE DE DATOS
 mongoose.connect('mongodb+srv://admin:Av4lanch@deezify-cluster.voizy.mongodb.net/deezify?retryWrites=true&w=majority',{
-    useNewUrlParser: true,
+    useNewUrlParser: true, 
+    useUnifiedTopology: true 
 });
 
 //DESPACHAR LA VISTA DE INICIO (LANDING) AL ENTRAR A LA APP SIN HACER LOGIN
