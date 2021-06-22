@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-//CONTROLADOR REGISTRO
+//CONTROLADOR LOGIN
 const controladorLogin = require('../controllers/ControladorLogin');
 
 //RUTAS /login

@@ -1,0 +1,18 @@
+aside{
+    height: 88vh;
+    width: 20%;
+    /* background-color: white; */
+    color: white;
+    float: left;
+}
+
+.icono-boton{
+    width: 25px;
+    margin: auto;
+}
+
+section{
+    height: 88vh;
+    background-color: gray;
+    text-align: center;
+}
