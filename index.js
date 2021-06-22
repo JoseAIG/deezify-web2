@@ -5,7 +5,8 @@ const puerto = process.env.PORT || 5000;
 
 const ModeloUsuario = require('./models/Usuario');
 
-const rutasRegistro = require('./routes/registro');
+const rutasRegistro = require('./routes/RutasRegistro');
+const rutasLogin = require('./routes/RutasLogin');
 
 //app.use(express.static("public"));
 app.use("/scripts", express.static(__dirname + '/public/scripts'));
@@ -17,6 +18,7 @@ app.use(express.urlencoded({extended: true}));
 
 //RUTAS
 app.use('/registro', rutasRegistro);
+app.use('/login', rutasLogin);
 
 //CONECTARSE A LA BASE DE DATOS
 mongoose.connect('mongodb+srv://admin:Av4lanch@deezify-cluster.voizy.mongodb.net/deezify?retryWrites=true&w=majority',{
@@ -52,23 +54,23 @@ app.get("/",(req,res)=>{
 // })
 
 //DESPACHAR LA VISTA DE LOGIN
-app.get("/login",(req,res)=>{
-    res.sendFile("./public/views/Login.html",{root:__dirname});
-})
+// app.get("/login",(req,res)=>{
+//     res.sendFile("./public/views/Login.html",{root:__dirname});
+// })
 
-//LOGIN DE UN USUARIO
-app.post("/login", async(req, res)=>{
-    console.log("peticion de login");
-    console.log(req.body);
-    //BUSCAR UN DOCUMENTO CUYOS INDICES DE USUARIO O CORREO SEAN IGUAL AL USUARIO INGRESADO CON SU RESPECTIVA CLAVE
-    const cursor = await ModeloUsuario.find({ $or:[{nombre_usuario:req.body.usuario},{correo_usuario:req.body.usuario}],clave:req.body.clave});
-    console.log(cursor);
-    if(cursor.length){
-        res.send('{"resultado":"Login exitoso", "status":200}');
-    }else{
-        res.send('{"resultado":"Credenciales invalidas", "status":401}');
-    }
-});
+// //LOGIN DE UN USUARIO
+// app.post("/login", async(req, res)=>{
+//     console.log("peticion de login");
+//     console.log(req.body);
+//     //BUSCAR UN DOCUMENTO CUYOS INDICES DE USUARIO O CORREO SEAN IGUAL AL USUARIO INGRESADO CON SU RESPECTIVA CLAVE
+//     const cursor = await ModeloUsuario.find({ $or:[{nombre_usuario:req.body.usuario},{correo_usuario:req.body.usuario}],clave:req.body.clave});
+//     console.log(cursor);
+//     if(cursor.length){
+//         res.send('{"resultado":"Login exitoso", "status":200}');
+//     }else{
+//         res.send('{"resultado":"Credenciales invalidas", "status":401}');
+//     }
+// });
 
 //MENSAJE PARA RECURSOS NO ENCONTRADOS
 app.use((req, res) => {

@@ -46,6 +46,7 @@ button:hover{
 }
 button:focus{
     outline: none;
+    background-color: #ff9800;
 }
 
 /* ESTILO BOTON VOLVER */
