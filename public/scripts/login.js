@@ -20,9 +20,9 @@ function iniciar_sesion () {
         .then(data => {
             console.log(data);
             alert(data.resultado);
-            // if(data.status==200){
-            //     window.open("/","_self");
-            // }
+            if(data.status==200){
+                window.open("/dashboard","_self");
+            }
         })	    
         //CATCH PARA OBTENER DETALLE POR SI ORURRE UN ERROR
         .catch((error) => {

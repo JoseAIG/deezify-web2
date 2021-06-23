@@ -3,11 +3,17 @@ var boton_registro = document.getElementById("boton-registro");
 
 function enviar_registro() {
 	var datos_form = new FormData(form_registro);
-    if(datos_form.get("usuario")=="" || datos_form.get("correo")=="" || datos_form.get("clave")==""){
+    if(datos_form.get("usuario")=="" || datos_form.get("correo")=="" || datos_form.get("clave")=="" || datos_form.get("confirmar-clave")==""){
         alert("Llene todos los campos");
     }
     else if(!validarCorreo(datos_form.get("correo"))){
         alert("Ingrese un correo válido");
+    }
+    else if(datos_form.get("clave").length<6){
+        alert("Ingrese una clave de 6 o mas caracteres")
+    }
+    else if(datos_form.get("clave")!=datos_form.get("confirmar-clave")){
+        alert("Confirme correctamente su clave");
     }else{
         fetch('registro', {
             method: 'POST',

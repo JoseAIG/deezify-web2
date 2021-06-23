@@ -1,6 +1,6 @@
 aside{
     height: 88vh;
-    width: 20%;
+    width: 25%;
     /* background-color: white; */
     color: white;
     float: left;
@@ -15,4 +15,12 @@ section{
     height: 88vh;
     background-color: gray;
     text-align: center;
+}
+
+@media (max-width: 800px) {
+   
+    aside{
+        width: 40%;
+    }
+
 }

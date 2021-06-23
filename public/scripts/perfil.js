@@ -1,7 +1,23 @@
 //FUNCIONALIDAD BOTON CERRAR SESION
 var boton_cerrar_sesion = document.getElementById("boton-cerrar-sesion");
 const cerrar_sesion = () => {
-    console.log("cerrar sesion");
+    fetch('dashboard', {
+        method: 'POST',
+    })
+    //RESPUESTA CRUDA DEL SERVER
+    .then(response => response.json())
+    //RESPUESTA CON LOS RESULTADOS DEL SERVIDOR
+    .then(data => {
+        console.log(data);
+        alert(data.resultado);
+        if(data.status==200){
+            window.open("/","_self");
+        }
+    })	    
+    //CATCH PARA OBTENER DETALLE POR SI ORURRE UN ERROR
+    .catch((error) => {
+        console.error('Error:', error);
+    });
 }
 boton_cerrar_sesion.onclick=cerrar_sesion;
 

@@ -3,6 +3,16 @@ body{
     background-color: #424242 ;
 }
 
+h1{
+    /* EVITAR QUE UN USUARIO PUEDA SELECCIONAR EL TEXTO*/
+    user-select: none; 
+}
+
+img{
+    /* EVITAR QUE UN USUARIO PUEDA ARRASTRAR LA IMAGEN */
+    -webkit-user-drag: none;
+}
+
 /* ESTILO PERSONALIZADO TARJETAS */
 .card{
     border-radius: 25px;
@@ -65,7 +75,7 @@ button a:hover{
 }
 
 /* AJUSTAR ELEMENTOS PARA PANTALLAS DE MENOR TAMANIO */
-@media (max-width: 800px) {
+@media (max-width: 850px) {
    
     .contenedor-tarjeta{
         width: 70%;
