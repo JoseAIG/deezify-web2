@@ -45,18 +45,21 @@ button{
     border-radius: 25px;
     padding: 0.4em;
     /* background-color: #1ed760; */
-    background-color: #ffa726;
+    /* background-color: #ffa726; */
+    background-color: #ff9100;
     border: 0cm;
-    transition: background-color 1s;
+    transition: background-color 0.5s;
     color: white;
 }
 button:hover{
     /* background-color: #1db954; */
-    background-color: #ff9800;
+    /* background-color: #ff9800; */
+    background-color: #ff6d00;
 }
 button:focus{
     outline: none;
-    background-color: #ff9800;
+    /* background-color: #ff9800; */
+    background-color: #ff6d00;
 }
 
 /* ESTILO BOTON VOLVER */

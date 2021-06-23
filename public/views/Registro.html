@@ -13,7 +13,7 @@
     <div class="contenedor-tarjeta">
         <div class="card text-white bg-dark mx-auto mt-5">
             <div class="card-header">
-                <button class="boton-volver"><a href="/">Inicio</a></button>
+                <button class="boton-volver" onclick="location.href='/'">Inicio</button>
             </div>
             <div class="text-center mt-2 mb-2">
                 <h2>Crear nuevo usuario</h2>
@@ -26,7 +26,7 @@
                     <div>
                         <label for="correo">Correo electrónico</label>
                         <br/>
-                        <input type="email" name="correo"/>
+                        <input type="email" name="correo" autocomplete="off"/>
                     </div>
                     <div>
                         <label for="clave">Clave de acceso</label>

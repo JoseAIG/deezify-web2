@@ -17,10 +17,36 @@ section{
     text-align: center;
 }
 
+.boton-eliminar{
+    background-color: #ff3d00;
+}
+
+.boton-eliminar:hover, .boton-eliminar:focus{
+    background-color: #dd2c00;
+}
+
+/* DISENIO MODAL */
+.modal-content{
+    border-radius: 25px;
+    color: white;
+}
+
+.modal-header, .modal-footer{
+    border: 0px;
+}
+
+/* AJUSTAR ELEMENTOS DE LA VISTA PARA PANTALLAS PEQUENIAS */
 @media (max-width: 800px) {
    
     aside{
         width: 40%;
     }
 
+}
+@media (max-width: 480px) {
+   
+    #h1-deezify{
+        visibility: hidden;
+    }
+    
 }

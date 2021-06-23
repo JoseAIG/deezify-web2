@@ -7,6 +7,7 @@ const puerto = process.env.PORT || 5000;
 const rutasRegistro = require('./routes/RutasRegistro');
 const rutasLogin = require('./routes/RutasLogin');
 const rutasDashboard = require('./routes/RutasDashboard');
+const rutasPerfil = require('./routes/RutasPerfil');
 
 //app.use(express.static("public"));
 app.use("/scripts", express.static(__dirname + '/public/scripts'));
@@ -26,17 +27,18 @@ app.use(express.urlencoded({extended: true}));
 app.use('/registro', rutasRegistro);
 app.use('/login', rutasLogin);
 app.use('/dashboard', rutasDashboard);
+app.use('/perfil', rutasPerfil);
 
 //CONECTARSE A LA BASE DE DATOS
 mongoose.connect('mongodb+srv://admin:Av4lanch@deezify-cluster.voizy.mongodb.net/deezify?retryWrites=true&w=majority',{
     useNewUrlParser: true, 
     useUnifiedTopology: true 
-});
+}).catch(error => console.log(error));
 
 //DESPACHAR LA VISTA DE INICIO (LANDING) AL ENTRAR A LA APP SIN HACER LOGIN
 app.get("/",(req,res)=>{
     //SI SE POSEE UNA SESION, REDIRECCIONAR AL DASHBOARD
-    console.log(req.session)
+    //console.log(req.session)
     if(req.session.usuario){
         res.redirect("/dashboard")
     }else{
