@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "deezify-web2",
   "version": "1.0.0",
   "description": "Deezify, reproductor de musica web",
   "main": "index.js",

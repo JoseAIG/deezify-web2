@@ -8,7 +8,8 @@
     <script src="../scripts/bootstrap/bootstrap.min.js" defer></script>
     <link rel="stylesheet" href="../styles/estilo-principal.css">
     <link rel="stylesheet" href="../styles/dashboard.css">
-    <script src="../scripts/perfil.js" defer></script>
+    <script src="../scripts/dashboard-perfil.js" defer></script>
+    <script src="../scripts/dashboard-admin.js" defer></script>
     <title>Deezify - Dashboard</title>
 </head>
 <body>
@@ -26,8 +27,9 @@
     <aside class="bg-dark">
         <p>test</p>
     </aside>
-    <section>
-        <h1>section</h1>
+    <section id="section-principal">
+        <div id="contenedor-section-administrador" style="display: none;"></div>
+        <div id="contenedor-section-usuario" style="display: none;"></div>
     </section>
 
     <!-- MODAL EDITAR PERFIL -->

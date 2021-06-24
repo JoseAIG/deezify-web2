@@ -1,4 +1,5 @@
 const ModeloUsuario = require('../models/Usuario');
+const ModeloAdministrador = require('../models/Administrador');
 
 //FUNCION PARA RETORNAR LA VISTA DE LOGIN
 const vistaLogin = (req, res) => {
@@ -12,21 +13,34 @@ const vistaLogin = (req, res) => {
 
 //FUNCION ASINCRONA PARA REALIZAR EL INICIO DE SESION
 const iniciarSesion = async (req, res) => {
-    console.log(req.body);
+    //console.log(req.body);
     try {
-         //BUSCAR UN DOCUMENTO CUYOS INDICES DE USUARIO O CORREO SEAN IGUAL AL USUARIO INGRESADO CON SU RESPECTIVA CLAVE
-        const cursor = await ModeloUsuario.find({ $or:[{nombre_usuario:req.body.usuario},{correo_usuario:req.body.usuario}],clave:req.body.clave});
-        //console.log(cursor);
-        if(cursor.length){
-            // console.log(cursor[0].nombre_usuario);
-            // console.log(cursor[0].correo_usuario);
-            req.session.usuario = cursor[0].nombre_usuario;
-            req.session.correo = cursor[0].correo_usuario
-            res.send('{"resultado":"Login exitoso", "status":200}');
+        //PRIMERAMENTE BUSCAR DOCUMENTO DE ADMINISTRADOS CUYAS CREDENCIALES COINCIDAN
+        const cursor_admin = await ModeloAdministrador.findOne({$or:[{nombre_administrador:req.body.usuario},{correo_administrador:req.body.usuario}],clave:req.body.clave});
+        console.log(cursor_admin);
+        if(cursor_admin){
+            req.session.usuario = cursor_admin.nombre_administrador;
+            req.session.correo = cursor_admin.correo_administrador;
+            req.session.tipo = "administrador";
+            req.session.objectid = cursor_admin._id;
+            res.send('{"resultado":"Login exitoso, administrador", "status":200}');
         }else{
-            res.send('{"resultado":"Credenciales invalidas", "status":401}');
-        }   
+            //SI NO HAY COINCIDENCIAS DE ADMIN, BUSCAR UN DOCUMENTO CUYOS INDICES DE USUARIO O CORREO SEAN IGUAL AL USUARIO INGRESADO CON SU RESPECTIVA CLAVE
+            const cursor_usuario = await ModeloUsuario.findOne({ $or:[{nombre_usuario:req.body.usuario},{correo_usuario:req.body.usuario}],clave:req.body.clave});
+            console.log(cursor_usuario);
+            if(cursor_usuario){
+                req.session.usuario = cursor_usuario.nombre_usuario;
+                req.session.correo = cursor_usuario.correo_usuario;
+                req.session.tipo = "usuario";
+                req.session.objectid = cursor_usuario._id;
+                res.send('{"resultado":"Login exitoso", "status":200}');
+            }else{
+                res.send('{"resultado":"Credenciales invalidas", "status":401}');
+            }   
+        }
+
     } catch (error) {
+        console.log(error)
         res.send('{"resultado":"No se pudo iniciar sesion", "status":500}')
     }
 }

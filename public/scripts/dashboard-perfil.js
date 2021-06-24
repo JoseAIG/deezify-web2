@@ -1,3 +1,34 @@
+//CARGAR LOS ELEMENTOS DEL DASHBOARD SEGUN EL TIPO DE PERFIL AL CARGAR LA PAGINA
+var section_principal = document.getElementById("section-principal");
+var contenedor_section_administrador = document.getElementById("contenedor-section-administrador");
+var contenedor_section_usuario = document.getElementById("contenedor-section-usuario");
+window.onload = () => {
+    fetch('perfil', {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'}
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        if(data.status==200){
+            //section_principal.innerHTML=`<h2>Bienvenido, ${data.usuario}</h2>`
+            if(data.tipo=="administrador"){
+                //LLAMAR A LA FUNCION DENTRO DE "dashboard-admin.js" PARA OBTENER LAS CANCIONES PERTENECIENTES AL ADMIN
+                obtener_canciones_administrador();
+                //section_principal.innerHTML+="<h3>Estadisticas</h3>";
+                contenedor_section_administrador.style.display="block";
+                contenedor_section_administrador.innerHTML+="<h3>Contenedor admin Estadisticas</h3>";
+            }else{
+                contenedor_section_usuario.style.display="block";
+                contenedor_section_usuario.innerHTML=`<h2>Bienvenido, ${data.usuario}</h2>`;
+            }
+        }
+    })	    
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
 //FUNCIONALIDAD BOTON CERRAR SESION
 var boton_cerrar_sesion = document.getElementById("boton-cerrar-sesion");
 const cerrar_sesion = () => {
