@@ -17,7 +17,7 @@
         <div>
             <img src="../assets/icons/logo.svg" alt="d" class="w-25">
             <h1 class="d-inline align-middle" id="h1-deezify">Deezify</h1>
-            <span class="align-bottom">Admin</span>
+            <!-- <span class="align-bottom">Admin</span> -->
         </div>
         <div style="position: absolute; right: 1em;">
             <button id="boton-editar-perfil" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"> <img src="../assets/icons/user.svg" class="icono-boton"> Editar perfil</button>
@@ -84,30 +84,73 @@
                     <h3>Nueva cancion</h3>
                     <form id="form-nueva-cancion">
                         <div>
-                            <label for="titulo">Título de la cancion</label>
+                            <label for="titulo">Título de la canción</label>
                             <br>
-                            <input type="text" name="titulo" id="input-titulo-cancion" autocomplete="off">
+                            <input type="text" name="titulo" id="input-titulo" autocomplete="off">
                         </div>
                         <div>
                             <label for="artista">Artista</label>
                             <br>
-                            <input type="text" name="artista" id="input-artista-correo" autocomplete="off">
+                            <input type="text" name="artista" id="input-artista" autocomplete="off">
                         </div>
                         <div>
                             <label for="album">Álbum</label>
                             <br/>
-                            <input type="text" name="album" id="input-album-cancion" autocomplete="off"/>
+                            <input type="text" name="album" id="input-album" autocomplete="off"/>
                         </div>
                         <div>
                             <label class="label-cargar-archivo">
-                                <input type="file" name="pista" id="input-pista-cancion">
+                                <input type="file" name="pista" id="input-pista">
                                 Pista de audio
                             </label>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button id="boton-guardar-nueva-cancion">Guardar canción</button>
+                    <button id="boton-guardar-nueva-cancion" class="mx-auto">Guardar canción</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL EDITAR CANCION -->
+    <div class="modal fade" id="modal-editar-cancion"> 
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <button class="boton-volver" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+                <div class="modal-body text-center">
+                    <h3>Actualizar datos de cancion</h3>
+                    <form id="form-editar-cancion">
+                        <input type="text" disabled class="d-none" id="input-id-cancion">
+                        <div>
+                            <label for="titulo">Título de la canción</label>
+                            <br>
+                            <input type="text" name="titulo" id="input-editar-titulo" autocomplete="off">
+                        </div>
+                        <div>
+                            <label for="artista">Artista</label>
+                            <br>
+                            <input type="text" name="artista" id="input-editar-artista" autocomplete="off">
+                        </div>
+                        <div>
+                            <label for="album">Álbum</label>
+                            <br/>
+                            <input type="text" name="album" id="input-editar-album" autocomplete="off"/>
+                        </div>
+                        <div>
+                            <label class="label-cargar-archivo">
+                                <input type="file" name="pista" id="input-editar-pista">
+                                Pista de audio
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="mx-auto text-center">
+                    <button class="mx-auto d-inline" id="boton-guardar-editar-cancion">Actualizar canción</button>
+                    <br>
+                    <button class="mx-auto d-inline mt-3 mb-3 boton-eliminar" id="boton-eliminar-cancion">Eliminar canción</button>
                 </div>
             </div>
         </div>

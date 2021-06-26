@@ -19,6 +19,10 @@ const SchemaCancion = new mongoose.Schema({
     },
     reproducciones:{
         type: mongoose.Schema.Types.Number
+    },
+    ruta_cancion: {
+        type: String,
+        required: true
     }
 });
 
