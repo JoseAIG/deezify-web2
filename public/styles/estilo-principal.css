@@ -1,6 +1,7 @@
 /* ESTILO BODY */
 body{
-    background-color: #424242 ;
+    background-color: rgba(53, 56, 61, 1);
+    color: white;
 }
 
 h1{
@@ -63,7 +64,7 @@ button:focus{
 }
 
 /* ESTILO BOTON VOLVER */
-.boton-volver{
+.boton-volver, .boton-gris{
     background-color: rgba(65, 66, 71, 0.75);
 }
 .boton-volver:hover{

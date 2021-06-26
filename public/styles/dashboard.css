@@ -13,8 +13,9 @@ aside{
 
 section{
     height: 88vh;
-    background-color: gray;
+    background-color: rgba(53, 56, 61, 1);
     text-align: center;
+    padding-top: 2em;
 }
 
 .boton-eliminar{
@@ -23,6 +24,39 @@ section{
 
 .boton-eliminar:hover, .boton-eliminar:focus{
     background-color: #dd2c00;
+}
+
+#contenedor-tabla-estadisticas{
+    /* background-color: red; */
+}
+
+/* TABLA DE LAS CANCIONES DEL ADMINISTRADOR */
+table{
+    margin: auto;
+    background-color: rgb(33, 36, 41);
+    color: white;
+    text-align: justify;
+    font-size: large;
+    border-radius: 25px;
+    /* user-select: none; */
+}
+
+td{
+    padding: 2em;
+}
+
+tr{
+    border-top: 0.1em solid rgb(40, 43, 49);
+}
+tr:first-child{
+    border-top: 0px;
+}
+
+#boton-subir-cancion{
+    bottom: 2em;
+    right: 2em;
+    position: fixed;
+    font-size: large;
 }
 
 /* DISENIO MODAL */
@@ -35,6 +69,21 @@ section{
     border: 0px;
 }
 
+input[type="file"]{
+    display: none;
+}
+
+.label-cargar-archivo{
+    margin-top: 2em;
+    background-color: rgba(65, 66, 71, 0.75);
+    border-radius: 25px;
+    border: 0cm;
+    padding: 0.4em;
+    color: white;
+    cursor: pointer;
+    width: 25%;
+}
+
 /* AJUSTAR ELEMENTOS DE LA VISTA PARA PANTALLAS PEQUENIAS */
 @media (max-width: 800px) {
    
@@ -42,11 +91,33 @@ section{
         width: 40%;
     }
 
+    table{
+        font-size: medium;
+        width: 80%;
+        text-align: center;
+    }
+
+    td{
+        padding: 1em;
+    }
+
 }
 @media (max-width: 480px) {
    
     #h1-deezify{
         visibility: hidden;
+    }
+
+    table{
+        font-size: small;
+        width: 100%;
+        text-align: center;
+    }
+
+    td{
+        padding: 0.5em;
+        padding-top: 1em;
+        padding-bottom: 1em;
     }
     
 }
