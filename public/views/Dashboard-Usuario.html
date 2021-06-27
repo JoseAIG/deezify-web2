@@ -4,14 +4,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- BOOTSTRAP -->
     <link rel="stylesheet" href="../styles/bootstrap/bootstrap.min.css">
     <script src="../scripts/bootstrap/bootstrap.min.js" defer></script>
+    <!-- CSS -->
     <link rel="stylesheet" href="../styles/estilo-principal.css">
     <link rel="stylesheet" href="../styles/dashboard.css">
+    <!-- JS -->
     <script src="../scripts/dashboard-perfil.js" defer></script>
+    <script src="../scripts/dashboard-busquedas.js" defer></script>
+
     <title>Deezify - Dashboard</title>
 </head>
 <body>
+    <!-- BARRA DE NAVEGACION -->
     <nav class="navbar navbar-dark bg-dark text-white">
         <div>
             <img src="../assets/icons/logo.svg" alt="d" class="w-25">
@@ -23,11 +29,23 @@
             <button id="boton-cerrar-sesion"> <img src="../assets/icons/logout.svg" class="icono-boton"> Cerrar sesión</button>
         </div>
     </nav>
+    <!-- ASIDE -->
     <aside class="bg-dark" id="aside-principal">
         <p>test</p>
     </aside>
-    <section id="section-principal">
-        <div id="contenedor-section-usuario" style="display: none;"></div>
+    <!-- SECTION -->
+    <section id="section-principal-usuario">
+        <form id="form-busqueda">
+            <select name="select_busqueda" id="select-busqueda">
+                <option value="canciones">Canciones</option>
+                <option value="artistas">Artistas</option>
+                <option value="albumes">Albumes</option>
+                <option value="listas">Listas</option>
+            </select>
+            <input type="text" name="palabra_clave" id="input-busqueda" autocomplete="off">
+            <button id="boton-buscar"><img src="../assets/icons/search.svg"></button>
+        </form>
+        <div id="contenedor-resultados"></div>
     </section>
 
     <!-- MODAL EDITAR PERFIL -->

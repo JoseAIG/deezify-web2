@@ -2,7 +2,7 @@
 var boton_cerrar_sesion = document.getElementById("boton-cerrar-sesion");
 const cerrar_sesion = () => {
     fetch('dashboard', {
-        method: 'POST',
+        method: 'DELETE',
     })
     //RESPUESTA CRUDA DEL SERVER
     .then(response => response.json())

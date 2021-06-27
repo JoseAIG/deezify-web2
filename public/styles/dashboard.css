@@ -18,6 +18,11 @@ section{
     padding-top: 2em;
 }
 
+#section-principal-usuario{
+    margin-left: 25%;
+    width: 75%;
+}
+
 .boton-eliminar{
     background-color: #ff3d00;
 }
@@ -84,11 +89,69 @@ input[type="file"]{
     width: 25%;
 }
 
+/* ESTILO DE LOS ELEMENTOS DE LA BUSQUEDA */
+#form-busqueda{
+    display: flex;
+    width: 75%;
+    height: 3em;
+    margin: auto;
+    border-radius: 25px;
+    background-color: rgba(95, 96, 101, 0.75);
+}
+
+select{
+    color: white;
+    background: transparent;
+    border: none;
+    height: 3em;
+    border-radius: 25px;
+    margin-left: 0.5em;
+}
+
+select:focus{
+    outline: none;
+}
+
+option{
+    background-color: rgba(95, 96, 101, 0.75);
+}
+
+#input-busqueda{
+    flex: auto;
+    border-radius: 0px;
+    height: 3em;
+    width: 70%;
+    background-color: transparent;
+}
+
+#boton-buscar{
+    margin: auto;
+    margin-right: 0.5em;
+    height: 2.5em;
+    width: 2.5em;
+}
+
+#boton-buscar img{
+    width: 1.5em;
+}
+
+#contenedor-resultados{
+    margin: 2em;
+    border-radius: 25px;
+    /* height: 30em; */
+    background-color: rgb(33, 36, 41);
+}
+
 /* AJUSTAR ELEMENTOS DE LA VISTA PARA PANTALLAS PEQUENIAS */
 @media (max-width: 800px) {
    
     aside{
         width: 40%;
+    }
+
+    #section-principal-usuario{
+        width: 60%;
+        margin-left: 40%;
     }
 
     table{

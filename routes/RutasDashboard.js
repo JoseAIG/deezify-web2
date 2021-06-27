@@ -10,6 +10,9 @@ const controladorDashboard = require('../controllers/ControladorDashboard');
 router.get("/",controladorDashboard.vistaDashboard);
 
 //ENDPOINT /dashboard METODO POST
-router.post("/",controladorDashboard.cerrarSesion);
+router.post("/",controladorDashboard.realizarBusqueda);
+
+//ENDPOINT /dashboard METODO DELETE
+router.delete("/",controladorDashboard.cerrarSesion);
 
 module.exports = router;
