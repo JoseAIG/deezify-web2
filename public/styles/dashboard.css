@@ -1,9 +1,11 @@
 aside{
+    display: block;
     height: 88vh;
     width: 25%;
     /* background-color: white; */
     color: white;
     float: left;
+    text-align: center;
 }
 
 .icono-boton{
@@ -21,6 +23,7 @@ section{
 #section-principal-usuario{
     margin-left: 25%;
     width: 75%;
+    /* border: 2px dashed green; */
 }
 
 .boton-eliminar{
@@ -137,9 +140,16 @@ option{
 
 #contenedor-resultados{
     margin: 2em;
-    border-radius: 25px;
-    /* height: 30em; */
-    background-color: rgb(33, 36, 41);
+    /* border-radius: 25px; */
+    /* background-color: rgb(33, 36, 41); */
+}
+
+#visualizar-aside{
+    display: none;
+}
+
+#boton-crear-lista{
+    margin: auto;
 }
 
 /* AJUSTAR ELEMENTOS DE LA VISTA PARA PANTALLAS PEQUENIAS */
@@ -164,6 +174,11 @@ option{
         padding: 1em;
     }
 
+    #contenedor-resultados{
+        margin-left: 0;
+        margin-right: 0;
+    }
+
 }
 @media (max-width: 480px) {
    
@@ -181,6 +196,15 @@ option{
         padding: 0.5em;
         padding-top: 1em;
         padding-bottom: 1em;
+    }
+
+    #contenedor-resultados{
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    #visualizar-aside{
+        display: block;
     }
     
 }

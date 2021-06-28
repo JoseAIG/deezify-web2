@@ -5,15 +5,27 @@ const ObjectId = require('mongoose').Types.ObjectId;
 //FUNCION PARA OBTENER CANCIONES
 const obtenerCanciones = async (req, res) => {
     console.log("obtener canciones");
+    console.log(req.body);
+
     //SI EL QUE REALIZA LA PETICION ES UN ADMINISTRADOR Y NO ES POR MEDIO DE LA URL, OBTENER LAS CANCIONES QUE LE PERTENECEN PARA MOSTRAR SU INFORMACION EN LA VISTA DE ADMIN
-    if((req.session.tipo=="administrador") && (req.headers['content-type']=='application/json')){
-        try {
-            const documentos_canciones_admin = await ModeloCancion.find({"propietario": ObjectId(req.session.objectid)});
-            //console.log(documentos_canciones_admin);
-            res.send('{"status":200, "canciones":'+JSON.stringify(documentos_canciones_admin)+'}');
-        } catch (error) {
-            res.send('{"resultado":"No se pudieron obtener las canciones del admin", "status":500}');
+    if(req.headers['content-type']=='application/json'){
+        if((req.session.tipo=="administrador")){
+            try {
+                const documentos_canciones_admin = await ModeloCancion.find({"propietario": ObjectId(req.session.objectid)});
+                //console.log(documentos_canciones_admin);
+                res.send('{"status":200, "canciones":'+JSON.stringify(documentos_canciones_admin)+'}');
+            } catch (error) {
+                res.send('{"resultado":"No se pudieron obtener las canciones del admin", "status":500}');
+            }
         }
+        // else if(req.session.tipo=="usuario"){
+        //     try {
+        //         console.log(req.body);
+        //         res.send('{"resultado":"Operacion en proceso", "status":200}');
+        //     } catch (error) {
+        //         res.send('{"resultado":"No se pudieron obtener las canciones", "status":500}');
+        //     }
+        // }
     }else{
         res.redirect("/dashboard");
     }

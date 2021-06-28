@@ -1,0 +1,17 @@
+#boton-crear-lista{
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+#favoritos{
+    height: 4em;
+    /* background-color: yellow; */
+}
+
+#contenedor-listas{
+    height: 8em;
+    text-align: left;
+    margin: 1em;
+    font-size: large;
+    /* background-color: red; */
+}

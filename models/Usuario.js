@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+//const ModeloLista = require('./Lista').schema
 
 const SchemaUsuario = new mongoose.Schema({
     nombre_usuario: {
@@ -16,6 +17,12 @@ const SchemaUsuario = new mongoose.Schema({
     clave:{
         type: String,
         required: true
+    },
+    favoritos: {
+        type: Array
+    },
+    listas: {
+        type: Array,
     }
 });
 

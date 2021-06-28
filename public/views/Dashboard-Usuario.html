@@ -10,8 +10,10 @@
     <!-- CSS -->
     <link rel="stylesheet" href="../styles/estilo-principal.css">
     <link rel="stylesheet" href="../styles/dashboard.css">
+    <link rel="stylesheet" href="../styles/dashboard-usuario.css">
     <!-- JS -->
     <script src="../scripts/dashboard-perfil.js" defer></script>
+    <script src="../scripts/dashboard-usuario.js" defer></script>
     <script src="../scripts/dashboard-busquedas.js" defer></script>
 
     <title>Deezify - Dashboard</title>
@@ -31,10 +33,18 @@
     </nav>
     <!-- ASIDE -->
     <aside class="bg-dark" id="aside-principal">
-        <p>test</p>
+        <button id="boton-crear-lista" data-bs-toggle="modal" data-bs-target="#modal-crear-lista"><img src="../assets/icons/crear-lista.svg" class="icono-boton">Nueva lista</button>
+        <div id="favoritos">
+            <h4>Favoritos</h4>
+        </div>
+        <h4>Listas</h4>
+        <hr>
+        <div id="contenedor-listas">
+        </div>
     </aside>
     <!-- SECTION -->
     <section id="section-principal-usuario">
+        <button id="visualizar-aside">Aside</button>
         <form id="form-busqueda">
             <select name="select_busqueda" id="select-busqueda">
                 <option value="canciones">Canciones</option>
@@ -84,6 +94,58 @@
                 <div class="modal-footer">
                     <button id="boton-guardar-edicion-perfil">Guardar cambios</button>
                     <button id="boton-eliminar-perfil" class="boton-eliminar">Eliminar perfil</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CREAR LISTA -->
+    <div class="modal fade" id="modal-crear-lista"> 
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <button class="boton-volver" data-bs-dismiss="modal">Cerrar</button>
+                    <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
+                </div>
+                <div class="modal-body text-center">
+                    <h3>Crear lista de reproducción</h3>
+                    <form id="form-crear-lista">
+                        <div>
+                            <label for="nombre">Nombre de la lista</label>
+                            <br>
+                            <input type="text" name="nombre" autocomplete="off">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="boton-guardar-lista">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL EDITAR LISTA -->
+    <div class="modal fade" id="modal-editar-lista"> 
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <button class="boton-volver" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+                <div class="modal-body text-center">
+                    <h3>Editar lista de reproducción</h3>
+                    <form id="form-editar-lista">
+                        <div>
+                            <label for="nombre">Nombre de la lista</label>
+                            <br>
+                            <input type="text" name="nombre_editar_lista" id="input-editar-nombre-lista" autocomplete="off">
+                        </div>
+                        <div id="contenedor-input-canciones" style="border: 1px dashed green"></div>
+                    </form>
+                </div>
+                <div class="mx-auto text-center mt-5 mb-3">
+                    <button id="boton-guardar-edicion-lista">Guardar edicion</button>
+                    <br>
+                    <button id="boton-eliminar-lista" class="boton-eliminar mt-3">Eliminar lista</button>
                 </div>
             </div>
         </div>

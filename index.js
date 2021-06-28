@@ -9,6 +9,7 @@ const rutasLogin = require('./routes/RutasLogin');
 const rutasDashboard = require('./routes/RutasDashboard');
 const rutasPerfil = require('./routes/RutasPerfil');
 const rutasCanciones = require('./routes/RutasCanciones');
+const rutasListas = require('./routes/RutasListas');
 
 //app.use(express.static("public"));
 app.use("/scripts", express.static(__dirname + '/public/scripts'));
@@ -30,6 +31,7 @@ app.use('/login', rutasLogin);
 app.use('/dashboard', rutasDashboard);
 app.use('/perfil', rutasPerfil);
 app.use('/canciones', rutasCanciones);
+app.use('/listas', rutasListas);
 
 //CONECTARSE A LA BASE DE DATOS
 mongoose.connect('mongodb+srv://admin:Av4lanch@deezify-cluster.voizy.mongodb.net/deezify?retryWrites=true&w=majority',{

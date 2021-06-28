@@ -67,9 +67,13 @@ button:focus{
 .boton-volver, .boton-gris{
     background-color: rgba(65, 66, 71, 0.75);
 }
-.boton-volver:hover{
+.boton-volver:hover, .boton-gris:hover{
     background-color: rgba(92, 93, 100, 0.75);
 }
+.boton-volver:focus, .boton-gris:focus{
+    background-color: rgba(92, 93, 100, 0.75);
+}
+
 button a{
     text-decoration: none;
     color: white;
