@@ -6,12 +6,17 @@ const SchemaCancion = new mongoose.Schema({
         required: true
     },
     artista: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Artista",
         required: true
     },
     album:{
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Album",
         required: true
+    },
+    genero:{
+        type: String
     },
     propietario:{
         type: mongoose.Schema.Types.ObjectId,

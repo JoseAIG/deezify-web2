@@ -26,7 +26,27 @@ boton_visualizar_aside.addEventListener('click',()=>{
 });
 
 //OBTENER LAS LISTAS DE UN USUARIO AL CARGAR LA PAGINA
-window.onload = () => {
+// window.onload = () => {
+//     fetch('listas', {
+//         method: 'GET',
+//         headers: {'Content-Type': 'application/json'},
+//     })
+//     .then(response => response.json())
+//     .then(data => {
+//         //DIBUJAR LOS RESULTADOS DE LA PETICION
+//         //console.log(data);
+//         dibujar_listas_aside(data);
+//         establecer_listas_del_usuario(data);
+//     })	    
+//     .catch((error) => {
+//         console.error('Error:', error);
+//     });
+// }
+
+window.onload = refrescar_listas;
+
+var contenedor_listas = document.getElementById("contenedor-listas");
+function refrescar_listas(){
     fetch('listas', {
         method: 'GET',
         headers: {'Content-Type': 'application/json'},
@@ -41,9 +61,14 @@ window.onload = () => {
     .catch((error) => {
         console.error('Error:', error);
     });
+
+    //CERRAR LOS MODAL
+    botones = document.getElementsByClassName("boton-volver");
+    for(let i=0; i<botones.length; i++){
+        botones[i].click();
+    }
 }
 
-var contenedor_listas = document.getElementById("contenedor-listas");
 //ELEMENTOS DEL MODAL EDITAR LISTAS
 var input_editar_nombre_lista = document.getElementById("input-editar-nombre-lista");
 var contenedor_input_canciones = document.getElementById("contenedor-input-canciones");
@@ -52,6 +77,7 @@ var contenedor_visualizar_canciones = document.getElementById("contenedor-visual
 var nombre_visualizar_lista = document.getElementById("nombre-visualizar-lista");
 //FUNCION PARA DIBUJAR LISTAS EN ASIDE
 function dibujar_listas_aside(datos){
+    contenedor_listas.innerHTML="";
     listas = datos.listas;
     //console.log("dibujar listas funcion", listas, contenedor_listas);
     for(let i=0; i<listas.length; i++){
@@ -94,7 +120,7 @@ function dibujar_listas_aside(datos){
                     input.type="text";
                     //input.name="input_cancion_"+i;
                     input.disabled=true;
-                    input.value = listas[i].canciones[j].nombre_cancion + ", " + listas[i].canciones[j].artista + ", " + listas[i].canciones[j].album;
+                    input.value = listas[i].canciones[j].nombre_cancion + ", " + listas[i].canciones[j].artista.nombre + ", " + listas[i].canciones[j].album.nombre_album;
                     input.setAttribute("ObjectId", listas[i].canciones[j]._id);
                     input.className="input-canciones-lista";
                     div.appendChild(input);
@@ -121,27 +147,21 @@ function dibujar_listas_aside(datos){
             })
         }else{
             editar.setAttribute('data-bs-target','#modal-visualizar-lista');
-            contenedor_visualizar_canciones.innerHTML = "";
-            nombre_visualizar_lista.innerText = listas[i].nombre_lista;
-            for(let j=0; j<listas[i].canciones.length; j++){
-                let div = document.createElement("div");
-                let input = document.createElement("input");
-                input.type="text";
-                input.disabled=true;
-                input.value = listas[i].canciones[j].nombre_cancion + " - " + listas[i].canciones[j].artista + " - " + listas[i].canciones[j].album;
-                input.className="input-canciones-lista";
-                div.appendChild(input);
-                contenedor_visualizar_canciones.appendChild(div);
-
-                let boton_unfollow = document.createElement("button");
-                boton_unfollow.className="boton-eliminar";
-                boton_unfollow.innerHTML='<img src="../assets/icons/remove.svg" class="icono-boton"> Dejar de seguir';
-                contenedor_visualizar_canciones.appendChild(boton_unfollow);
-
-                boton_unfollow.onclick = () => {
-                    dejar_de_seguir_lista(listas[i]._id);
+            editar.addEventListener('click', ()=>{
+                contenedor_visualizar_canciones.innerHTML = "";
+                nombre_visualizar_lista.innerText = listas[i].nombre_lista;
+                for(let j=0; j<listas[i].canciones.length; j++){
+                    let div = document.createElement("div");
+                    let input = document.createElement("input");
+                    input.type="text";
+                    input.disabled=true;
+                    input.value = listas[i].canciones[j].nombre_cancion + " - " + listas[i].canciones[j].artista.nombre + " - " + listas[i].canciones[j].album.nombre_album;
+                    input.className="input-canciones-lista";
+                    div.appendChild(input);
+                    contenedor_visualizar_canciones.appendChild(div);
                 }
-            }
+                dejar_de_seguir_lista(listas[i]._id);
+            })
         }
     }
 }
@@ -161,7 +181,8 @@ const crear_lista = () => {
         console.log(data);
         alert(data.resultado);
         if(data.status==200){
-            window.open('/dashboard','_self')
+            //window.open('/dashboard','_self')
+            refrescar_listas();
         }
     })	    
     .catch((error) => {
@@ -186,7 +207,7 @@ function editar_lista (id_lista) {
         let datos_form_editar_lista = new FormData(form_editar_lista);
         datos_form_editar_lista.append("id_lista",id_lista);
         datos_form_editar_lista.append("canciones",JSON.stringify(canciones));
-        console.log(Object.fromEntries(datos_form_editar_lista.entries()));
+        //console.log(Object.fromEntries(datos_form_editar_lista.entries()));
         fetch('listas', {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
@@ -197,7 +218,8 @@ function editar_lista (id_lista) {
             console.log(data);
             alert(data.resultado);
             if(data.status==200){
-                window.open('/dashboard','_self')
+                //window.open('/dashboard','_self')
+                refrescar_listas();
             }
         })	    
         .catch((error) => {
@@ -220,7 +242,8 @@ function eliminar_lista(id_lista, propietario){
             console.log(data);
             alert(data.resultado);
             if(data.status==200){
-                window.open('/dashboard','_self')
+                //window.open('/dashboard','_self')
+                refrescar_listas();
             }
         })	    
         .catch((error) => {
@@ -230,23 +253,27 @@ function eliminar_lista(id_lista, propietario){
 }
 
 //FUNCION PARA DEJAR DE SEGUIR UNA LISTA
+var boton_dejar_de_seguir = document.getElementById("boton-dejar-de-seguir");
 function dejar_de_seguir_lista (id_lista) {
-    fetch('seguidos', {
-        method: 'DELETE',
-        headers: {'Content-Type': 'application/json'},
-        body: '{"id_lista":"'+id_lista+'"}'
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        alert(data.resultado);
-        if(data.status==200){
-            window.open('/dashboard','_self')
-        }
-    })	    
-    .catch((error) => {
-        console.error('Error:', error);
-    });
+    boton_dejar_de_seguir.onclick = () => {
+        fetch('seguidos', {
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json'},
+            body: '{"id_lista":"'+id_lista+'"}'
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            alert(data.resultado);
+            if(data.status==200){
+                //window.open('/dashboard','_self')
+                refrescar_listas();
+            }
+        })	    
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
 }
 
 // function obtener_canciones_lista(id_lista){

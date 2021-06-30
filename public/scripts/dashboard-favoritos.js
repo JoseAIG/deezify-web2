@@ -25,7 +25,7 @@ function dibujar_favoritos(favoritos) {
             let div = document.createElement("div");
             let input = document.createElement("input")
             input.disabled=true;
-            input.value=favoritos[i].nombre_cancion + ", " + favoritos[i].artista + ", " + favoritos[i].album;
+            input.value=favoritos[i].nombre_cancion + " - " + favoritos[i].artista.nombre + " - " + favoritos[i].album.nombre_album;
             div.appendChild(input);
             let boton_remover = document.createElement("button");
             boton_remover.className="boton-eliminar";

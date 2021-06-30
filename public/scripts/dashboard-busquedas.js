@@ -52,10 +52,10 @@ function dibujar_resultados(datos){
                         contenido_celda.innerHTML=resultados[i].nombre_cancion;
                     }
                     else if (j==2){
-                        contenido_celda.innerHTML=resultados[i].artista;
+                        contenido_celda.innerHTML=resultados[i].artista.nombre;
                     }
                     else if(j==3){
-                        contenido_celda.innerHTML=resultados[i].album;
+                        contenido_celda.innerHTML=resultados[i].album.nombre_album;
                     }
                     else if(j==4){
                         contenido_celda.innerHTML=resultados[i].reproducciones;
@@ -130,19 +130,7 @@ function dibujar_resultados(datos){
                         }else{
                             contenido_celda.innerHTML=`<button><img src='../assets/icons/add.svg' class='icono-boton'> Seguir lista</button>`;
                             contenido_celda.addEventListener('click',()=>{
-                                fetch('seguidos', {
-                                    method: 'POST',
-                                    headers: {'Content-Type': 'application/json'},
-                                    body: '{"id_lista":"'+resultados[i]._id+'"}'
-                                })
-                                .then(response => response.json())
-                                .then(data => {
-                                    console.log(data);
-                                    alert(data.resultado);
-                                })	    
-                                .catch((error) => {
-                                    console.error('Error:', error);
-                                });
+                                seguir_lista(resultados[i]._id);
                             })
                         }
                     }
@@ -225,8 +213,9 @@ function agregar_cancion_a_lista(id_lista,id_cancion) {
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data);
+        //console.log(data);
         alert(data.resultado);
+        refrescar_listas();
     })	    
     .catch((error) => {
         console.error('Error:', error);
@@ -242,8 +231,25 @@ function agregar_cancion_a_favoritos(id_cancion) {
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data);
+        //console.log(data);
         alert(data.resultado);
+    })	    
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
+function seguir_lista(id_lista) {
+    fetch('seguidos', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: '{"id_lista":"'+id_lista+'"}'
+    })
+    .then(response => response.json())
+    .then(data => {
+        //console.log(data);
+        alert(data.resultado);
+        refrescar_listas();
     })	    
     .catch((error) => {
         console.error('Error:', error);

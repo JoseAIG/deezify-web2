@@ -13,8 +13,13 @@ const obtenerFavoritos = async (req, res) => {
         // //console.log(documentos_favoritos);
         // res.send('{"favoritos":'+JSON.stringify(documentos_favoritos)+',"status":200}');
         
-        const documento_usuario = await ModeloUsuario.findOne({_id:ObjectId(req.session.objectid)}).populate('favoritos');
-        console.log(documento_usuario);
+        // const documento_usuario = await ModeloUsuario.findOne({_id:ObjectId(req.session.objectid)}).populate('favoritos');
+        const documento_usuario = await ModeloUsuario.findOne({_id:ObjectId(req.session.objectid)})
+        .populate({
+            path: 'favoritos',
+            populate: {path: 'artista album'}
+        });
+        //console.log(documento_usuario);
         res.send('{"favoritos":'+JSON.stringify(documento_usuario.favoritos)+',"status":200}');
     } catch (error) {
         res.send('{"resultado":"No se pudo obtener los favoritos", "status":500}');

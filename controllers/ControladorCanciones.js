@@ -1,4 +1,5 @@
 const ModeloCancion = require('../models/Cancion');
+const ModeloAlbum = require('../models/Album');
 const ObjectId = require('mongoose').Types.ObjectId; 
 
 //GET /canciones
@@ -11,8 +12,8 @@ const obtenerCanciones = async (req, res) => {
     if(req.headers['content-type']=='application/json'){
         if((req.session.tipo=="administrador")){
             try {
-                const documentos_canciones_admin = await ModeloCancion.find({"propietario": ObjectId(req.session.objectid)});
-                //console.log(documentos_canciones_admin);
+                const documentos_canciones_admin = await ModeloCancion.find({"propietario": req.session.objectid}).populate('artista album');
+                console.log("aaa--",documentos_canciones_admin);
                 res.send('{"status":200, "canciones":'+JSON.stringify(documentos_canciones_admin)+'}');
             } catch (error) {
                 res.send('{"resultado":"No se pudieron obtener las canciones del admin", "status":500}');
@@ -38,8 +39,11 @@ const cargarCancion = async (req, res) => {
     console.log(req.body);
     try {
         //GENERAR UN DOCUMENTO CON EL SCHEMA DE CANCIONES Y GUARDARLO EN LA BASE DE DATOS
-        const nueva_cancion = new ModeloCancion({nombre_cancion: req.body.titulo, artista: req.body.artista, album: req.body.album, propietario: ObjectId(req.session.objectid), reproducciones: 0, ruta_cancion: " "});
-        await nueva_cancion.save();
+        // const nueva_cancion = new ModeloCancion({nombre_cancion: req.body.titulo, artista: req.body.artista, album: req.body.album, propietario: ObjectId(req.session.objectid), reproducciones: 0, ruta_cancion: " "});
+        // await nueva_cancion.save();
+        const documento_cancion =  new ModeloCancion({nombre_cancion: req.body.titulo, genero: req.body.genero, artista: req.body.artista, album: req.body.album, propietario: req.session.objectid, reproducciones: 0, ruta_cancion: " "});
+        await documento_cancion.save();
+        await ModeloAlbum.updateOne({_id:req.body.album},{$push:{canciones:documento_cancion._id}});
         res.send('{"resultado":"Cancion guardada exitosamente", "status":200}');
     } catch (error) {
         console.log(error);

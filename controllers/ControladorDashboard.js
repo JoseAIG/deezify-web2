@@ -33,13 +33,13 @@ const realizarBusqueda = async (req, res) => {
             if(req.body.select_busqueda=="canciones"){
                 consulta = {nombre_cancion: req.body.palabra_clave}
             }
-            else if(req.body.select_busqueda=="artistas"){
-                consulta = {artista: req.body.palabra_clave}
-            }
-            else if(req.body.select_busqueda=="albumes"){
-                consulta = {album: req.body.palabra_clave}
-            }
-            const documentos_busqueda = await ModeloCancion.find(consulta);
+            // else if(req.body.select_busqueda=="artistas"){
+            //     consulta = {artista: req.body.palabra_clave}
+            // }
+            // else if(req.body.select_busqueda=="albumes"){
+            //     consulta = {album: req.body.palabra_clave}
+            // }
+            const documentos_busqueda = await ModeloCancion.find(consulta).populate('artista album');
             res.send('{"status":200, "elementos":"canciones", "resultado_busqueda":'+JSON.stringify(documentos_busqueda)+'}');
         }else{
             const documentos_busqueda = await  ModeloLista.find({nombre_lista: req.body.palabra_clave}).populate('canciones');

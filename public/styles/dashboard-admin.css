@@ -1,0 +1,26 @@
+#contenedor-artistas, #contenedor-albumes, #contenedor-canciones{
+    /* display: flex; */
+    margin: auto;
+    margin-top: 2em;
+    width: 80%;
+    background-color: rgb(33, 36, 41);
+    /* background-color: rgba(53, 56, 61, 1); */
+    border-radius: 25px;
+    padding: 2em;
+}
+
+#lista-artista{
+    display: flex;
+    width: 75%;
+    background-color: red;
+}
+
+table{
+    text-align: center;
+}
+
+select{
+    background-color: rgba(65, 66, 71, 0.75);
+    width: 50%;
+    height: 2.5em;
+}

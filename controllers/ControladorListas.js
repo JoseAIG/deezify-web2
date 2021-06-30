@@ -20,7 +20,12 @@ const obtenerListas = async (req, res) => {
         // res.send('{"listas":'+JSON.stringify(documentos_listas)+', "id_usuario":"'+req.session.objectid+'", "status":200}');
 
         const documento_usuario = await ModeloUsuario.findOne({_id:req.session.objectid});
-        const documentos_listas = await ModeloListas.find({_id:{$in:documento_usuario.listas}}).populate('canciones');
+        //const documentos_listas = await ModeloListas.find({_id:{$in:documento_usuario.listas}}).populate('canciones');
+        const documentos_listas = await ModeloListas.find({_id:{$in:documento_usuario.listas}})
+        .populate({
+            path: 'canciones',
+            populate: {path: 'artista album'}
+        });
 
         console.log(documentos_listas);
         //const documentos_listas = await ModeloListas.findOne({_id:ObjectId("60d9d10f334cd90908ceb127")}).populate('canciones');
