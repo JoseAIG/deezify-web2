@@ -1,4 +1,5 @@
 const ModeloCancion = require('../models/Cancion');
+const ModeloLista = require('../models/Lista');
 const ObjectId = require('mongoose').Types.ObjectId; 
 
 //FUNCION PARA DESPACHAR LA VISTA DEL DASHBOARD
@@ -38,11 +39,11 @@ const realizarBusqueda = async (req, res) => {
             else if(req.body.select_busqueda=="albumes"){
                 consulta = {album: req.body.palabra_clave}
             }
-            const documentos_busquedas = await ModeloCancion.find(consulta);
-            console.log(documentos_busquedas);
-            res.send(`{"status":200, "resultado_busqueda":${JSON.stringify(documentos_busquedas)}}`);
+            const documentos_busqueda = await ModeloCancion.find(consulta);
+            res.send('{"status":200, "elementos":"canciones", "resultado_busqueda":'+JSON.stringify(documentos_busqueda)+'}');
         }else{
-            //PROGRAMAR EN CASO DE QUE UN USUARIO BUSQUE LISTAS
+            const documentos_busqueda = await  ModeloLista.find({nombre_lista: req.body.palabra_clave}).populate('canciones');
+            res.send('{"status":200, "elementos":"listas", "resultado_busqueda":'+JSON.stringify(documentos_busqueda)+'}');
         }
     } catch (error) {
         console.log(error);

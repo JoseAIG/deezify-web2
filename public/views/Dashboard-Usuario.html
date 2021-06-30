@@ -15,6 +15,7 @@
     <script src="../scripts/dashboard-perfil.js" defer></script>
     <script src="../scripts/dashboard-usuario.js" defer></script>
     <script src="../scripts/dashboard-busquedas.js" defer></script>
+    <script src="../scripts/dashboard-favoritos.js" defer></script>
 
     <title>Deezify - Dashboard</title>
 </head>
@@ -33,14 +34,16 @@
     </nav>
     <!-- ASIDE -->
     <aside class="bg-dark" id="aside-principal">
-        <button id="boton-crear-lista" data-bs-toggle="modal" data-bs-target="#modal-crear-lista"><img src="../assets/icons/crear-lista.svg" class="icono-boton">Nueva lista</button>
         <div id="favoritos">
-            <h4>Favoritos</h4>
+            <button id="reproducir-favoritos"><img src="../assets/icons/reproducir.svg" class="icono-boton"></button>
+            <h3>Favoritos</h3>
+            <button id="ver-favoritos" class="boton-gris" data-bs-toggle="modal" data-bs-target="#modal-favoritos"><img src="../assets/icons/visualizar.svg" class="icono-boton"></button>
+            <!-- <button id="boton-favoritos" data-bs-toggle="modal" data-bs-target="#modal-favoritos"><img src="../assets/icons/corazon-lleno.svg" class="icono-boton"> Favoritos</button> -->
         </div>
         <h4>Listas</h4>
         <hr>
-        <div id="contenedor-listas">
-        </div>
+        <div id="contenedor-listas"></div>
+        <button id="boton-crear-lista" data-bs-toggle="modal" data-bs-target="#modal-crear-lista"><img src="../assets/icons/crear-lista.svg" class="icono-boton"> Nueva lista</button>
     </aside>
     <!-- SECTION -->
     <section id="section-principal-usuario">
@@ -99,6 +102,22 @@
         </div>
     </div>
 
+    <!-- MODAL FAVORITOS -->
+    <div class="modal fade" id="modal-favoritos"> 
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <button class="boton-volver" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+                <div class="modal-body text-center">
+                    <h3>Favoritos</h3>
+                    <br>
+                    <div id="contenedor-favoritos"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- MODAL CREAR LISTA -->
     <div class="modal fade" id="modal-crear-lista"> 
         <div class="modal-dialog modal-dialog-centered">
@@ -139,6 +158,7 @@
                             <br>
                             <input type="text" name="nombre_editar_lista" id="input-editar-nombre-lista" autocomplete="off">
                         </div>
+                        <hr>
                         <div id="contenedor-input-canciones" style="border: 1px dashed green"></div>
                     </form>
                 </div>
@@ -146,6 +166,23 @@
                     <button id="boton-guardar-edicion-lista">Guardar edicion</button>
                     <br>
                     <button id="boton-eliminar-lista" class="boton-eliminar mt-3">Eliminar lista</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL VISUALIZAR LISTA -->
+    <div class="modal fade" id="modal-visualizar-lista"> 
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <button class="boton-volver" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+                <div class="modal-body text-center">
+                    <h3 id="nombre-visualizar-lista">lista de reproducción</h3>
+                    <div id="contenedor-visualizar-canciones" style="border: 1px dashed green"></div>
+                </div>
+                <div class="mx-auto text-center mt-5 mb-3">
                 </div>
             </div>
         </div>

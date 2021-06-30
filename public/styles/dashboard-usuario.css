@@ -4,14 +4,47 @@
 }
 
 #favoritos{
-    height: 4em;
-    /* background-color: yellow; */
+    display: flex;
+    margin: auto;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    width: 75%;
+    border-radius: 25px;
+    height: 3em;
+    background-color: rgba(65, 66, 71, 0.75);
+}
+#favoritos button{
+    width: 3em;
+}
+
+#favoritos h3{
+    line-height: 1.5em;
+    margin-left: 1.5em;
+}
+
+#ver-favoritos{
+    margin: auto;
+    margin-right: 0.5em;
+    height: 2.5em;
+    width: 2.5em;
+}
+
+#contenedor-favoritos{
+    margin-bottom: 3em;
 }
 
 #contenedor-listas{
-    height: 8em;
+    /* height: 8em; */
     text-align: left;
     margin: 1em;
     font-size: large;
     /* background-color: red; */
+}
+
+#contenedor-favoritos input, #contenedor-input-canciones input, #contenedor-visualizar-canciones input{
+    width: 65%;
+    height: 3em;
+    margin-bottom: 1.5em;
+    margin-right: 0.5em;
+    text-align: center;
 }

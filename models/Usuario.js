@@ -18,12 +18,14 @@ const SchemaUsuario = new mongoose.Schema({
         type: String,
         required: true
     },
-    favoritos: {
-        type: Array
-    },
-    listas: {
-        type: Array,
-    }
+    // favoritos: {
+    //     type: Array
+    // },
+    favoritos: [{type: mongoose.Schema.Types.ObjectId, ref:'Cancion'}],
+    // listas: {
+    //     type: Array,
+    // }
+    listas: [{type: mongoose.Schema.Types.ObjectId, ref:'Lista'}]
 });
 
 const Usuario = mongoose.model("Usuario", SchemaUsuario, "usuarios");

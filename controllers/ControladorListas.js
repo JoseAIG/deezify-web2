@@ -7,17 +7,25 @@ const ObjectId = require('mongoose').Types.ObjectId;
 //FUNCIONALIDAD PARA OBTENER LAS LISTAS DE REPRODUCCION DE UN USUARIO
 const obtenerListas = async (req, res) => {
     try {
-        //OBTENER EL MODELO DEL USUARIO PARA OBTENER LAS LISTAS DEL MISMO
-        const documento_usuario = await ModeloUsuario.findOne({_id:req.session.objectid});
-        //BUSCAR LAS LISTAS DEL USUARIO
-        const documentos_listas = await ModeloListas.find({_id:{$in:documento_usuario.listas}});
-        //RECORRER LAS LISTAS DEL USUARIO AGREGANDO EL ARREGLO DE LAS CANCIONES
-        for(let i=0; i<documentos_listas.length; i++){
-            const canciones_lista = await ModeloCancion.find({_id:{$in:documentos_listas[i].canciones}});
-            documentos_listas[i].canciones = canciones_lista;
-        }
+        // //OBTENER EL MODELO DEL USUARIO PARA OBTENER LAS LISTAS DEL MISMO
+        // const documento_usuario = await ModeloUsuario.findOne({_id:req.session.objectid});
+        // //BUSCAR LAS LISTAS DEL USUARIO
+        // const documentos_listas = await ModeloListas.find({_id:{$in:documento_usuario.listas}});
+        // //RECORRER LAS LISTAS DEL USUARIO AGREGANDO EL ARREGLO DE LAS CANCIONES
+        // for(let i=0; i<documentos_listas.length; i++){
+        //     const canciones_lista = await ModeloCancion.find({_id:{$in:documentos_listas[i].canciones}});
+        //     documentos_listas[i].canciones = canciones_lista;
+        // }
 
-        res.send('{"listas":'+JSON.stringify(documentos_listas)+', "id-usuario":"'+req.session.objectid+'", "status":200}');
+        // res.send('{"listas":'+JSON.stringify(documentos_listas)+', "id_usuario":"'+req.session.objectid+'", "status":200}');
+
+        const documento_usuario = await ModeloUsuario.findOne({_id:req.session.objectid});
+        const documentos_listas = await ModeloListas.find({_id:{$in:documento_usuario.listas}}).populate('canciones');
+
+        console.log(documentos_listas);
+        //const documentos_listas = await ModeloListas.findOne({_id:ObjectId("60d9d10f334cd90908ceb127")}).populate('canciones');
+        //res.send('{"respuesta":'+JSON.stringify(documento)+'}');
+        res.send('{"listas":'+JSON.stringify(documentos_listas)+', "id_usuario":"'+req.session.objectid+'", "status":200}');
     } catch (error) {
         res.send('{"resultado":"No se pudo obtener las listas", "status":500}');
     }
@@ -47,19 +55,30 @@ const crearLista = async (req, res) => {
 const editarLista = async (req, res) => {
     try {
         console.log(req.body);
-        console.log(req.body.canciones);
-        //OBTENER CANCIONES DE LA LISTA
-        canciones = JSON.parse(req.body.canciones);
-        //GENERAR UN ARREGLO CON LOS OBJECTID DE LAS CANCIONES DE LA LISTA RECORRIENDO CADA UNA
-        id_canciones = []
-        for(let i=0; i<canciones.length; i++){
-            console.log(canciones[i]);
-            id_canciones.push(ObjectId(canciones[i]));
+
+        if(req.body.operacion=="agregar cancion"){
+            const documento_lista = await ModeloListas.findOne({_id:ObjectId(req.body.id_lista), canciones:ObjectId(req.body.id_cancion)});
+            if(documento_lista){
+                res.send('{"resultado":"La cancion ya esta en la lista", "status":400}');
+            }else{
+                await ModeloListas.updateOne({_id:ObjectId(req.body.id_lista)},{$push:{canciones:ObjectId(req.body.id_cancion)}})
+                res.send('{"resultado":"Cancion agregada a la lista", "status":200}');
+            }
+        }else{
+            console.log(req.body.canciones);
+            //OBTENER CANCIONES DE LA LISTA
+            canciones = JSON.parse(req.body.canciones);
+            //GENERAR UN ARREGLO CON LOS OBJECTID DE LAS CANCIONES DE LA LISTA RECORRIENDO CADA UNA
+            id_canciones = []
+            for(let i=0; i<canciones.length; i++){
+                console.log(canciones[i]);
+                id_canciones.push(ObjectId(canciones[i]));
+            }
+            console.log(canciones);
+            //ACTUALIZAR LOS DATOS DE LA LISTA DE REPRODUCCION
+            await ModeloListas.updateOne({_id:ObjectId(req.body.id_lista)},{$set: {nombre_lista: req.body.nombre_editar_lista, canciones:id_canciones}});
+            res.send('{"resultado":"Edicion exitosa", "status":200}');
         }
-        console.log(canciones);
-        //ACTUALIZAR LOS DATOS DE LA LISTA DE REPRODUCCION
-        await ModeloListas.updateOne({_id:ObjectId(req.body.id_lista)},{$set: {nombre_lista: req.body.nombre_editar_lista, canciones:id_canciones}});
-        res.send('{"resultado":"Edicion exitosa", "status":200}');
     } catch (error) {
         console.log(error);
         res.send('{"resultado":"No se pudo editar la lista", "status":500}');
@@ -71,11 +90,19 @@ const editarLista = async (req, res) => {
 const eliminarLista = async (req, res) => {
     try {
         console.log(req.body);
-        //ELIMINAR LA LISTA DE REPRODUCCION EN LA COLECCION DE LISTAS
-        await ModeloListas.deleteOne({_id:ObjectId(req.body.id_lista)});
-        //ELIMINAR EL ID DE LA LISTA EN EL ARREGLO DE LOS USUARIOS
-        await ModeloUsuario.updateMany({},{$pull:{listas:ObjectId(req.body.id_lista)}});
-        res.send('{"resultado":"Lista eliminada exitosamente", "status":200}');
+        //SI EL QUE REALIZA LA ELIMINACION ES EL PROPIETARIO, ELIMINAR COMPLETAMENTE LA LISTA
+        //PERO SI NO ES EL PROPIETARIO, SOLO REMOVER LA LISTA DE REPRODUCCION DEL ARREGLO DE LISTAS DEL USUARIO
+        if(req.body.propietario == req.session.objectid){
+            //ELIMINAR LA LISTA DE REPRODUCCION EN LA COLECCION DE LISTAS
+            await ModeloListas.deleteOne({_id:ObjectId(req.body.id_lista)});
+            //ELIMINAR EL ID DE LA LISTA EN EL ARREGLO DE LOS USUARIOS
+            await ModeloUsuario.updateMany({},{$pull:{listas:ObjectId(req.body.id_lista)}});
+            res.send('{"resultado":"Lista eliminada exitosamente", "status":200}');
+        }else{
+            //REMOVER LA LISTA DE REPRODUCCION DEL ARREGLO DE LISTAS
+            await ModeloUsuario.updateOne({_id:req.session.objectid},{$pull:{listas:ObjectId(req.body.id_lista)}});
+            res.send('{"resultado":"Lista eliminada exitosamente", "status":200}');
+        }
     } catch (error) {
         res.send('{"resultado":"No se pudo eliminar la lista", "status":500}');
     }

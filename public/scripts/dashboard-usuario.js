@@ -34,23 +34,26 @@ window.onload = () => {
     .then(response => response.json())
     .then(data => {
         //DIBUJAR LOS RESULTADOS DE LA PETICION
-        console.log(data);
-        dibujar_listas_aside(data.listas);
+        //console.log(data);
+        dibujar_listas_aside(data);
+        establecer_listas_del_usuario(data);
     })	    
     .catch((error) => {
         console.error('Error:', error);
     });
 }
 
-//FUNCION PARA DIBUJAR LISTAS EN ASIDE
 var contenedor_listas = document.getElementById("contenedor-listas");
-function dibujar_listas_aside(listas){
-
-    //ELEMENTOS DEL MODAL EDITAR LISTAS
-    var input_editar_nombre_lista = document.getElementById("input-editar-nombre-lista");
-    var contenedor_input_canciones = document.getElementById("contenedor-input-canciones");
-
-    console.log("dibujar listas funcion", listas, contenedor_listas);
+//ELEMENTOS DEL MODAL EDITAR LISTAS
+var input_editar_nombre_lista = document.getElementById("input-editar-nombre-lista");
+var contenedor_input_canciones = document.getElementById("contenedor-input-canciones");
+//ELEMENTOS DEL MODAL VISUALIZAR LISTAS
+var contenedor_visualizar_canciones = document.getElementById("contenedor-visualizar-canciones");
+var nombre_visualizar_lista = document.getElementById("nombre-visualizar-lista");
+//FUNCION PARA DIBUJAR LISTAS EN ASIDE
+function dibujar_listas_aside(datos){
+    listas = datos.listas;
+    //console.log("dibujar listas funcion", listas, contenedor_listas);
     for(let i=0; i<listas.length; i++){
         let div = document.createElement("div");
         div.style.display="flex";
@@ -67,9 +70,9 @@ function dibujar_listas_aside(listas){
         let editar = document.createElement("button");
         //data-bs-toggle='modal' data-bs-target='#modal-editar-cancion'
         editar.setAttribute('data-bs-toggle','modal');
-        editar.setAttribute('data-bs-target','#modal-editar-lista');
+        //editar.setAttribute('data-bs-target','#modal-editar-lista');
         editar.className="boton-gris";
-        editar.innerHTML="<img src='../assets/icons/edit.svg' class='icono-boton'></img>"
+        editar.innerHTML="<img src='../assets/icons/visualizar.svg' class='icono-boton'></img>"
         editar.style.marginLeft="auto";
         editar.style.height="2.2em";
         div.appendChild(editar);
@@ -79,41 +82,67 @@ function dibujar_listas_aside(listas){
             console.log("reproducir lista " + listas[i].nombre_lista);
         })
 
-        editar.addEventListener('click', ()=>{
-            contenedor_input_canciones.innerHTML="";
-            input_editar_nombre_lista.value = listas[i].nombre_lista;
-            //obtener_canciones_lista(listas[i]._id);
+        if(datos.id_usuario == listas[i].propietario){
+            editar.setAttribute('data-bs-target','#modal-editar-lista');
+            editar.addEventListener('click', ()=>{
+                contenedor_input_canciones.innerHTML="";
+                input_editar_nombre_lista.value = listas[i].nombre_lista;
+                //obtener_canciones_lista(listas[i]._id);
+                for(let j=0; j<listas[i].canciones.length; j++){
+                    let div = document.createElement("div");
+                    let input = document.createElement("input");
+                    input.type="text";
+                    //input.name="input_cancion_"+i;
+                    input.disabled=true;
+                    input.value = listas[i].canciones[j].nombre_cancion + ", " + listas[i].canciones[j].artista + ", " + listas[i].canciones[j].album;
+                    input.setAttribute("ObjectId", listas[i].canciones[j]._id);
+                    input.className="input-canciones-lista";
+                    div.appendChild(input);
+    
+                    let boton_remover = document.createElement("button");
+                    boton_remover.className="boton-eliminar";
+                    boton_remover.innerHTML="<img src='../assets/icons/remove.svg' class='icono-boton'></img>"
+                    div.appendChild(boton_remover);
+    
+                    boton_remover.addEventListener('click',()=>{
+                        div.remove();
+                    });
+                    // let input_id = document.createElement("input");
+                    // input_id.type="hidden";
+                    // input_id.name="input_cancion_"+j;
+                    // input_id.value = listas[i].canciones[j]._id;
+                    // div.appendChild(input_id);
+    
+                    contenedor_input_canciones.appendChild(div);
+                }
+                //LLAMAR A LAS FUNCIONES PARA BRINDAR LA FUNCIONALIDAD DE EDITAR LISTA Y ELIMINAR LISTA
+                editar_lista(listas[i]._id);
+                eliminar_lista(listas[i]._id, listas[i].propietario);
+            })
+        }else{
+            editar.setAttribute('data-bs-target','#modal-visualizar-lista');
+            contenedor_visualizar_canciones.innerHTML = "";
+            nombre_visualizar_lista.innerText = listas[i].nombre_lista;
             for(let j=0; j<listas[i].canciones.length; j++){
                 let div = document.createElement("div");
                 let input = document.createElement("input");
                 input.type="text";
-                //input.name="input_cancion_"+i;
                 input.disabled=true;
-                input.value = listas[i].canciones[j].nombre_cancion + ", " + listas[i].canciones[j].artista + ", " + listas[i].canciones[j].album;
-                input.setAttribute("ObjectId", listas[i].canciones[j]._id);
+                input.value = listas[i].canciones[j].nombre_cancion + " - " + listas[i].canciones[j].artista + " - " + listas[i].canciones[j].album;
                 input.className="input-canciones-lista";
                 div.appendChild(input);
+                contenedor_visualizar_canciones.appendChild(div);
 
-                let boton_remover = document.createElement("button");
-                boton_remover.className="boton-eliminar";
-                boton_remover.innerHTML="<img src='../assets/icons/remove.svg' class='icono-boton'></img>"
-                div.appendChild(boton_remover);
+                let boton_unfollow = document.createElement("button");
+                boton_unfollow.className="boton-eliminar";
+                boton_unfollow.innerHTML='<img src="../assets/icons/remove.svg" class="icono-boton"> Dejar de seguir';
+                contenedor_visualizar_canciones.appendChild(boton_unfollow);
 
-                boton_remover.addEventListener('click',()=>{
-                    div.remove();
-                });
-                // let input_id = document.createElement("input");
-                // input_id.type="hidden";
-                // input_id.name="input_cancion_"+j;
-                // input_id.value = listas[i].canciones[j]._id;
-                // div.appendChild(input_id);
-
-                contenedor_input_canciones.appendChild(div);
+                boton_unfollow.onclick = () => {
+                    dejar_de_seguir_lista(listas[i]._id);
+                }
             }
-            //LLAMAR A LAS FUNCIONES PARA BRINDAR LA FUNCIONALIDAD DE EDITAR LISTA Y ELIMINAR LISTA
-            editar_lista(listas[i]._id);
-            eliminar_lista(listas[i]._id);
-        })
+        }
     }
 }
 
@@ -179,12 +208,12 @@ function editar_lista (id_lista) {
 
 //FUNCIONALIDAD PARA ELIMINAR UNA LISTA DE REPRODUCCION
 var boton_eliminar_lista = document.getElementById("boton-eliminar-lista");
-function eliminar_lista(id_lista){
+function eliminar_lista(id_lista, propietario){
     boton_eliminar_lista.onclick = () => {
         fetch('listas', {
             method: 'DELETE',
             headers: {'Content-Type': 'application/json'},
-            body: '{"id_lista":"'+id_lista+'"}'
+            body: '{"id_lista":"'+id_lista+'","propietario":"'+propietario+'"}'
         })
         .then(response => response.json())
         .then(data => {
@@ -198,6 +227,26 @@ function eliminar_lista(id_lista){
             console.error('Error:', error);
         });
     }
+}
+
+//FUNCION PARA DEJAR DE SEGUIR UNA LISTA
+function dejar_de_seguir_lista (id_lista) {
+    fetch('seguidos', {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'},
+        body: '{"id_lista":"'+id_lista+'"}'
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        alert(data.resultado);
+        if(data.status==200){
+            window.open('/dashboard','_self')
+        }
+    })	    
+    .catch((error) => {
+        console.error('Error:', error);
+    });
 }
 
 // function obtener_canciones_lista(id_lista){
