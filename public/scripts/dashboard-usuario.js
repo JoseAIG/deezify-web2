@@ -73,8 +73,9 @@ function refrescar_listas(){
 var input_editar_nombre_lista = document.getElementById("input-editar-nombre-lista");
 var contenedor_input_canciones = document.getElementById("contenedor-input-canciones");
 //ELEMENTOS DEL MODAL VISUALIZAR LISTAS
-var contenedor_visualizar_canciones = document.getElementById("contenedor-visualizar-canciones");
+var contenedor_visualizar_canciones_lista = document.getElementById("contenedor-visualizar-canciones-lista");
 var nombre_visualizar_lista = document.getElementById("nombre-visualizar-lista");
+var boton_dejar_de_seguir_lista = document.getElementById("boton-dejar-de-seguir-lista");
 //FUNCION PARA DIBUJAR LISTAS EN ASIDE
 function dibujar_listas_aside(datos){
     contenedor_listas.innerHTML="";
@@ -82,25 +83,17 @@ function dibujar_listas_aside(datos){
     //console.log("dibujar listas funcion", listas, contenedor_listas);
     for(let i=0; i<listas.length; i++){
         let div = document.createElement("div");
-        div.style.display="flex";
-        div.style.marginBottom="1em";
         let reproducir = document.createElement("button");
-        reproducir.style.height="2.2em";
         reproducir.innerHTML="<img src='../assets/icons/reproducir.svg' class='icono-boton'></img>"
         div.appendChild(reproducir);
         let p = document.createElement("p");
-        p.style.verticalAlign="middle";
         p.innerText = listas[i].nombre_lista;
-        p.style.margin="0.5em";
         div.appendChild(p);
         let editar = document.createElement("button");
-        //data-bs-toggle='modal' data-bs-target='#modal-editar-cancion'
         editar.setAttribute('data-bs-toggle','modal');
-        //editar.setAttribute('data-bs-target','#modal-editar-lista');
         editar.className="boton-gris";
-        editar.innerHTML="<img src='../assets/icons/visualizar.svg' class='icono-boton'></img>"
-        editar.style.marginLeft="auto";
-        editar.style.height="2.2em";
+        editar.innerHTML="<img src='../assets/icons/edit.svg' class='icono-boton'></img>"
+
         div.appendChild(editar);
         contenedor_listas.appendChild(div);
 
@@ -148,8 +141,9 @@ function dibujar_listas_aside(datos){
         }else{
             editar.setAttribute('data-bs-target','#modal-visualizar-lista');
             editar.addEventListener('click', ()=>{
-                contenedor_visualizar_canciones.innerHTML = "";
+                contenedor_visualizar_canciones_lista.innerHTML = "";
                 nombre_visualizar_lista.innerText = listas[i].nombre_lista;
+                boton_dejar_de_seguir_lista.style.display="block";
                 for(let j=0; j<listas[i].canciones.length; j++){
                     let div = document.createElement("div");
                     let input = document.createElement("input");
@@ -158,7 +152,7 @@ function dibujar_listas_aside(datos){
                     input.value = listas[i].canciones[j].nombre_cancion + " - " + listas[i].canciones[j].artista.nombre + " - " + listas[i].canciones[j].album.nombre_album;
                     input.className="input-canciones-lista";
                     div.appendChild(input);
-                    contenedor_visualizar_canciones.appendChild(div);
+                    contenedor_visualizar_canciones_lista.appendChild(div);
                 }
                 dejar_de_seguir_lista(listas[i]._id);
             })
@@ -253,9 +247,8 @@ function eliminar_lista(id_lista, propietario){
 }
 
 //FUNCION PARA DEJAR DE SEGUIR UNA LISTA
-var boton_dejar_de_seguir = document.getElementById("boton-dejar-de-seguir");
 function dejar_de_seguir_lista (id_lista) {
-    boton_dejar_de_seguir.onclick = () => {
+    boton_dejar_de_seguir_lista.onclick = () => {
         fetch('seguidos', {
             method: 'DELETE',
             headers: {'Content-Type': 'application/json'},

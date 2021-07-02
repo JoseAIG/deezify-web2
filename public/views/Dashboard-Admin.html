@@ -22,7 +22,6 @@
         <div>
             <img src="../assets/icons/logo.svg" alt="d" class="w-25">
             <h1 class="d-inline align-middle" id="h1-deezify">Deezify</h1>
-            <!-- <span class="align-bottom">Admin</span> -->
         </div>
         <div style="position: absolute; right: 1em;">
             <button id="boton-editar-perfil" type="button" data-bs-toggle="modal" data-bs-target="#modal-editar-perfil"> <img src="../assets/icons/user.svg" class="icono-boton"> Editar perfil</button>
@@ -32,51 +31,51 @@
     </nav>
     <section>
         <div id="contenedor-section-administrador">
-            <div id="contenedor-artistas"></div>
+            <!-- <div id="contenedor-artistas"></div>
             <div id="contenedor-albumes"></div>
-            <div id="contenedor-canciones"></div>
+            <div id="contenedor-canciones"></div> -->
             <!-- INICIO ACORDION -->
-            <!-- <div class="accordion w-75 mx-auto bg-dark" id="accordionPanelsStayOpenExample">
+            <div class="accordion w-75 mx-auto bg-dark" id="accordionPanelsStayOpenExample">
                 <div class="accordion-item bg-dark">
                   <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
+                    <button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
                         Artistas
                     </button>
                   </h2>
                   <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
-                    <div class="accordion-body">
+                    <!-- <div class="accordion-body"> -->
                         <div id="contenedor-artistas"></div>
-                    </div>
+                    <!-- </div> -->
                   </div>
                 </div>
-                <div class="accordion-item">
+                <div class="accordion-item bg-dark">
                   <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                    <button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
                         Albumes
                     </button>
                   </h2>
                   <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-                    <div class="accordion-body">
-
-                    </div>
+                    <!-- <div class="accordion-body"> -->
+                        <div id="contenedor-albumes"></div>
+                    <!-- </div> -->
                   </div>
                 </div>
-                <div class="accordion-item">
+                <div class="accordion-item bg-dark">
                   <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                    <button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
                         Canciones
                     </button>
                   </h2>
                   <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
-                    <div class="accordion-body">
-                        <div id="contenedor-tabla-estadisticas"></div>
-                    </div>
+                    <!-- <div class="accordion-body"> -->
+                        <div id="contenedor-canciones"></div>
+                    <!-- </div> -->
                   </div>
                 </div>
-              </div> -->
+              </div>
             <!-- <button id="boton-subir-cancion" data-bs-toggle="modal" data-bs-target="#modal-subir-cancion"><img src="../assets/icons/upload.svg" class="icono-boton"> Nueva canción</button> -->
             <div class="btn-group dropup">
-                <button class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Dropup</button>
+                <button class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><img src="../assets/icons/add.svg" class="icono-boton"> Nuevo </button>
                 <ul class="dropdown-menu bg-dark">
                     <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal-crear-artista">Nuevo Artista</button></li>
                     <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal-crear-album">Nuevo Album</button></li>

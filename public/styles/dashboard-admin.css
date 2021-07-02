@@ -2,7 +2,7 @@
     /* display: flex; */
     margin: auto;
     margin-top: 2em;
-    width: 80%;
+    width: 100%;
     background-color: rgb(33, 36, 41);
     /* background-color: rgba(53, 56, 61, 1); */
     border-radius: 25px;
@@ -24,3 +24,12 @@ select{
     width: 50%;
     height: 2.5em;
 }
+
+/* .accordion h2{
+    color: white;
+}
+
+.accordion, .accordion-button, .accordion-item, .accordion-header, .accordion-collapse{
+    border-radius: 25em;
+    border: 1px dashed red;
+} */

@@ -23,14 +23,21 @@ function dibujar_favoritos(favoritos) {
     if(favoritos.length){
         for(let i=0;i<favoritos.length;i++){
             let div = document.createElement("div");
+
+            let boton_reproducir = document.createElement("button");
+            boton_reproducir.innerHTML='<img src="../assets/icons/reproducir.svg" class="icono-boton">'
+            div.appendChild(boton_reproducir);
+
             let input = document.createElement("input")
             input.disabled=true;
             input.value=favoritos[i].nombre_cancion + " - " + favoritos[i].artista.nombre + " - " + favoritos[i].album.nombre_album;
             div.appendChild(input);
+
             let boton_remover = document.createElement("button");
             boton_remover.className="boton-eliminar";
             boton_remover.innerHTML='<img src="../assets/icons/remove.svg" class="icono-boton">'
             div.appendChild(boton_remover)
+            
             contenedor_favoritos.appendChild(div);
     
             boton_remover.addEventListener('click',()=>{

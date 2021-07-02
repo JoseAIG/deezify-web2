@@ -1,10 +1,12 @@
+const ModeloArtista = require('../models/Artista');
+const ModeloAlbum = require('../models/Album');
 const ModeloCancion = require('../models/Cancion');
 const ModeloLista = require('../models/Lista');
 const ObjectId = require('mongoose').Types.ObjectId; 
 
 //FUNCION PARA DESPACHAR LA VISTA DEL DASHBOARD
 const vistaDashboard = (req, res) => {
-    console.log(req.session)
+    //console.log(req.session)
     //DESPACHAR LA VISTA RESPECTIVA SEGUN EL TIPO DE USUARIO
     if(req.session.tipo=="administrador"){
         res.sendFile('/public/views/Dashboard-Admin.html',{root: __dirname+"/.."});
@@ -27,24 +29,36 @@ const realizarBusqueda = async (req, res) => {
     //console.log(req.body);
     //res.send('{"resultado":"operacion en proceso", "status":200}');
     try {
-        let consulta;   //VARIABLE "consulta" QUE DEPENDIENDO DE LA PETICION DEL CLIENTE VARIARA
-        //SI LA BUSQUEDA NO ES UNA LISTA DETERMINAR ARMAR LA CONSULTA EN FUNCION SI LA BUSQUEDA ES DE CANCIONES, ARTISTAS O ALBUMES
-        if(req.body.select_busqueda!="listas"){
-            if(req.body.select_busqueda=="canciones"){
-                consulta = {nombre_cancion: req.body.palabra_clave}
-            }
-            // else if(req.body.select_busqueda=="artistas"){
-            //     consulta = {artista: req.body.palabra_clave}
-            // }
-            // else if(req.body.select_busqueda=="albumes"){
-            //     consulta = {album: req.body.palabra_clave}
-            // }
-            const documentos_busqueda = await ModeloCancion.find(consulta).populate('artista album');
+        if(req.body.select_busqueda=="artistas"){
+            const documentos_busqueda = await ModeloArtista.find({nombre: req.body.palabra_clave})
+            .populate({
+                path: 'albumes',
+                populate: {
+                    path: 'canciones',
+                    populate:{
+                        path: 'artista album'
+                    }
+                }
+            });
+            res.send('{"status":200, "elementos":"artistas", "resultado_busqueda":'+JSON.stringify(documentos_busqueda)+'}');
+        }
+        else if(req.body.select_busqueda=="albumes"){
+            const documentos_busqueda = await ModeloAlbum.find({nombre_album: req.body.palabra_clave}).populate('artista canciones');
+            res.send('{"status":200, "elementos":"albumes", "resultado_busqueda":'+JSON.stringify(documentos_busqueda)+'}');
+        }
+        else if(req.body.select_busqueda == "canciones"){
+            const documentos_busqueda = await ModeloCancion.find({nombre_cancion: req.body.palabra_clave}).populate('artista album');
             res.send('{"status":200, "elementos":"canciones", "resultado_busqueda":'+JSON.stringify(documentos_busqueda)+'}');
-        }else{
-            const documentos_busqueda = await  ModeloLista.find({nombre_lista: req.body.palabra_clave}).populate('canciones');
+        }
+        else if(req.body.select_busqueda == "listas"){
+            const documentos_busqueda = await  ModeloLista.find({nombre_lista: req.body.palabra_clave})
+            .populate({
+                path: 'canciones',
+                populate: {path: 'artista album'}
+            });
             res.send('{"status":200, "elementos":"listas", "resultado_busqueda":'+JSON.stringify(documentos_busqueda)+'}');
         }
+        
     } catch (error) {
         console.log(error);
         res.send('{"resultado":"No se pudo realizar la busqueda", "status":200}');

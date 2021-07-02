@@ -18,15 +18,23 @@
 }
 
 #favoritos h3{
-    line-height: 1.5em;
-    margin-left: 1.5em;
+    margin: auto;
+    /* line-height: 1.5em; */
+    /* margin-left: 0.5em; */
 }
 
-#ver-favoritos{
+#favoritos button{
     margin: auto;
-    margin-right: 0.5em;
     height: 2.5em;
     width: 2.5em;
+}
+
+#favoritos button:first-child{
+    margin-left: 0.5em;
+}
+
+#favoritos button:last-child{
+    margin-right: 0.5em;
 }
 
 #contenedor-favoritos{
@@ -41,10 +49,48 @@
     /* background-color: red; */
 }
 
-#contenedor-favoritos input, #contenedor-input-canciones input, #contenedor-visualizar-canciones input{
+#contenedor-listas div{
+    display: flex;
+    margin-bottom: 1em;
+}
+
+#contenedor-listas div button{
+    height: 2em;
+    width: 2em;
+    margin: auto;
+    line-height: 1em;
+}
+
+#contenedor-listas div button:first-child{
+    margin-left: 0.5em;
+}
+
+#contenedor-listas div button:last-child{
+    margin-right: 0.5em;
+}
+
+#contenedor-listas p{
+    width: 100%;
+    margin: auto;
+    margin-left: 0.5em;
+    justify-content: left;
+}
+
+#contenedor-favoritos input, #contenedor-input-canciones input, #contenedor-visualizar-canciones-lista input, #contenedor-visualizar-albumes-artista input, #contenedor-visualizar-canciones-album input{
     width: 65%;
     height: 3em;
     margin-bottom: 1.5em;
     margin-right: 0.5em;
     text-align: center;
 }
+
+#contenedor-favoritos button, #contenedor-visualizar-albumes-artista button, #contenedor-visualizar-canciones-album button, #contenedor-visualizar-canciones-lista button{
+    width: 3em;
+    height: 3em;
+    margin-right: 0.5em;
+}
+
+/* #contenedor-resultados{
+    width: 80%;
+    margin: auto;
+} */

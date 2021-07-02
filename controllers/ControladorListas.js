@@ -27,7 +27,7 @@ const obtenerListas = async (req, res) => {
             populate: {path: 'artista album'}
         });
 
-        console.log(documentos_listas);
+        //console.log(documentos_listas);
         //const documentos_listas = await ModeloListas.findOne({_id:ObjectId("60d9d10f334cd90908ceb127")}).populate('canciones');
         //res.send('{"respuesta":'+JSON.stringify(documento)+'}');
         res.send('{"listas":'+JSON.stringify(documentos_listas)+', "id_usuario":"'+req.session.objectid+'", "status":200}');
@@ -61,6 +61,7 @@ const editarLista = async (req, res) => {
     try {
         console.log(req.body);
 
+        //SI LA OPERACION ES AGREGAR CANCION, COMPROBAR QUE LA MISMA NO SE ENCUENTRE EN LA LISTA PARA AGREGARLA
         if(req.body.operacion=="agregar cancion"){
             const documento_lista = await ModeloListas.findOne({_id:ObjectId(req.body.id_lista), canciones:ObjectId(req.body.id_cancion)});
             if(documento_lista){
@@ -70,6 +71,7 @@ const editarLista = async (req, res) => {
                 res.send('{"resultado":"Cancion agregada a la lista", "status":200}');
             }
         }else{
+            //SI LA OPERACION NO ES AGREGAR CANCION, ES DECIR, EDITAR LOS DATOS DE LA LISTA DE REPRODUCCION, OBTENER LAS CANCIONES QUE SE ENCUENTRAN EN ESTA DESPUES DE LA EDICION Y ACTUALIZAR LOS DATOS.
             console.log(req.body.canciones);
             //OBTENER CANCIONES DE LA LISTA
             canciones = JSON.parse(req.body.canciones);
