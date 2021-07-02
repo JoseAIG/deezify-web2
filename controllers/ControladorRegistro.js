@@ -11,7 +11,7 @@ const vistaRegistro = (req, res) => {
 
 const registrarUsuario = async (req, res) => {
     console.log(req.body);
-    const usuario = new ModeloUsuario({nombre_usuario: req.body.usuario, correo_usuario: req.body.correo, clave: req.body.clave});
+    const usuario = new ModeloUsuario({nombre_usuario: req.body.usuario, correo_usuario: req.body.correo, clave: req.body.clave, tipo: "usuario"});
     try {
         await usuario.save();
     } catch (error) {

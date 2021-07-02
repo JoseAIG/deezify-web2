@@ -18,6 +18,10 @@ const SchemaUsuario = new mongoose.Schema({
         type: String,
         required: true
     },
+    tipo:{
+        type: String,
+        required: true
+    },
     // favoritos: {
     //     type: Array
     // },

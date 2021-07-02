@@ -71,25 +71,6 @@ table button{
     font-size: large;
 }
 
-.dropup{
-    bottom: 2em;
-    right: 2em;
-    position: fixed;
-    font-size: large;
-    height: 3em;
-}
-
-.dropup button {
-    border-radius: 25px;
-    color: white;
-    /* background-color: rgb(40, 43, 49); */
-    margin-top: 0.5em;
-}
-
-.dropdown-menu{
-    border-radius: 25px;
-}
-
 /* DISENIO MODAL */
 .modal-content{
     border-radius: 25px;

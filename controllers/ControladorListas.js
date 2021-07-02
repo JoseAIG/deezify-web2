@@ -30,7 +30,7 @@ const obtenerListas = async (req, res) => {
         //console.log(documentos_listas);
         //const documentos_listas = await ModeloListas.findOne({_id:ObjectId("60d9d10f334cd90908ceb127")}).populate('canciones');
         //res.send('{"respuesta":'+JSON.stringify(documento)+'}');
-        res.send('{"listas":'+JSON.stringify(documentos_listas)+', "id_usuario":"'+req.session.objectid+'", "status":200}');
+        res.send('{"listas":'+JSON.stringify(documentos_listas)+', "id_usuario":"'+req.session.objectid+'", "tipo":"'+req.session.tipo+'", "status":200}');
     } catch (error) {
         res.send('{"resultado":"No se pudo obtener las listas", "status":500}');
     }
@@ -96,7 +96,6 @@ const editarLista = async (req, res) => {
 //FUNCIONALIDAD PARA ELIMINAR LAS LISTAS DE REPRODUCCION
 const eliminarLista = async (req, res) => {
     try {
-        console.log(req.body);
         //SI EL QUE REALIZA LA ELIMINACION ES EL PROPIETARIO, ELIMINAR COMPLETAMENTE LA LISTA
         //PERO SI NO ES EL PROPIETARIO, SOLO REMOVER LA LISTA DE REPRODUCCION DEL ARREGLO DE LISTAS DEL USUARIO
         if(req.body.propietario == req.session.objectid){

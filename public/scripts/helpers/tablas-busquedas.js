@@ -166,53 +166,17 @@ function dibujar_tabla_listas_busqueda(resultados) {
                             //INGRESAR BOTON DE EDICION QUE ACTIVA EL MODAL EDITAR LISTA
                             contenido_celda.innerHTML=`<button data-bs-toggle="modal" data-bs-target="#modal-editar-lista"><img src='../assets/icons/edit.svg' class='icono-boton'></button>`;
                             contenido_celda.onclick = () => {
-                                //CUANDO SE CLICKEA, LIMPIAR EL CONTENEDOR DE LAS CANCIONES Y DIBUJAR LAS PERTENECIENTES A LA LISTA
-                                contenedor_input_canciones.innerHTML="";
-                                input_editar_nombre_lista.value = resultados[i].nombre_lista;
-                                for(let j=0; j<resultados[i].canciones.length; j++){
-                                    let div = document.createElement("div");
-                                    let input = document.createElement("input");
-                                    input.type="text";
-                                    input.disabled=true;
-                                    input.value = resultados[i].canciones[j].nombre_cancion + ", " + resultados[i].canciones[j].artista.nombre + ", " + resultados[i].canciones[j].album.nombre_album;
-                                    input.setAttribute("ObjectId", resultados[i].canciones[j]._id);
-                                    div.appendChild(input);
-                    
-                                    let boton_remover = document.createElement("button");
-                                    boton_remover.className="boton-eliminar";
-                                    boton_remover.innerHTML="<img src='../assets/icons/remove.svg' class='icono-boton'></img>"
-                                    div.appendChild(boton_remover);
-                    
-                                    boton_remover.addEventListener('click',()=>{
-                                        div.remove();
-                                    });
-                    
-                                    contenedor_input_canciones.appendChild(div);
-                                }
+                                //LLAMAR A LA FUNCION PARA DIBUJAR EL CONTENIDO DEL MODAL DE UNA CUANDO EL USUARIO ES PROPIETARIO (EDITAR LISTA)
+                                dibujar_contenido_lista_propietaria(resultados, i);
+                                //LLAMAR A LAS FUNCIONES PARA BRINDAR LA FUNCIONALIDAD DE EDITAR LISTA Y ELIMINAR LISTA
                                 editar_lista(resultados[i]._id);
                                 eliminar_lista(resultados[i]._id, resultados[i].propietario);
                             }
                         }else{  //PERO SI LA LISTA DE REPRODUCCION NO ES PROPIETARIA, DARLE AL USUARIO UNICAMENTE LA CAPACIDAD DE VISUALIZARLA
                             contenido_celda.innerHTML=`<button data-bs-toggle="modal" data-bs-target="#modal-visualizar-lista"><img src='../assets/icons/visualizar.svg' class='icono-boton'></button>`;
                             contenido_celda.onclick = () => {
-                                contenedor_visualizar_canciones_lista.innerHTML = "";
-                                nombre_visualizar_lista.innerText = resultados[i].nombre_lista;
-                                boton_dejar_de_seguir_lista.style.display="none";
-                                for(let j=0; j<resultados[i].canciones.length; j++){
-                                    let div = document.createElement("div");
-
-                                    let boton_reproducir = document.createElement("button");
-                                    boton_reproducir.innerHTML='<img src="../assets/icons/reproducir.svg" class="icono-boton">'
-                                    div.appendChild(boton_reproducir);
-
-                                    let input = document.createElement("input");
-                                    input.type="text";
-                                    input.disabled=true;
-                                    input.value = resultados[i].canciones[j].nombre_cancion + ", " + resultados[i].canciones[j].artista.nombre + ", " + resultados[i].canciones[j].album.nombre_album;
-                                    div.appendChild(input);
-                    
-                                    contenedor_visualizar_canciones_lista.appendChild(div);
-                                }
+                                //LLAMAR A LA FUNCION PARA DIBUJAR EL CONTENIDO DEL MODAL DE UNA CUANDO EL USUARIO NO ES EL PROPIETARIO
+                                dibujar_contenido_lista_ajena(resultados, i, false);
                             }
                         }
                         
@@ -325,8 +289,6 @@ function dibujar_tabla_albumes_busqueda(resultados) {
 //------------------------------------------------//
 // FUNCION PARA DIBUJAR LA TABLA CON LOS ARTISTAS //
 //------------------------------------------------//
-var contenedor_visualizar_albumes_artista = document.getElementById("contenedor-visualizar-albumes-artista");
-var nombre_visualizar_artista = document.getElementById("nombre-visualizar-artista");
 function dibujar_tabla_artistas_busqueda(resultados) {
     //SI EXISTEN RESULTADOS DIBUJAR LA TABLA DENTRO DEL CONTENEDOR DE RESULTADOS
     if(resultados.length){
@@ -386,36 +348,8 @@ function dibujar_tabla_artistas_busqueda(resultados) {
                     else if(j==4){
                         contenido_celda.innerHTML=`<button data-bs-toggle="modal" data-bs-target="#modal-visualizar-artista"><img src='../assets/icons/visualizar.svg' class='icono-boton'></button>`
                         contenido_celda.addEventListener('click',()=>{
-                            console.log("visualizar artista");
-                            nombre_visualizar_artista.innerHTML=resultados[i].nombre;
-                            contenedor_visualizar_albumes_artista.innerHTML="";
-                            for(let k=0; k<resultados[i].albumes.length; k++){
-                                let div = document.createElement("div");
-                                let boton_reproducir = document.createElement("button");
-                                boton_reproducir.innerHTML='<img src="../assets/icons/reproducir.svg" class="icono-boton">'
-                                div.appendChild(boton_reproducir);
-
-                                let input = document.createElement("input");
-                                input.type="text";
-                                input.disabled=true;
-                                input.value = resultados[i].albumes[k].nombre_album;
-                                div.appendChild(input);
-
-                                let boton_ver_album = document.createElement("button");
-                                boton_ver_album.className="boton-gris";
-                                boton_ver_album.innerHTML='<img src="../assets/icons/visualizar.svg" class="icono-boton">'
-                                div.appendChild(boton_ver_album);
-
-                                boton_ver_album.setAttribute('data-bs-toggle','modal');
-                                boton_ver_album.setAttribute('data-bs-target','#modal-visualizar-album');
-
-                                boton_ver_album.addEventListener('click',()=>{
-                                    dibujar_contenido_visualizar_album(resultados[i].albumes, k, resultados[i].nombre);
-                                })
-
-                                contenedor_visualizar_albumes_artista.appendChild(div);
-                            }
-
+                            //AL PULSAR EL BOTON VISUALIZAR ARTISTA, SE ABRE EL MODAL Y SE DIBUJA EL CONTENIDO REFERENTE A ESTE
+                            dibujar_contenido_visualizar_artista(resultados, i);
                         });
                     }
                     td.appendChild(contenido_celda);

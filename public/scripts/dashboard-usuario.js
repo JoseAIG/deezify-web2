@@ -25,27 +25,9 @@ boton_visualizar_aside.addEventListener('click',()=>{
     }
 });
 
-//OBTENER LAS LISTAS DE UN USUARIO AL CARGAR LA PAGINA
-// window.onload = () => {
-//     fetch('listas', {
-//         method: 'GET',
-//         headers: {'Content-Type': 'application/json'},
-//     })
-//     .then(response => response.json())
-//     .then(data => {
-//         //DIBUJAR LOS RESULTADOS DE LA PETICION
-//         //console.log(data);
-//         dibujar_listas_aside(data);
-//         establecer_listas_del_usuario(data);
-//     })	    
-//     .catch((error) => {
-//         console.error('Error:', error);
-//     });
-// }
-
+//AL CARGAR LA VISTA REFRESCAR LAS LISTAS DE REPRODUCCION DEL USUARIO
 window.onload = refrescar_listas;
 
-var contenedor_listas = document.getElementById("contenedor-listas");
 function refrescar_listas(){
     fetch('listas', {
         method: 'GET',
@@ -54,9 +36,9 @@ function refrescar_listas(){
     .then(response => response.json())
     .then(data => {
         //DIBUJAR LOS RESULTADOS DE LA PETICION
-        //console.log(data);
         dibujar_listas_aside(data);
         establecer_listas_del_usuario(data);
+        dibujar_boton_administrador(data.tipo);
     })	    
     .catch((error) => {
         console.error('Error:', error);
@@ -69,71 +51,51 @@ function refrescar_listas(){
     }
 }
 
-//ELEMENTOS DEL MODAL EDITAR LISTAS
-var input_editar_nombre_lista = document.getElementById("input-editar-nombre-lista");
-var contenedor_input_canciones = document.getElementById("contenedor-input-canciones");
-//ELEMENTOS DEL MODAL VISUALIZAR LISTAS
-var contenedor_visualizar_canciones_lista = document.getElementById("contenedor-visualizar-canciones-lista");
-var nombre_visualizar_lista = document.getElementById("nombre-visualizar-lista");
-var boton_dejar_de_seguir_lista = document.getElementById("boton-dejar-de-seguir-lista");
+//
+var boton_vista_admin = document.getElementById("boton-vista-admin");
+function dibujar_boton_administrador(tipo){
+    if(tipo=="administrador"){
+        boton_vista_admin.style.display="inline";
+    }
+}
+
 //FUNCION PARA DIBUJAR LISTAS EN ASIDE
+var contenedor_listas = document.getElementById("contenedor-listas");
 function dibujar_listas_aside(datos){
+    //LIMPIAR Y RECORRER LAS LISTAS QUE POSEE Y SIGUE UN USUARIO
     contenedor_listas.innerHTML="";
     listas = datos.listas;
-    //console.log("dibujar listas funcion", listas, contenedor_listas);
     for(let i=0; i<listas.length; i++){
+        //CONTENEDOR DE LA LISTA
         let div = document.createElement("div");
+        //BOTON REPRODUCIR LISTA
         let reproducir = document.createElement("button");
         reproducir.innerHTML="<img src='../assets/icons/reproducir.svg' class='icono-boton'></img>"
         div.appendChild(reproducir);
+        //PARRAFO NOMBRE DE LA LISTA
         let p = document.createElement("p");
         p.innerText = listas[i].nombre_lista;
         div.appendChild(p);
+        //BOTON EDITAR / VISUALIZAR LISTA
         let editar = document.createElement("button");
         editar.setAttribute('data-bs-toggle','modal');
         editar.className="boton-gris";
-        editar.innerHTML="<img src='../assets/icons/edit.svg' class='icono-boton'></img>"
-
+        editar.innerHTML="<img src='../assets/icons/visualizar.svg' class='icono-boton'></img>"
         div.appendChild(editar);
+
         contenedor_listas.appendChild(div);
 
+        //FUNCIONALIDAD PARA REPRODUCIR UNA LISTA
         reproducir.addEventListener('click',()=>{
             console.log("reproducir lista " + listas[i].nombre_lista);
         })
 
+        //COMPROBACION SI LA LISTA ES PROPIETARIA PARA MOSTRAR LOS ELEMENTOS DEL MODAL
         if(datos.id_usuario == listas[i].propietario){
             editar.setAttribute('data-bs-target','#modal-editar-lista');
             editar.addEventListener('click', ()=>{
-                contenedor_input_canciones.innerHTML="";
-                input_editar_nombre_lista.value = listas[i].nombre_lista;
-                //obtener_canciones_lista(listas[i]._id);
-                for(let j=0; j<listas[i].canciones.length; j++){
-                    let div = document.createElement("div");
-                    let input = document.createElement("input");
-                    input.type="text";
-                    //input.name="input_cancion_"+i;
-                    input.disabled=true;
-                    input.value = listas[i].canciones[j].nombre_cancion + ", " + listas[i].canciones[j].artista.nombre + ", " + listas[i].canciones[j].album.nombre_album;
-                    input.setAttribute("ObjectId", listas[i].canciones[j]._id);
-                    input.className="input-canciones-lista";
-                    div.appendChild(input);
-    
-                    let boton_remover = document.createElement("button");
-                    boton_remover.className="boton-eliminar";
-                    boton_remover.innerHTML="<img src='../assets/icons/remove.svg' class='icono-boton'></img>"
-                    div.appendChild(boton_remover);
-    
-                    boton_remover.addEventListener('click',()=>{
-                        div.remove();
-                    });
-                    // let input_id = document.createElement("input");
-                    // input_id.type="hidden";
-                    // input_id.name="input_cancion_"+j;
-                    // input_id.value = listas[i].canciones[j]._id;
-                    // div.appendChild(input_id);
-    
-                    contenedor_input_canciones.appendChild(div);
-                }
+                //LLAMAR A LA FUNCION PARA DIBUJAR EL CONTENIDO DEL MODAL DE UNA CUANDO EL USUARIO ES PROPIETARIO (EDITAR LISTA)
+                dibujar_contenido_lista_propietaria(listas, i);
                 //LLAMAR A LAS FUNCIONES PARA BRINDAR LA FUNCIONALIDAD DE EDITAR LISTA Y ELIMINAR LISTA
                 editar_lista(listas[i]._id);
                 eliminar_lista(listas[i]._id, listas[i].propietario);
@@ -141,19 +103,9 @@ function dibujar_listas_aside(datos){
         }else{
             editar.setAttribute('data-bs-target','#modal-visualizar-lista');
             editar.addEventListener('click', ()=>{
-                contenedor_visualizar_canciones_lista.innerHTML = "";
-                nombre_visualizar_lista.innerText = listas[i].nombre_lista;
-                boton_dejar_de_seguir_lista.style.display="block";
-                for(let j=0; j<listas[i].canciones.length; j++){
-                    let div = document.createElement("div");
-                    let input = document.createElement("input");
-                    input.type="text";
-                    input.disabled=true;
-                    input.value = listas[i].canciones[j].nombre_cancion + " - " + listas[i].canciones[j].artista.nombre + " - " + listas[i].canciones[j].album.nombre_album;
-                    input.className="input-canciones-lista";
-                    div.appendChild(input);
-                    contenedor_visualizar_canciones_lista.appendChild(div);
-                }
+                //LLAMAR A LA FUNCION PARA DIBUJAR EL CONTENIDO DEL MODAL DE UNA CUANDO EL USUARIO ES PROPIETARIO (EDITAR LISTA)
+                dibujar_contenido_lista_ajena(listas, i, true);
+                //HABILITAR LA POSIBILIDAD DE PODER DEJAR DE SEGUIR LA LISTA
                 dejar_de_seguir_lista(listas[i]._id);
             })
         }
@@ -197,11 +149,10 @@ function editar_lista (id_lista) {
         for(let i=0;i<inputs.length;i++){
             canciones.push(inputs[i].getAttribute("ObjectId"));
         }
-        //console.log("guardar lista, " + id_lista);
+        //GENERAR LOS DATOS DEL FORMA DATA A SER ENVIADO COMO JSON
         let datos_form_editar_lista = new FormData(form_editar_lista);
         datos_form_editar_lista.append("id_lista",id_lista);
         datos_form_editar_lista.append("canciones",JSON.stringify(canciones));
-        //console.log(Object.fromEntries(datos_form_editar_lista.entries()));
         fetch('listas', {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
@@ -212,7 +163,6 @@ function editar_lista (id_lista) {
             console.log(data);
             alert(data.resultado);
             if(data.status==200){
-                //window.open('/dashboard','_self')
                 refrescar_listas();
             }
         })	    
@@ -236,7 +186,6 @@ function eliminar_lista(id_lista, propietario){
             console.log(data);
             alert(data.resultado);
             if(data.status==200){
-                //window.open('/dashboard','_self')
                 refrescar_listas();
             }
         })	    
@@ -259,7 +208,6 @@ function dejar_de_seguir_lista (id_lista) {
             console.log(data);
             alert(data.resultado);
             if(data.status==200){
-                //window.open('/dashboard','_self')
                 refrescar_listas();
             }
         })	    
@@ -268,19 +216,3 @@ function dejar_de_seguir_lista (id_lista) {
         });
     }
 }
-
-// function obtener_canciones_lista(id_lista){
-//     fetch('canciones', {
-//         method: 'GET',
-//         headers: {'Content-Type': 'application/json'},
-//         body: JSON.stringify('{"id_lista":'+id_lista+'}')
-//     })
-//     .then(response => response.json())
-//     .then(data => {
-//         //DIBUJAR LOS RESULTADOS DE LA PETICION
-//         console.log(data);
-//     })	    
-//     .catch((error) => {
-//         console.error('Error:', error);
-//     });
-// }

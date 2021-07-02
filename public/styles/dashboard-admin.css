@@ -1,3 +1,40 @@
+section{
+    padding-top: 0.5em;
+}
+
+.boton-vista-usuario{
+    display: flex;
+    height: 3em;
+    width: 3em;
+    left: 0.5em;
+    margin-left: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.dropup{
+    bottom: 2em;
+    right: 2em;
+    position: fixed;
+    font-size: large;
+    height: 3em;
+}
+
+.dropup button {
+    border-radius: 25px;
+    color: white;
+    /* background-color: rgb(40, 43, 49); */
+    margin-top: 0.5em;
+}
+
+.dropdown-menu{
+    border-radius: 25px;
+}
+
+.accordion{
+    /* margin-top: 3.5em; */
+    width: 75%;
+}
+
 #contenedor-artistas, #contenedor-albumes, #contenedor-canciones{
     /* display: flex; */
     margin: auto;
@@ -33,3 +70,14 @@ select{
     border-radius: 25em;
     border: 1px dashed red;
 } */
+
+@media (max-width: 900px) {
+    .accordion{
+        width: 85%;
+    }
+}
+@media (max-width: 480px) {
+    .accordion{
+        width: 100%;
+    }
+}

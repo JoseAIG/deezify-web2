@@ -13,7 +13,7 @@ const obtenerCanciones = async (req, res) => {
         if((req.session.tipo=="administrador")){
             try {
                 const documentos_canciones_admin = await ModeloCancion.find({"propietario": req.session.objectid}).populate('artista album');
-                console.log("aaa--",documentos_canciones_admin);
+                console.log("documentos canciones admin: ",documentos_canciones_admin);
                 res.send('{"status":200, "canciones":'+JSON.stringify(documentos_canciones_admin)+'}');
             } catch (error) {
                 res.send('{"resultado":"No se pudieron obtener las canciones del admin", "status":500}');

@@ -8,10 +8,11 @@ const ObjectId = require('mongoose').Types.ObjectId;
 const vistaDashboard = (req, res) => {
     //console.log(req.session)
     //DESPACHAR LA VISTA RESPECTIVA SEGUN EL TIPO DE USUARIO
-    if(req.session.tipo=="administrador"){
-        res.sendFile('/public/views/Dashboard-Admin.html',{root: __dirname+"/.."});
-    }
-    else if(req.session.tipo=="usuario"){
+    // if(req.session.tipo=="administrador"){
+    //     res.sendFile('/public/views/Dashboard-Admin.html',{root: __dirname+"/.."});
+    // }
+    // else 
+    if(req.session.tipo){
         res.sendFile('/public/views/Dashboard-Usuario.html',{root: __dirname+"/.."});
     }else{
         res.redirect("/");

@@ -30,6 +30,8 @@
             <h1 class="d-inline align-middle" id="h1-deezify">Deezify</h1>
         </div>
         <div style="position: absolute; right: 1em;">
+            <button id="boton-vista-admin" onclick="location.href='/admin'" style="display: none;"> <img src="../assets/icons/admin.svg" class="icono-boton"> Administrador</button>
+            &nbsp;
             <button id="boton-editar-perfil" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"> <img src="../assets/icons/user.svg" class="icono-boton"> Editar perfil</button>
             &nbsp;
             <button id="boton-cerrar-sesion"> <img src="../assets/icons/logout.svg" class="icono-boton"> Cerrar sesión</button>
@@ -148,7 +150,7 @@
 
     <!-- MODAL EDITAR LISTA -->
     <div class="modal fade" id="modal-editar-lista"> 
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable ">
             <div class="modal-content bg-dark">
                 <div class="modal-header">
                     <button class="boton-volver" data-bs-dismiss="modal">Cerrar</button>

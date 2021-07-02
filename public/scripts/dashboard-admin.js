@@ -88,7 +88,7 @@ function dibujar_lista_artistas_admin(arreglo_artistas){
                 contenido_celda.innerHTML=`<h4>${arreglo_artistas[i].nombre}</h4>`;
             }
             else if (j==1){
-                contenido_celda.innerHTML="<button><img src='../assets/icons/edit.svg' class='icono-boton'></button>";
+                contenido_celda.innerHTML="<button class='boton-gris'><img src='../assets/icons/edit.svg' class='icono-boton'></button>";
             }
             td.appendChild(contenido_celda);
             tr.appendChild(td);
@@ -127,7 +127,7 @@ function dibujar_lista_albumes_admin(arreglo_albumes){
                 contenido_celda.innerHTML=arreglo_albumes[i].canciones.length;
             }
             else if(j==4){
-                contenido_celda.innerHTML="<button><img src='../assets/icons/visualizar.svg' class='icono-boton'></button>";
+                contenido_celda.innerHTML="<button class='boton-gris'><img src='../assets/icons/visualizar.svg' class='icono-boton'></button>";
             }
             td.appendChild(contenido_celda);
             tr.appendChild(td);
@@ -241,7 +241,7 @@ const guardar_nuevo_artista = () => {
         console.log(data);
         alert(data.resultado);
         if(data.status==200){
-            //window.open("/dashboard","_self");
+            window.open("/admin","_self");
         }
     })	    
     .catch((error) => {
@@ -266,7 +266,7 @@ const guardar_nuevo_album = () => {
         console.log(data);
         alert(data.resultado);
         if(data.status==200){
-            //window.open("/dashboard","_self");
+            window.open("/admin","_self");
         }
     })	    
     .catch((error) => {
@@ -290,7 +290,7 @@ const guardar_nueva_cancion = () => {
         console.log(data);
         alert(data.resultado);
         if(data.status==200){
-            window.open("/dashboard","_self");
+            window.open("/admin","_self");
         }
     })	    
     .catch((error) => {
@@ -316,7 +316,7 @@ function editar_cancion(id_cancion){
             console.log(data);
             alert(data.resultado);
             if(data.status==200){
-                window.open("/dashboard","_self");
+                window.open("/admin","_self");
             }
         })	    
         .catch((error) => {
@@ -339,7 +339,7 @@ function eliminar_cancion(id_cancion){
             console.log(data);
             alert(data.resultado);
             if(data.status==200){
-                window.open("/dashboard","_self");
+                window.open("/admin","_self");
             }
         })	    
         .catch((error) => {

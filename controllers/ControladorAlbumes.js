@@ -8,7 +8,6 @@ const obtenerAlbumes = async (req, res) => {
     try {
         if(req.headers['content-type']=='application/json'){
             const documentos_albumes = await ModeloAlbum.find({propietario:req.session.objectid}).populate('artista');
-            //console.log(documentos_albumes);
             res.send('{"albumes":'+JSON.stringify(documentos_albumes)+',"status":200}');
         }
     } catch (error) {
