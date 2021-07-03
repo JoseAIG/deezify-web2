@@ -1,6 +1,12 @@
+//IMPORTS
+import { editar_lista, eliminar_lista } from '../dashboard-usuario.js';
+import { listas_propietarias, id_listas_propietarias, reproducir_cancion, agregar_cancion_a_favoritos, agregar_cancion_a_lista, seguir_lista } from '../dashboard-busquedas.js';
+import { dibujar_contenido_lista_propietaria, dibujar_contenido_lista_ajena, dibujar_contenido_visualizar_artista, dibujar_contenido_visualizar_album } from './contenido-modals.js';
+
 //-------------------------------------------------//
 // FUNCION PARA DIBUJAR LA TABLA CON LAS CANCIONES //
 //-------------------------------------------------//
+var contenedor_resultados = document.getElementById("contenedor-resultados");
 function dibujar_tabla_canciones_busqueda(resultados){
     if(resultados.length){
         let table = document.createElement('table');
@@ -76,7 +82,6 @@ function dibujar_tabla_canciones_busqueda(resultados){
                         }
     
                         contenido_celda.appendChild(select);
-                        //contenido_celda.innerHTML=`<select><img src='../assets/icons/lista.svg' class='icono-boton'></select>`;
                         select.addEventListener('change',()=>{
                             agregar_cancion_a_lista(select.value, resultados[i]._id);
                             option_defecto.selected=true;
@@ -364,4 +369,11 @@ function dibujar_tabla_artistas_busqueda(resultados) {
         h3.textContent="No se encontraron coincidencias.";
         contenedor_resultados.appendChild(h3);
     }
+}
+
+export{
+    dibujar_tabla_canciones_busqueda,
+    dibujar_tabla_listas_busqueda,
+    dibujar_tabla_albumes_busqueda,
+    dibujar_tabla_artistas_busqueda
 }

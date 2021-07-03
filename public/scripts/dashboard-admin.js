@@ -1,3 +1,5 @@
+import {dibujar_tabla_artistas_admin, dibujar_tabla_albumes_admin, dibujar_tabla_canciones_admin} from './helpers/tablas-admin.js';
+
 //AL CARGAR LA PAGINA SOLICITAR LAS CANCIONES DEL ADMINISTRADOR PARA DIBUJARLAS EN UNA TABLA
 window.onload = () => {
     //SOLICITUS DE CANCIONES DEL ADMINISTRADOR
@@ -9,7 +11,7 @@ window.onload = () => {
     .then(data => {
         console.log(data);
         if(data.status==200){
-            dibujar_lista_canciones_admin(data.canciones);
+            dibujar_tabla_canciones_admin(data.canciones);
         }
     })	    
     .catch((error) => {
@@ -26,7 +28,8 @@ window.onload = () => {
         console.log(data);
         if(data.status==200){
             establecer_artistas_propietario(data.artistas);
-            dibujar_lista_artistas_admin(data.artistas);
+            //LLAMAR A LA FUNCION PARA DIBUJAR LA TABLA DE ARTISTAS EN "./helpers/tablas-admin.js"
+            dibujar_tabla_artistas_admin(data.artistas);
         }
     })	    
     .catch((error) => {
@@ -42,8 +45,8 @@ window.onload = () => {
     .then(data => {
         console.log(data);
         if(data.status==200){
-            //establecer_artistas_propietario(data.artistas);
-            dibujar_lista_albumes_admin(data.albumes);
+            //LLAMAR A LA FUNCION PARA DIBUJAR LA TABLA DE ALBUMES EN "./helpers/tablas-admin.js"
+            dibujar_tabla_albumes_admin(data.albumes);
         }
     })	    
     .catch((error) => {
@@ -52,156 +55,14 @@ window.onload = () => {
 
 }
 
-//FUNCION PARA MOSTRAR LA LISTA DE LOS ARTISTAS DEL ADMINISTRADOR
-var contenedor_artistas = document.getElementById("contenedor-artistas");
-function dibujar_lista_artistas_admin(arreglo_artistas){
-    console.log("dibujar lista artistas", arreglo_artistas);
-
-    // for(let i=0; i<arreglo_artistas.length; i++){
-    //     let div = document.createElement("div");
-    //     div.className="lista-artista";
-    //     let h5 = document.createElement("h5");
-    //     h5.innerText=arreglo_artistas[i].nombre
-    //     div.appendChild(h5);
-    //     let boton_editar = document.createElement("button");
-    //     boton_editar.innerHTML="<img src='../assets/icons/edit.svg' class='icono-boton'>"
-    //     div.appendChild(boton_editar);
-    //     // div.innerHTML=`<h5>${arreglo_artistas[i].nombre}</h5>`;
-    //     contenedor_artistas.appendChild(div);
-    // }
-
-    let h3 = document.createElement("h3");
-    h3.innerText="Tus artistas";
-    contenedor_artistas.appendChild(h3);
-
-    let table = document.createElement('table');
-    let tableBody = document.createElement('tbody');
-    table.appendChild(tableBody);
-    //RECORRER LAS CANCIONES
-    for(let i=0; i<arreglo_artistas.length; i++){
-        let tr = document.createElement('tr');
-        tableBody.appendChild(tr);
-        for (let j=0; j<2; j++) {
-            var td = document.createElement('td');
-            let contenido_celda = document.createElement('div');
-            if(j==0){
-                contenido_celda.innerHTML=`<h4>${arreglo_artistas[i].nombre}</h4>`;
-            }
-            else if (j==1){
-                contenido_celda.innerHTML="<button class='boton-gris'><img src='../assets/icons/edit.svg' class='icono-boton'></button>";
-            }
-            td.appendChild(contenido_celda);
-            tr.appendChild(td);
-        }
-    }
-    contenedor_artistas.appendChild(table);
-}
-
-//DIBUJAR LISTA DE ALBUMES QUE EL ADMIN HA INGRESADO
-var contenedor_albumes = document.getElementById("contenedor-albumes");
-function dibujar_lista_albumes_admin(arreglo_albumes){
-    let h3 = document.createElement("h3");
-    h3.innerText="Tus albumes";
-    contenedor_albumes.appendChild(h3);
-
-    let table = document.createElement('table');
-    let tableBody = document.createElement('tbody');
-    table.appendChild(tableBody);
-    //RECORRER LAS CANCIONES
-    for(let i=0; i<arreglo_albumes.length; i++){
-        let tr = document.createElement('tr');
-        tableBody.appendChild(tr);
-        for (let j=0; j<5; j++) {
-            var td = document.createElement('td');
-            let contenido_celda = document.createElement('div');
-            if(j==0){
-                contenido_celda.innerHTML=`<h4>${arreglo_albumes[i].nombre_album}</h4>`;
-            }
-            else if(j==1){
-                contenido_celda.innerHTML=arreglo_albumes[i].artista.nombre;
-            }
-            else if(j==2){
-                contenido_celda.innerHTML=arreglo_albumes[i].lanzamiento;
-            }
-            else if(j==3){
-                contenido_celda.innerHTML=arreglo_albumes[i].canciones.length;
-            }
-            else if(j==4){
-                contenido_celda.innerHTML="<button class='boton-gris'><img src='../assets/icons/visualizar.svg' class='icono-boton'></button>";
-            }
-            td.appendChild(contenido_celda);
-            tr.appendChild(td);
-        }
-    }
-    contenedor_albumes.appendChild(table);
-}
-
-//var contenedor_section_administrador = document.getElementById("contenedor-section-administrador");
-function dibujar_lista_canciones_admin(arreglo_canciones){
-
-    //ELEMENTOS DEL MODAL EDITAR CANCION
-    var input_editar_titulo = document.getElementById("input-editar-titulo");
-    var input_editar_artista = document.getElementById("input-editar-artista");
-    var input_editar_album = document.getElementById("input-editar-album");
-
-    var contenedor_canciones = document.getElementById("contenedor-canciones");
-
-    if(arreglo_canciones.length){
-        let h3 = document.createElement("h3");
-        h3.innerText="Informacion de tus canciones";
-        contenedor_canciones.appendChild(h3);
-
-        let table = document.createElement('table');
-        let tableBody = document.createElement('tbody');
-        table.appendChild(tableBody);
-        //RECORRER LAS CANCIONES
-        for(let i=0; i<arreglo_canciones.length; i++){
-            let tr = document.createElement('tr');
-            tableBody.appendChild(tr);
-            for (let j=0; j<5; j++) {
-                var td = document.createElement('td');
-                let contenido_celda = document.createElement('div');
-                if(j==0){
-                    contenido_celda.innerHTML=arreglo_canciones[i].nombre_cancion;
-                }
-                else if (j==1){
-                    contenido_celda.innerHTML=arreglo_canciones[i].artista.nombre;
-                }
-                else if(j==2){
-                    contenido_celda.innerHTML=arreglo_canciones[i].album.nombre_album;
-                }
-                else if(j==3){
-                    contenido_celda.innerHTML=arreglo_canciones[i].reproducciones;
-                }
-                else if(j==4){
-                    contenido_celda.innerHTML=`<button class='boton-gris' data-bs-toggle='modal' data-bs-target='#modal-editar-cancion'><img src='../assets/icons/edit.svg' class='icono-boton'></button>`;
-                    contenido_celda.addEventListener('click',()=>{
-                        input_editar_titulo.value = arreglo_canciones[i].nombre_cancion;
-                        input_editar_artista.value = arreglo_canciones[i].artista;
-                        input_editar_album.value = arreglo_canciones[i].album;
-                        //AGREGARLE LA FUNCION DE EDITAR CANCION Y ELIMINAR CANCION (FUNCIONES CREADAS PARA PODER PASAR EL ID DE LA CANCION)
-                        editar_cancion(arreglo_canciones[i]._id);
-                        eliminar_cancion(arreglo_canciones[i]._id);
-                    });
-                }
-                td.appendChild(contenido_celda);
-                tr.appendChild(td);
-            }
-        }
-        contenedor_canciones.appendChild(table);
-
-    }else{
-        let h3 = document.createElement("h3");
-        h3.innerText="Aun no tienes canciones, ¡Sube alguna!";
-        contenedor_canciones.appendChild(h3);
-    }
-
-}
-
 //FUNCION PARA ESTABLECER LOS ARTISTAS QUE HA CREADO EL ADMINISTRADOR, CON ESTA FUNCION SE AGREGAN LOS ARTISTAS Y SUS ALBUMES A LOS OPTION DE LOS SELECT PARA CREAR CANCIONES Y ALBUMES
 var select_artista_crear_album = document.getElementById("select-artista-crear-album");
 var select_artista_crear_cancion = document.getElementById("select-artista-crear-cancion");
 var select_album_crear_cancion = document.getElementById("select-album-crear-cancion");
+
+var select_artista_editar_cancion = document.getElementById("select-artista-editar-cancion");
+var select_album_editar_cancion = document.getElementById("select-album-editar-cancion");
+
 function establecer_artistas_propietario(artistas){
     console.log(artistas);
     //RECORRER LOS ARTISTAS, GENERAR LOS OPTION CON LOS DATOS DE ESTOS Y AGREGARLOS A LOS SELECT
@@ -211,17 +72,30 @@ function establecer_artistas_propietario(artistas){
         option.value = artistas[i]._id;
         select_artista_crear_album.appendChild(option);
         select_artista_crear_cancion.appendChild(option.cloneNode(true))
+
+        select_artista_editar_cancion.appendChild(option.cloneNode(true))
     }
 
     //CUANDO SE CAMBIE LA SELECCION DEL ARTISTA CUANDO SE CREA UNA CANCION, MOSTRAR EN EL SELECT DE ALBUM UNICAMENTE LOS ALBUMES PERTENECIENTES A ESE ARTISTA SELECCIONADO
     select_artista_crear_cancion.addEventListener('change',()=>{
-        indice_artista = artistas.findIndex(i => i._id == select_artista_crear_cancion.value);
+        let indice_artista = artistas.findIndex(i => i._id == select_artista_crear_cancion.value);
         select_album_crear_cancion.innerHTML='<option value="">Seleccione un álbum</option>';
         for(let i=0; i<artistas[indice_artista].albumes.length; i++){
             let option = document.createElement("option");
             option.text = artistas[indice_artista].albumes[i].nombre_album;
             option.value = artistas[indice_artista].albumes[i]._id;
             select_album_crear_cancion.appendChild(option);
+        }
+    })
+
+    select_artista_editar_cancion.addEventListener('change',()=>{
+        let indice_artista = artistas.findIndex(i => i._id == select_artista_editar_cancion.value);
+        select_album_editar_cancion.innerHTML='<option value="">Seleccione un álbum</option>';
+        for(let i=0; i<artistas[indice_artista].albumes.length; i++){
+            let option = document.createElement("option");
+            option.text = artistas[indice_artista].albumes[i].nombre_album;
+            option.value = artistas[indice_artista].albumes[i]._id;
+            select_album_editar_cancion.appendChild(option);
         }
     })
 }
@@ -280,22 +154,27 @@ var form_nueva_cancion = document.getElementById("form-nueva-cancion");
 var boton_guardar_nueva_cancion = document.getElementById("boton-guardar-nueva-cancion");
 const guardar_nueva_cancion = () => {
     let datos_form_nueva_cancion = new FormData(form_nueva_cancion);
-    fetch('canciones', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(Object.fromEntries(datos_form_nueva_cancion.entries()))
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        alert(data.resultado);
-        if(data.status==200){
-            window.open("/admin","_self");
-        }
-    })	    
-    .catch((error) => {
-        console.error('Error:', error);
-    });
+    //COMPROBAR QUE LOS CAMPOS CONTIENEN INFORMACION
+    if(datos_form_nueva_cancion.get("titulo")=="" || datos_form_nueva_cancion.get("genero")=="" || datos_form_nueva_cancion.get("artista")=="" || datos_form_nueva_cancion.get("album")==""){
+        alert("Complete todos los campos de la cancion.");
+    }else{
+        fetch('canciones', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(Object.fromEntries(datos_form_nueva_cancion.entries()))
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            alert(data.resultado);
+            if(data.status==200){
+                window.open("/admin","_self");
+            }
+        })	    
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
 }
 boton_guardar_nueva_cancion.onclick=guardar_nueva_cancion;
 
@@ -346,4 +225,9 @@ function eliminar_cancion(id_cancion){
             console.error('Error:', error);
         });
     }
+}
+
+export{
+    editar_cancion,
+    eliminar_cancion
 }

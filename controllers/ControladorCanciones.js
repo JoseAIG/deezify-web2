@@ -12,7 +12,14 @@ const obtenerCanciones = async (req, res) => {
     if(req.headers['content-type']=='application/json'){
         if((req.session.tipo=="administrador")){
             try {
-                const documentos_canciones_admin = await ModeloCancion.find({"propietario": req.session.objectid}).populate('artista album');
+                // const documentos_canciones_admin = await ModeloCancion.find({"propietario": req.session.objectid}).populate('artista album');
+                const documentos_canciones_admin = await ModeloCancion.find({"propietario": req.session.objectid})
+                .populate({
+                    path: "album artista",
+                    populate:{
+                        path: "albumes"
+                    }
+                });
                 console.log("documentos canciones admin: ",documentos_canciones_admin);
                 res.send('{"status":200, "canciones":'+JSON.stringify(documentos_canciones_admin)+'}');
             } catch (error) {
@@ -54,13 +61,13 @@ const cargarCancion = async (req, res) => {
 //PUT /canciones
 //FUNCION PARA EDITAR UNA CANCION EXISTENTE (SOLO ADMINISTRADORES)
 const editarCancion = async (req, res) => {
-    console.log("modificar cancion");
+    console.log("modificar cancion", req.body);
     try {
-        documento_cancion = await ModeloCancion.findOne({_id: ObjectId(req.body.id_cancion)})
-        documento_cancion.nombre_cancion = req.body.titulo;
-        documento_cancion.artista = req.body.artista;
-        documento_cancion.album = req.body.album;
-        documento_cancion.save();
+        // documento_cancion = await ModeloCancion.findOne({_id: ObjectId(req.body.id_cancion)})
+        // documento_cancion.nombre_cancion = req.body.titulo;
+        // documento_cancion.artista = req.body.artista;
+        // documento_cancion.album = req.body.album;
+        // documento_cancion.save();
         res.send('{"resultado":"Cancion editada exitosamente", "status":200}');
     } catch (error) {
         console.log(error);
@@ -73,8 +80,8 @@ const editarCancion = async (req, res) => {
 const eliminarCancion = async (req, res) => {
     console.log("eliminar cancion");
     try {
-        documento_cancion = await ModeloCancion.findOne({_id: ObjectId(req.body.id_cancion)})
-        documento_cancion.remove();
+        // documento_cancion = await ModeloCancion.findOne({_id: ObjectId(req.body.id_cancion)})
+        // documento_cancion.remove();
         res.send('{"resultado":"Cancion eliminada exitosamente", "status":200}');
     } catch (error) {
         res.send('{"resultado":"No se pudo eliminar la cancion", "status":500}');

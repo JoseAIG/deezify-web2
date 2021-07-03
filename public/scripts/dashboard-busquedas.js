@@ -1,3 +1,7 @@
+//IMPORTS
+import { refrescar_listas } from './dashboard-usuario.js';
+import { dibujar_tabla_canciones_busqueda, dibujar_tabla_listas_busqueda, dibujar_tabla_albumes_busqueda, dibujar_tabla_artistas_busqueda } from './helpers/tablas-busquedas.js'
+
 //FUNCION PARA REALIZAR UNA NUEVA BUSQUEDA
 var form_busqueda = document.getElementById("form-busqueda");
 var boton_buscar = document.getElementById("boton-buscar");
@@ -24,8 +28,8 @@ boton_buscar.onclick=realizar_busqueda;
 
 //FUNCION PARA DIBUJAR LOS RESULTADOS DE LA BUSQUEDA
 function dibujar_resultados(datos){
-    elementos = datos.elementos;
-    resultados = datos.resultado_busqueda;
+    let elementos = datos.elementos;
+    let resultados = datos.resultado_busqueda;
     contenedor_resultados.innerHTML="";
     //--------------------------------------------------------------------------------------------------------------//
     //DIBUJAR LAS TABLAS DE LOS ELEMENTOS REFERENTES A LA BUSQUEDA CON FUNCIONES DEFINIDAS EN "tablas-busquedas.js" //
@@ -125,4 +129,16 @@ function establecer_listas_del_usuario(datos){
             id_listas_propietarias.push(datos.listas[i]._id);
         }
     }
+}
+
+export{
+    //LLAMADAS EN DASHBOARD-USUARIO
+    establecer_listas_del_usuario,
+    //LLAMADAS EN TABLAS-BUSQUEDAS
+    listas_propietarias,
+    id_listas_propietarias,
+    reproducir_cancion,
+    agregar_cancion_a_lista,
+    agregar_cancion_a_favoritos,
+    seguir_lista
 }

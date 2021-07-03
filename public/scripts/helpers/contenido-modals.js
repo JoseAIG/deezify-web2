@@ -143,3 +143,38 @@ function dibujar_contenido_visualizar_album(contenido, indice, artista){
         contenedor_visualizar_canciones_album.appendChild(div);
     }
 }
+
+//--------------------------------------------------------------- //
+// CONFIGURACION DE LOS ELEMENTOS PARA LAS EDICIONES POR UN ADMIN //
+//--------------------------------------------------------------- //
+//CONFIGURACION DEL CONTENIDO DE LOS ELEMENTOS PARA EDITAR UNA CANCION
+var input_editar_titulo_cancion = document.getElementById("input-editar-titulo-cancion");
+var select_artista_editar_cancion = document.getElementById("select-artista-editar-cancion");
+var select_album_editar_cancion = document.getElementById("select-album-editar-cancion");
+function dibujar_contenido_editar_cancion(canciones, indice, artista, album){
+    //COLOCAR EL NOMBRE DE LA CANCION EN EL INPUT PARA EDICION
+    input_editar_titulo_cancion.value = canciones[indice].nombre_cancion;
+    //ASIGNAR LA OPCION DEL SELECT ARTISTA
+    select_artista_editar_cancion.value = artista;
+    //ASIGNAR LA OPCION DEL SELECT ALBUM EN BASE AL ARTISTA Y A LA SELECCION ACTUAL
+    select_album_editar_cancion.innerHTML='<option value="">Seleccione un álbum</option>';
+    for(let i=0; i<canciones[indice].artista.albumes.length; i++){
+        let option = document.createElement("option");
+        option.text = canciones[indice].artista.albumes[i].nombre_album;
+        option.value = canciones[indice].artista.albumes[i]._id;
+        select_album_editar_cancion.appendChild(option);
+    }
+    select_album_editar_cancion.value = album;
+    //input_editar_artista_cancion.value = canciones[indice].artista.nombre;
+    //input_editar_album_cancion.value = canciones[indice].album.nombre_album;
+}
+
+export {
+    //FUNCIONES PARA MODALS EN TABLAS BUSQUEDAS
+    dibujar_contenido_lista_propietaria,
+    dibujar_contenido_lista_ajena,
+    dibujar_contenido_visualizar_artista,
+    dibujar_contenido_visualizar_album,
+    //FUNCIONES PARA MODALS EN TABLAS ADMIN
+    dibujar_contenido_editar_cancion
+}

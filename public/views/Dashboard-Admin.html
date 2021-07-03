@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="../styles/dashboard-admin.css">
     <!-- JS'S -->
     <script src="../scripts/dashboard-perfil.js" defer></script>
-    <script src="../scripts/dashboard-admin.js" defer></script>
+    <script src="../scripts/dashboard-admin.js" type="module" defer></script>
+
     <title>Deezify - Admin</title>
 </head>
 <body>
@@ -233,21 +234,32 @@
                         <div>
                             <label for="titulo">Título de la canción</label>
                             <br>
-                            <input type="text" name="titulo" id="input-editar-titulo" autocomplete="off">
+                            <input type="text" name="titulo" id="input-editar-titulo-cancion" autocomplete="off">
+                        </div>
+                        <div>
+                            <label for="genero">Género</label>
+                            <br>
+                            <select name="genero" id="select-genero-editar-cancion">
+                                <option value="">Seleccione un género</option>
+                            </select>
                         </div>
                         <div>
                             <label for="artista">Artista</label>
                             <br>
-                            <input type="text" name="artista" id="input-editar-artista" autocomplete="off">
+                            <select name="artista" id="select-artista-editar-cancion">
+                                <option value="">Seleccione un artista</option>
+                            </select>
                         </div>
                         <div>
                             <label for="album">Álbum</label>
                             <br/>
-                            <input type="text" name="album" id="input-editar-album" autocomplete="off"/>
+                            <select name="album" id="select-album-editar-cancion">
+                                <option value="">Seleccione un álbum</option>
+                            </select>
                         </div>
                         <div>
                             <label class="label-cargar-archivo">
-                                <input type="file" name="pista" id="input-editar-pista">
+                                <input type="file" name="pista" id="input-editar-pista-cancion">
                                 Pista de audio
                             </label>
                         </div>

@@ -1,3 +1,7 @@
+//IMPORTS
+import {establecer_listas_del_usuario} from './dashboard-busquedas.js';
+import { dibujar_contenido_lista_propietaria, dibujar_contenido_lista_ajena } from './helpers/contenido-modals.js';
+
 var boton_visualizar_aside = document.getElementById("visualizar-aside");
 var aside_principal = document.querySelector("#aside-principal");
 var section_principal_usuario = document.querySelector("#section-principal-usuario");
@@ -45,7 +49,7 @@ function refrescar_listas(){
     });
 
     //CERRAR LOS MODAL
-    botones = document.getElementsByClassName("boton-volver");
+    let botones = document.getElementsByClassName("boton-volver");
     for(let i=0; i<botones.length; i++){
         botones[i].click();
     }
@@ -64,7 +68,7 @@ var contenedor_listas = document.getElementById("contenedor-listas");
 function dibujar_listas_aside(datos){
     //LIMPIAR Y RECORRER LAS LISTAS QUE POSEE Y SIGUE UN USUARIO
     contenedor_listas.innerHTML="";
-    listas = datos.listas;
+    let listas = datos.listas;
     for(let i=0; i<listas.length; i++){
         //CONTENEDOR DE LA LISTA
         let div = document.createElement("div");
@@ -196,6 +200,7 @@ function eliminar_lista(id_lista, propietario){
 }
 
 //FUNCION PARA DEJAR DE SEGUIR UNA LISTA
+var boton_dejar_de_seguir_lista = document.getElementById("boton-dejar-de-seguir-lista");
 function dejar_de_seguir_lista (id_lista) {
     boton_dejar_de_seguir_lista.onclick = () => {
         fetch('seguidos', {
@@ -215,4 +220,10 @@ function dejar_de_seguir_lista (id_lista) {
             console.error('Error:', error);
         });
     }
+}
+
+export{
+    refrescar_listas,
+    editar_lista,
+    eliminar_lista
 }
