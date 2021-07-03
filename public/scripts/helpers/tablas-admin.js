@@ -3,8 +3,8 @@
 //------------------------------------------------------------ //
 
 //IMPORTS
-import { dibujar_contenido_editar_cancion } from './contenido-modals.js';
-import { editar_cancion, eliminar_cancion } from '../dashboard-admin.js';
+import { dibujar_contenido_editar_artista, dibujar_contenido_editar_album, dibujar_contenido_editar_cancion } from './contenido-modals.js';
+import { editar_artista, eliminar_artista, editar_album, eliminar_album, editar_cancion, eliminar_cancion } from '../dashboard-admin.js';
 
 var contenedor_artistas = document.getElementById("contenedor-artistas");
 function dibujar_tabla_artistas_admin(artistas) {
@@ -43,7 +43,14 @@ function dibujar_tabla_artistas_admin(artistas) {
                     contenido_celda.innerHTML=`<h4>${artistas[i].nombre}</h4>`;
                 }
                 else if (j==1){
-                    contenido_celda.innerHTML="<button class='boton-gris'><img src='../assets/icons/edit.svg' class='icono-boton'></button>";
+                    contenido_celda.innerHTML=`<button class='boton-gris' data-bs-toggle='modal' data-bs-target='#modal-editar-artista'><img src='../assets/icons/edit.svg' class='icono-boton'></button>`;
+                    contenido_celda.onclick = () => {
+                        //DIBUJAR EL CONTENIDO DEL MODAL EDITAR ARTISTA
+                        dibujar_contenido_editar_artista(artistas[i].nombre);
+                        //ESTABLECER LAS FUNCIONALIDADES PARA EDICION DEL ARTISTA Y ELIMINACION SEGUN EL ID DEL ARTISTA SELECCIONADO
+                        editar_artista(artistas[i]._id);
+                        eliminar_artista(artistas[i]._id);
+                    }
                 }
                 td.appendChild(contenido_celda);
                 tr.appendChild(td);
@@ -66,29 +73,58 @@ function dibujar_tabla_albumes_admin(albumes){
     let tableBody = document.createElement('tbody');
     table.appendChild(tableBody);
     //RECORRER LAS CANCIONES
-    for(let i=0; i<albumes.length; i++){
+    for(let i=-1; i<albumes.length; i++){
         let tr = document.createElement('tr');
         tableBody.appendChild(tr);
-        for (let j=0; j<5; j++) {
-            var td = document.createElement('td');
-            let contenido_celda = document.createElement('div');
-            if(j==0){
-                contenido_celda.innerHTML=`<h4>${albumes[i].nombre_album}</h4>`;
+        if(i==-1){
+            for (let j=0; j<5; j++) {
+                var td = document.createElement('td');
+                let contenido_celda = document.createElement('div');
+                if(j==0){
+                    contenido_celda.innerHTML="Álbum";
+                }
+                else if(j==1){
+                    contenido_celda.innerHTML="Artista";
+                }
+                else if(j==2){
+                    contenido_celda.innerHTML="Lanzamineto";
+                }
+                else if(j==3){
+                    contenido_celda.innerHTML="Canciones";
+                }
+                else if(j==4){
+                    contenido_celda.innerHTML="Editar";
+                }
+                td.appendChild(contenido_celda);
+                tr.appendChild(td);
             }
-            else if(j==1){
-                contenido_celda.innerHTML=albumes[i].artista.nombre;
+        }else{
+            for (let j=0; j<5; j++) {
+                var td = document.createElement('td');
+                let contenido_celda = document.createElement('div');
+                if(j==0){
+                    contenido_celda.innerHTML=`<h4>${albumes[i].nombre_album}</h4>`;
+                }
+                else if(j==1){
+                    contenido_celda.innerHTML=albumes[i].artista.nombre;
+                }
+                else if(j==2){
+                    contenido_celda.innerHTML=albumes[i].lanzamiento;
+                }
+                else if(j==3){
+                    contenido_celda.innerHTML=albumes[i].canciones.length;
+                }
+                else if(j==4){
+                    contenido_celda.innerHTML=`<button class='boton-gris' data-bs-toggle='modal' data-bs-target='#modal-editar-album'><img src='../assets/icons/edit.svg' class='icono-boton'></button>`;
+                    contenido_celda.onclick = () => {
+                        dibujar_contenido_editar_album(albumes[i]);
+                        editar_album(albumes[i]._id);
+                        eliminar_album(albumes[i]._id);
+                    }
+                }
+                td.appendChild(contenido_celda);
+                tr.appendChild(td);
             }
-            else if(j==2){
-                contenido_celda.innerHTML=albumes[i].lanzamiento;
-            }
-            else if(j==3){
-                contenido_celda.innerHTML=albumes[i].canciones.length;
-            }
-            else if(j==4){
-                contenido_celda.innerHTML="<button class='boton-gris'><img src='../assets/icons/visualizar.svg' class='icono-boton'></button>";
-            }
-            td.appendChild(contenido_celda);
-            tr.appendChild(td);
         }
     }
     contenedor_albumes.appendChild(table);

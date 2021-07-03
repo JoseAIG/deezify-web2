@@ -13,9 +13,9 @@ router.get("/",controladorArtistas.obtenerArtistas);
 router.post("/",controladorArtistas.crearArtista);
 
 //ENDPOINT /artistas METODO PUT
-//router.put("/",controladorArtistas.editarCancion);
+router.put("/",controladorArtistas.editarArtista);
 
 //ENDPOINT /artistas METODO DELETE
-//router.delete("/",controladorArtistas.eliminarCancion);
+router.delete("/",controladorArtistas.eliminarArtista);
 
 module.exports = router;

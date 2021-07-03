@@ -19,6 +19,7 @@
     <title>Deezify - Admin</title>
 </head>
 <body>
+    <!-- BARRA DE NAVEGACION SUPERIOR -->
     <nav class="navbar navbar-dark bg-dark text-white">
         <div>
             <img src="../assets/icons/logo.svg" alt="d" class="w-25">
@@ -30,6 +31,8 @@
             <button id="boton-cerrar-sesion"> <img src="../assets/icons/logout.svg" class="icono-boton"> Cerrar sesión</button>
         </div>
     </nav>
+
+    <!-- SECTION -->
     <section>
         <button onclick="location.href='/dashboard'" class="boton-vista-usuario"><img src="../assets/icons/retroceder.svg" class="icono-boton"></button>
         <div id="contenedor-section-administrador">
@@ -129,46 +132,6 @@
         </div>
     </div>
 
-    <!-- MODAL SUBIR CANCION -->
-    <!-- <div class="modal fade" id="modal-subir-cancion"> 
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content bg-dark">
-                <div class="modal-header">
-                    <button class="boton-volver" data-bs-dismiss="modal">Cerrar</button>
-                </div>
-                <div class="modal-body text-center">
-                    <h3>Nueva cancion</h3>
-                    <form id="form-nueva-cancion">
-                        <div>
-                            <label for="titulo">Título de la canción</label>
-                            <br>
-                            <input type="text" name="titulo" id="input-titulo" autocomplete="off">
-                        </div>
-                        <div>
-                            <label for="artista">Artista</label>
-                            <br>
-                            <input type="text" name="artista" id="input-artista" autocomplete="off">
-                        </div>
-                        <div>
-                            <label for="album">Álbum</label>
-                            <br/>
-                            <input type="text" name="album" id="input-album" autocomplete="off"/>
-                        </div>
-                        <div>
-                            <label class="label-cargar-archivo">
-                                <input type="file" name="pista" id="input-pista">
-                                Pista de audio
-                            </label>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button id="boton-guardar-nueva-cancion" class="mx-auto">Guardar canción</button>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    
     <!-- MODAL NUEVA CANCION -->
     <div class="modal fade" id="modal-subir-cancion"> 
         <div class="modal-dialog modal-dialog-centered">
@@ -189,6 +152,8 @@
                             <br>
                             <select name="genero" id="select-genero-crear-cancion">
                                 <option value="">Seleccione un género</option>
+                                <option value="Rock">Rock</option>
+                                <option value="Metal">Metal</option>
                             </select>
                         </div>
                         <div>
@@ -241,6 +206,8 @@
                             <br>
                             <select name="genero" id="select-genero-editar-cancion">
                                 <option value="">Seleccione un género</option>
+                                <option value="Rock">Rock</option>
+                                <option value="Metal">Metal</option>
                             </select>
                         </div>
                         <div>
@@ -298,6 +265,32 @@
         </div>
     </div>
 
+    <!-- MODAL EDITAR ARTISTA -->
+    <div class="modal fade" id="modal-editar-artista"> 
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <button class="boton-volver" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+                <div class="modal-body text-center">
+                    <h3>Editar Artista</h3>
+                    <form id="form-editar-artista">
+                        <div>
+                            <label for="artista">Nombre del artista / banda</label>
+                            <br>
+                            <input type="text" name="artista" id="input-editar-artista" autocomplete="off">
+                        </div>
+                    </form>
+                </div>
+                <div class="mx-auto text-center mt-4 mb-2">
+                    <button id="boton-guardar-editar-artista" class="mx-auto mb-4">Guardar edición</button>
+                    <br>
+                    <button id="boton-eliminar-artista" class="mx-auto mb-4 boton-eliminar">Eliminar Artista</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- MODAL CREAR ALBUM -->
     <div class="modal fade" id="modal-crear-album"> 
         <div class="modal-dialog modal-dialog-centered">
@@ -322,13 +315,51 @@
                             <label for="artista">Artista</label>
                             <br>
                             <select name="artista" id="select-artista-crear-album">
-                                <option>Seleccione un artista</option>
+                                <option value="">Seleccione un artista</option>
                             </select>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button id="boton-guardar-nuevo-album" class="mx-auto mb-4">Guardar album</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL EDITAR ALBUM -->
+    <div class="modal fade" id="modal-editar-album"> 
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <button class="boton-volver" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+                <div class="modal-body text-center">
+                    <h3>Editar Álbum</h3>
+                    <form id="form-editar-album">
+                        <div>
+                            <label for="album">Nombre del album</label>
+                            <br>
+                            <input type="text" name="album" id="input-nombre-editar-album" autocomplete="off">
+                        </div>
+                        <div>
+                            <label for="titulo">Fecha de lanzamiento</label>
+                            <br>
+                            <input type="date" name="fecha" id="input-fecha-editar-album" autocomplete="off">
+                        </div>
+                        <div>
+                            <label for="artista">Artista</label>
+                            <br>
+                            <select name="artista" id="select-artista-editar-album">
+                                <option value="">Seleccione un artista</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="mx-auto text-center mt-4 mb-3">
+                    <button id="boton-guardar-editar-album" class="mx-auto mb-4">Guardar álbum</button>
+                    <br>
+                    <button id="boton-eliminar-album" class="boton-eliminar">Eliminar álbum</button>
                 </div>
             </div>
         </div>

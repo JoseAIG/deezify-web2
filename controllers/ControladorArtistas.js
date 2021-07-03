@@ -1,5 +1,8 @@
+const ModeloUsuario = require('../models/Usuario');
+const ModeloListas = require('../models/Lista');
 const ModeloArtista = require('../models/Artista');
-const ObjectId = require('mongoose').Types.ObjectId; 
+const ModeloAlbum = require('../models/Album');
+const ModeloCancion = require('../models/Cancion');
 
 //GET /artistas
 //DEVOLVER LOS ARTISTAS QUE EL ADMINISTRADOR HA INGRESADO
@@ -23,7 +26,52 @@ const crearArtista = async (req, res) => {
     }
 }
 
+//PUT /artistas
+//EDITAR UN ARTISTA EXISTENTE
+const editarArtista = async (req, res) => {
+    try {
+        // const documento_artista = await ModeloArtista.findOne({_id:req.body.id_artista});
+        // documento_artista.nombre = req.body.artista;
+        // await documento_artista.save();
+        await ModeloArtista.findByIdAndUpdate(req.body.id_artista,{nombre:req.body.artista});
+        res.status(200).json({resultado:"Edicion de artista exitosa.", "status":200});
+    } catch (error) {
+        res.status(500).json({resultado:"No se puedo editar el artista.", status:500});
+    }
+}
+
+//DELETE /artistas
+//ELIMINAR UN ARTISTA EXISTENTE
+const eliminarArtista = async (req, res) => {
+    try {
+        //BUSCAR Y RECORRER LOS ALBUMES QUE PERTENECEN AL ARTISTA
+        const documentos_albumes = await ModeloAlbum.find({artista:req.body.id_artista})
+        for(let i=0; i<documentos_albumes.length; i++){
+            //OBTENER LAS CANCIONES DEL ALBUM DEL ARTISTA, RECORRERLAS Y REMOVERLAS
+            let documentos_canciones_album = await ModeloCancion.find({album:documentos_albumes[i]._id});
+            for(let j=0; j<documentos_canciones_album.length; j++){
+                //REMOVER LAS CANCIONES QUE ESTABAN EN EL ALBUM DE LOS FAVORITOS DE LOS USUARIOS 
+                await ModeloUsuario.updateMany({favoritos:documentos_canciones_album[j]._id},{$pull:{favoritos:documentos_canciones_album[j]._id}});
+                //REMOVER LAS CANCIONES QUE ESTABAN EN EL ALBUM DE LAS LISTAS DE REPRODUCCION
+                await ModeloListas.updateMany({canciones:documentos_canciones_album[j]._id},{$pull:{canciones:documentos_canciones_album[j]._id}});
+                //REMOVER EL DOCUMENTO DE LA CANCION
+                documentos_canciones_album[j].remove();
+            }
+            //REMOVER EL ALBUM
+            documentos_albumes[i].remove();
+        }
+        //REMOVER EL ARTISTA
+        await ModeloArtista.findByIdAndDelete(req.body.id_artista);
+        res.status(200).json({resultado:"Se ha eliminado el artista y todos sus albumes con canciones.", "status":200});
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({resultado:"No se puedo eliminar el artista.", status:500});
+    }
+}
+
 module.exports = {
     obtenerArtistas,
-    crearArtista
+    crearArtista,
+    editarArtista,
+    eliminarArtista
 }

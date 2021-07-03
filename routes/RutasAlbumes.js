@@ -13,9 +13,9 @@ router.get("/",controladorAlbumes.obtenerAlbumes);
 router.post("/",controladorAlbumes.crearAlbum);
 
 //ENDPOINT /albumes METODO PUT
-//router.put("/",controladorAlbumes.editarCancion);
+router.put("/",controladorAlbumes.editarAlbum);
 
 //ENDPOINT /albumes METODO DELETE
-//router.delete("/",controladorAlbumes.eliminarCancion);
+router.delete("/",controladorAlbumes.eliminarAlbum);
 
 module.exports = router;
