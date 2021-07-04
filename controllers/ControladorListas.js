@@ -3,37 +3,37 @@ const ModeloCancion = require('../models/Cancion');
 const ModeloUsuario = require('../models/Usuario');
 const ObjectId = require('mongoose').Types.ObjectId; 
 
-//GET /listas
+//GET /listas **DEPRECADO**
 //FUNCIONALIDAD PARA OBTENER LAS LISTAS DE REPRODUCCION DE UN USUARIO
 const obtenerListas = async (req, res) => {
-    try {
-        // //OBTENER EL MODELO DEL USUARIO PARA OBTENER LAS LISTAS DEL MISMO
-        // const documento_usuario = await ModeloUsuario.findOne({_id:req.session.objectid});
-        // //BUSCAR LAS LISTAS DEL USUARIO
-        // const documentos_listas = await ModeloListas.find({_id:{$in:documento_usuario.listas}});
-        // //RECORRER LAS LISTAS DEL USUARIO AGREGANDO EL ARREGLO DE LAS CANCIONES
-        // for(let i=0; i<documentos_listas.length; i++){
-        //     const canciones_lista = await ModeloCancion.find({_id:{$in:documentos_listas[i].canciones}});
-        //     documentos_listas[i].canciones = canciones_lista;
-        // }
+    // try {
+    //     // //OBTENER EL MODELO DEL USUARIO PARA OBTENER LAS LISTAS DEL MISMO
+    //     // const documento_usuario = await ModeloUsuario.findOne({_id:req.session.objectid});
+    //     // //BUSCAR LAS LISTAS DEL USUARIO
+    //     // const documentos_listas = await ModeloListas.find({_id:{$in:documento_usuario.listas}});
+    //     // //RECORRER LAS LISTAS DEL USUARIO AGREGANDO EL ARREGLO DE LAS CANCIONES
+    //     // for(let i=0; i<documentos_listas.length; i++){
+    //     //     const canciones_lista = await ModeloCancion.find({_id:{$in:documentos_listas[i].canciones}});
+    //     //     documentos_listas[i].canciones = canciones_lista;
+    //     // }
 
-        // res.send('{"listas":'+JSON.stringify(documentos_listas)+', "id_usuario":"'+req.session.objectid+'", "status":200}');
+    //     // res.send('{"listas":'+JSON.stringify(documentos_listas)+', "id_usuario":"'+req.session.objectid+'", "status":200}');
 
-        const documento_usuario = await ModeloUsuario.findOne({_id:req.session.objectid});
-        //const documentos_listas = await ModeloListas.find({_id:{$in:documento_usuario.listas}}).populate('canciones');
-        const documentos_listas = await ModeloListas.find({_id:{$in:documento_usuario.listas}})
-        .populate({
-            path: 'canciones',
-            populate: {path: 'artista album'}
-        });
+    //     const documento_usuario = await ModeloUsuario.findOne({_id:req.session.objectid});
+    //     //const documentos_listas = await ModeloListas.find({_id:{$in:documento_usuario.listas}}).populate('canciones');
+    //     const documentos_listas = await ModeloListas.find({_id:{$in:documento_usuario.listas}})
+    //     .populate({
+    //         path: 'canciones',
+    //         populate: {path: 'artista album'}
+    //     });
 
-        //console.log(documentos_listas);
-        //const documentos_listas = await ModeloListas.findOne({_id:ObjectId("60d9d10f334cd90908ceb127")}).populate('canciones');
-        //res.send('{"respuesta":'+JSON.stringify(documento)+'}');
-        res.send('{"listas":'+JSON.stringify(documentos_listas)+', "id_usuario":"'+req.session.objectid+'", "tipo":"'+req.session.tipo+'", "status":200}');
-    } catch (error) {
-        res.send('{"resultado":"No se pudo obtener las listas", "status":500}');
-    }
+    //     //console.log(documentos_listas);
+    //     //const documentos_listas = await ModeloListas.findOne({_id:ObjectId("60d9d10f334cd90908ceb127")}).populate('canciones');
+    //     //res.send('{"respuesta":'+JSON.stringify(documento)+'}');
+    //     res.send('{"listas":'+JSON.stringify(documentos_listas)+', "id_usuario":"'+req.session.objectid+'", "tipo":"'+req.session.tipo+'", "status":200}');
+    // } catch (error) {
+    //     res.send('{"resultado":"No se pudo obtener las listas", "status":500}');
+    // }
 }
 
 //POST /listas

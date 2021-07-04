@@ -41,7 +41,7 @@
     margin-bottom: 3em;
 }
 
-#contenedor-listas{
+.contenedor-elemento{
     /* height: 8em; */
     text-align: left;
     margin: 1em;
@@ -49,27 +49,31 @@
     /* background-color: red; */
 }
 
-#contenedor-listas div{
+.contenedor-elemento h4{
+    text-align: center;
+}
+
+.contenedor-elemento div{
     display: flex;
     margin-bottom: 1em;
 }
 
-#contenedor-listas div button{
+.contenedor-elemento div button{
     height: 2em;
     width: 2em;
     margin: auto;
     line-height: 1em;
 }
 
-#contenedor-listas div button:first-child{
+.contenedor-elemento div button:first-child{
     margin-left: 0.5em;
 }
 
-#contenedor-listas div button:last-child{
+.contenedor-elemento div button:last-child{
     margin-right: 0.5em;
 }
 
-#contenedor-listas p{
+.contenedor-elemento p{
     width: 100%;
     margin: auto;
     margin-left: 0.5em;

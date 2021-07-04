@@ -22,14 +22,22 @@ const SchemaUsuario = new mongoose.Schema({
         type: String,
         required: true
     },
-    // favoritos: {
-    //     type: Array
-    // },
-    favoritos: [{type: mongoose.Schema.Types.ObjectId, ref:'Cancion'}],
-    // listas: {
-    //     type: Array,
-    // }
-    listas: [{type: mongoose.Schema.Types.ObjectId, ref:'Lista'}]
+    favoritos:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Cancion'
+    }],
+    listas:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Lista'
+    }],
+    artistas_seguidos:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Artista'
+    }],
+    albumes_seguidos:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Album'
+    }]
 });
 
 const Usuario = mongoose.model("Usuario", SchemaUsuario, "usuarios");

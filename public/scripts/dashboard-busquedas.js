@@ -103,11 +103,46 @@ function seguir_lista(id_lista) {
     fetch('seguidos', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: '{"id_lista":"'+id_lista+'"}'
+        body: '{"elemento":"lista", "id_lista":"'+id_lista+'"}'
     })
     .then(response => response.json())
     .then(data => {
-        //console.log(data);
+        alert(data.resultado);
+        refrescar_listas();
+    })	    
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
+//FUNCION PARA SEGUIR UN ARTISTA
+function seguir_artista(id_artista){
+    console.log("seguir artista", id_artista);
+    fetch('seguidos', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: '{"elemento":"artista", "id_artista":"'+id_artista+'"}'
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.resultado);
+        refrescar_listas();
+    })	    
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
+//FUNCION PARA SEGUIR UN ALBUM
+function seguir_album(id_album){
+    console.log("seguir album", id_album);
+    fetch('seguidos', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: '{"elemento":"album", "id_album":"'+id_album+'"}'
+    })
+    .then(response => response.json())
+    .then(data => {
         alert(data.resultado);
         refrescar_listas();
     })	    
@@ -140,5 +175,7 @@ export{
     reproducir_cancion,
     agregar_cancion_a_lista,
     agregar_cancion_a_favoritos,
-    seguir_lista
+    seguir_lista,
+    seguir_artista,
+    seguir_album
 }

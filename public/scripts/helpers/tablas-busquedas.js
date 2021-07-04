@@ -1,6 +1,6 @@
 //IMPORTS
 import { editar_lista, eliminar_lista } from '../dashboard-usuario.js';
-import { listas_propietarias, id_listas_propietarias, reproducir_cancion, agregar_cancion_a_favoritos, agregar_cancion_a_lista, seguir_lista } from '../dashboard-busquedas.js';
+import { listas_propietarias, id_listas_propietarias, reproducir_cancion, agregar_cancion_a_favoritos, agregar_cancion_a_lista, seguir_lista, seguir_artista, seguir_album } from '../dashboard-busquedas.js';
 import { dibujar_contenido_lista_propietaria, dibujar_contenido_lista_ajena, dibujar_contenido_visualizar_artista, dibujar_contenido_visualizar_album } from './contenido-modals.js';
 
 //-------------------------------------------------//
@@ -267,7 +267,7 @@ function dibujar_tabla_albumes_busqueda(resultados) {
                     else if(j==5){
                         contenido_celda.innerHTML=`<button><img src='../assets/icons/add.svg' class='icono-boton'></button>`
                         contenido_celda.addEventListener('click',()=>{
-                            console.log("seguir album");
+                            seguir_album(resultados[i]._id);
                         });
                     }
                     else if(j==6){
@@ -347,7 +347,7 @@ function dibujar_tabla_artistas_busqueda(resultados) {
                     else if(j==3){
                         contenido_celda.innerHTML=`<button><img src='../assets/icons/add.svg' class='icono-boton'></button>`
                         contenido_celda.addEventListener('click',()=>{
-                            console.log("seguir artista");
+                            seguir_artista(resultados[i]._id);
                         });
                     }
                     else if(j==4){

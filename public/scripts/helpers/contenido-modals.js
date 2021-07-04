@@ -12,6 +12,10 @@ function dibujar_contenido_lista_propietaria(listas, indice){
     for(let i=0; i<listas[indice].canciones.length; i++){
         //CONTENEDOR DE LAS CANCIONES
         let div = document.createElement("div");
+        //BOTON PARA REPRODUCIR LA CANCION
+        let boton_reproducir = document.createElement("button");
+        boton_reproducir.innerHTML='<img src="../assets/icons/reproducir.svg" class="icono-boton">'
+        div.appendChild(boton_reproducir);
         //INPUT PARA EL NOMBRE DE LA CANCION
         let input = document.createElement("input");
         input.type="text";
@@ -73,7 +77,8 @@ function dibujar_contenido_lista_ajena(listas, indice, seguido){
 //DIBUJADO DEL CONTENIDO PARA LA  VISUALIZACION DE LA PERSPECTIVA DE UN ARTISTA
 var nombre_visualizar_artista = document.getElementById("nombre-visualizar-artista");
 var contenedor_visualizar_albumes_artista = document.getElementById("contenedor-visualizar-albumes-artista");
-function dibujar_contenido_visualizar_artista(artistas, indice) {
+var boton_dejar_de_seguir_artista = document.getElementById("boton-dejar-de-seguir-artista");
+function dibujar_contenido_visualizar_artista(artistas, indice, edicion) {
     console.log("funcion visualizar contenido modal artista");
     nombre_visualizar_artista.innerHTML = artistas[indice].nombre;
     contenedor_visualizar_albumes_artista.innerHTML="";
@@ -102,6 +107,12 @@ function dibujar_contenido_visualizar_artista(artistas, indice) {
             dibujar_contenido_visualizar_album(artistas[indice].albumes, i, artistas[indice].nombre);
         })
 
+        if(edicion){
+            boton_dejar_de_seguir_artista.style.display="block";
+        }else{
+            boton_dejar_de_seguir_artista.style.display="none";
+        }
+
         contenedor_visualizar_albumes_artista.appendChild(div);
     }
 }
@@ -114,11 +125,13 @@ var nombre_visualizar_album = document.getElementById("nombre-visualizar-album")
 var nombre_artista_visualizar_album = document.getElementById("nombre-artista-visualizar-album");
 var lanzamiento_visualizar_album = document.getElementById("lanzamiento-visualizar-album");
 var contenedor_visualizar_canciones_album = document.getElementById("contenedor-visualizar-canciones-album");
-function dibujar_contenido_visualizar_album(contenido, indice, artista){
-    console.log("funcion dibujar contenido albumes", contenido, indice, artista);
+var boton_dejar_de_seguir_album = document.getElementById("boton-dejar-de-seguir-album");
+function dibujar_contenido_visualizar_album(contenido, indice, config){
+    console.log("funcion dibujar contenido albumes", contenido, indice, config);
     nombre_visualizar_album.innerHTML=contenido[indice].nombre_album;
-    if(artista){
-        nombre_artista_visualizar_album.innerHTML=artista;
+    //SI EL PARAMETRO CONFIG ES BRINDADO Y ES DISTINTO DE TRUE, QUIERE DECIR QUE ES EL NOMBRE DEL ARTISTA LO QUE SE ESTA ENVIANDO POR PARAMETROS
+    if(config && config!==true){
+        nombre_artista_visualizar_album.innerHTML=config;
     }else{
         nombre_artista_visualizar_album.innerHTML=contenido[indice].artista.nombre;
     }
@@ -142,6 +155,14 @@ function dibujar_contenido_visualizar_album(contenido, indice, artista){
 
         contenedor_visualizar_canciones_album.appendChild(div);
     }
+
+    //SI CONFIG ES TRUE, SIGNIFICA QUE SE ESTA VIENDO EL ALBUM DESDE LA PERSPECTIVA DE UN SEGUIDOR Y POR ENDE SE LE BRINDA LA VISIBILIDAD DEL BOTON DEJAR DE SEGUIR
+    if(config===true){
+        boton_dejar_de_seguir_album.style.display="block";
+    }else{
+        boton_dejar_de_seguir_album.style.display="none";
+    }
+
 }
 
 //--------------------------------------------------------------- //

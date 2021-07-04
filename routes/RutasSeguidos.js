@@ -7,12 +7,12 @@ const ControladorSeguidos = require('../controllers/ControladorSeguidos');
 //RUTAS /seguidos
 
 //ENDPOINT /seguidos METODO GET
-//router.get("/",ControladorSeguidos.);
+router.get("/",ControladorSeguidos.obtenerSeguidos);
 
 //ENDPOINT /seguidos METODO POST
-router.post("/",ControladorSeguidos.seguirlista);
+router.post("/",ControladorSeguidos.seguirElemento);
 
 //ENDPOINT /seguidos METODO DELETE
-router.delete("/",ControladorSeguidos.dejarDeSeguirLista);
+router.delete("/",ControladorSeguidos.dejarDeSeguirElemento);
 
 module.exports = router;
