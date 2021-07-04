@@ -19,6 +19,9 @@ img{
 .card{
     border-radius: 25px;
 }
+.card-header{
+    border: none;
+}
 .contenedor-tarjeta{
     width: 30%;
     margin: auto;

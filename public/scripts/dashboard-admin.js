@@ -348,6 +348,30 @@ function eliminar_cancion(id_cancion){
     }
 }
 
+//FUNCIONALIDAD PARA DELEGAR UN PERFIL REGISTRADO COMO ADMINISTRADOR
+var form_nuevo_admin = document.getElementById("form-nuevo-admin");
+var boton_guardar_nuevo_admin = document.getElementById("boton-guardar-nuevo-admin");
+const guardar_nuevo_admin = () => {
+    let datos_form_nuevo_admin = new FormData(form_nuevo_admin);
+    fetch('admin', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(Object.fromEntries(datos_form_nuevo_admin.entries()))
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        alert(data.resultado);
+        if(data.status==200){
+            window.open("/admin","_self");
+        }
+    })	    
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+boton_guardar_nuevo_admin.onclick = guardar_nuevo_admin;
+
 //EXPORT DE FUNCIONES DE UTILIDAD PARA ARTISTAS, ALBUMES Y CANCIONES, EMPLEADAS EN "tablas-admin.js"
 export{
     //FUNCIONALIDADES ARTISTA

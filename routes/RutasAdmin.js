@@ -9,4 +9,7 @@ const controladorAdmin = require('../controllers/ControladorAdmin');
 //ENDPOINT /admin METODO GET
 router.get("/",controladorAdmin.vistaAdmin);
 
+//ENDPOINT /admin METODO POST
+router.post("/",controladorAdmin.nuevoAdmin);
+
 module.exports = router;

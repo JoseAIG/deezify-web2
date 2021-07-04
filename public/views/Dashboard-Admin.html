@@ -85,7 +85,7 @@
                     <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal-crear-artista">Nuevo Artista</button></li>
                     <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal-crear-album">Nuevo Album</button></li>
                     <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal-subir-cancion">Nueva Canción</button></li>
-                    <li><button class="dropdown-item">Crear perfil administrador</button></li>
+                    <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal-nuevo-admin">Crear perfil administrador</button></li>
                 </ul>
             </div>
         </div>
@@ -360,6 +360,32 @@
                     <button id="boton-guardar-editar-album" class="mx-auto mb-4">Guardar álbum</button>
                     <br>
                     <button id="boton-eliminar-album" class="boton-eliminar">Eliminar álbum</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL NUEVO ADMIN -->
+    <div class="modal fade" id="modal-nuevo-admin"> 
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <button class="boton-volver" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+                <div class="modal-body text-center">
+                    <h3>Nuevo Administrador</h3>
+                    <p>Ingrese el <b>usuario</b> o <b>correo</b> de un perfil registrado para convertirlo en administrador.</p>
+                    <form id="form-nuevo-admin">
+                        <div>
+                            <label for="artista">Usuario / Correo</label>
+                            <br>
+                            <input type="text" name="usuario" id="input-nuevo-admin" autocomplete="off">
+                        </div>
+                    </form>
+                    <p class="mt-4" style="color: red;">Esta operación es peligrosa, proceda con seguridad...</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="boton-guardar-nuevo-admin" class="mx-auto mb-4">Aceptar</button>
                 </div>
             </div>
         </div>
