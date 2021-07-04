@@ -1,3 +1,6 @@
+//IMPORTS
+import { seguir_album, agregar_cancion_a_favoritos } from "../dashboard-busquedas.js";
+
 //---------------------------------------------------------- //
 // CONFIGURACION DE LOS ELEMENTOS PARA VISUALIZAR LAS LISTAS //
 //---------------------------------------------------------- //
@@ -95,6 +98,14 @@ function dibujar_contenido_visualizar_artista(artistas, indice, edicion) {
         input.disabled=true;
         input.value = artistas[indice].albumes[i].nombre_album;
         div.appendChild(input);
+        //BOTON SEGUIR ALBUM
+        let boton_seguir_album = document.createElement("button");
+        boton_seguir_album.innerHTML='<img src="../assets/icons/add.svg" class="icono-boton">'
+        div.appendChild(boton_seguir_album);
+        boton_seguir_album.addEventListener('click',()=>{
+            seguir_album(artistas[indice].albumes[i]._id);
+        })
+
         //BOTON VISUALIZAR ALBUM
         let boton_ver_album = document.createElement("button");
         boton_ver_album.className="boton-gris";
@@ -149,9 +160,12 @@ function dibujar_contenido_visualizar_album(contenido, indice, config){
         input.value = contenido[indice].canciones[i].nombre_cancion;
         div.appendChild(input);
 
-        let boton_ver_album = document.createElement("button");
-        boton_ver_album.innerHTML='<img src="../assets/icons/corazon-vacio.svg" class="icono-boton">'
-        div.appendChild(boton_ver_album);
+        let agregar_a_favoritos = document.createElement("button");
+        agregar_a_favoritos.innerHTML='<img src="../assets/icons/corazon-vacio.svg" class="icono-boton">'
+        div.appendChild(agregar_a_favoritos);
+        agregar_a_favoritos.addEventListener('click',()=>{
+            agregar_cancion_a_favoritos(contenido[indice].canciones[i]._id);
+        })
 
         contenedor_visualizar_canciones_album.appendChild(div);
     }
@@ -165,59 +179,10 @@ function dibujar_contenido_visualizar_album(contenido, indice, config){
 
 }
 
-//--------------------------------------------------------------- //
-// CONFIGURACION DE LOS ELEMENTOS PARA LAS EDICIONES POR UN ADMIN //
-//--------------------------------------------------------------- //
-//CONFIGURACION DEL CONTENIDO DE LOS ELEMENTOS PARA EDITAR UNA CANCION
-var input_editar_titulo_cancion = document.getElementById("input-editar-titulo-cancion");
-var select_genero_editar_cancion = document.getElementById("select-genero-editar-cancion");
-var select_artista_editar_cancion = document.getElementById("select-artista-editar-cancion");
-var select_album_editar_cancion = document.getElementById("select-album-editar-cancion");
-function dibujar_contenido_editar_cancion(canciones, indice, artista, album){
-    //COLOCAR EL NOMBRE DE LA CANCION EN EL INPUT PARA EDICION
-    input_editar_titulo_cancion.value = canciones[indice].nombre_cancion;
-    //ASIGNAR LA OPCION DEL SELECT DEL GENERO DE LA CANCION
-    select_genero_editar_cancion.value = canciones[indice].genero;
-    //ASIGNAR LA OPCION DEL SELECT ARTISTA
-    select_artista_editar_cancion.value = artista;
-    //ASIGNAR LA OPCION DEL SELECT ALBUM EN BASE AL ARTISTA Y A LA SELECCION ACTUAL
-    select_album_editar_cancion.innerHTML='<option value="">Seleccione un álbum</option>';
-    for(let i=0; i<canciones[indice].artista.albumes.length; i++){
-        let option = document.createElement("option");
-        option.text = canciones[indice].artista.albumes[i].nombre_album;
-        option.value = canciones[indice].artista.albumes[i]._id;
-        select_album_editar_cancion.appendChild(option);
-    }
-    select_album_editar_cancion.value = album;
-    //input_editar_artista_cancion.value = canciones[indice].artista.nombre;
-    //input_editar_album_cancion.value = canciones[indice].album.nombre_album;
-}
-
-//CONFIGURACION DEL CONTENIDO DE LOS ELEMENTOS PARA EDITAR UN ARTISTA
-var input_editar_artista = document.getElementById("input-editar-artista");
-function dibujar_contenido_editar_artista(artista) {
-    input_editar_artista.value = artista;
-}
-
-//CONFIGURACION DEL CONTENIDO DE LOS ELEMENTOS PARA EDITAR UN ALBUM
-var input_nombre_editar_album = document.getElementById("input-nombre-editar-album");
-var input_fecha_editar_album = document.getElementById("input-fecha-editar-album");
-var select_artista_editar_album = document.getElementById("select-artista-editar-album");
-function dibujar_contenido_editar_album(album){
-    console.log(album);
-    input_nombre_editar_album.value = album.nombre_album;
-    input_fecha_editar_album.value = album.lanzamiento;
-    select_artista_editar_album.value = album.artista._id;
-}
-
+//EXPORT DE FUNCIONES PARA MODALS EN TABLAS BUSQUEDAS
 export {
-    //FUNCIONES PARA MODALS EN TABLAS BUSQUEDAS
     dibujar_contenido_lista_propietaria,
     dibujar_contenido_lista_ajena,
     dibujar_contenido_visualizar_artista,
     dibujar_contenido_visualizar_album,
-    //FUNCIONES PARA MODALS EN TABLAS ADMIN
-    dibujar_contenido_editar_artista,
-    dibujar_contenido_editar_album,
-    dibujar_contenido_editar_cancion
 }

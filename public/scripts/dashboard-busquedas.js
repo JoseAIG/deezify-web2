@@ -2,6 +2,17 @@
 import { refrescar_listas } from './dashboard-usuario.js';
 import { dibujar_tabla_canciones_busqueda, dibujar_tabla_listas_busqueda, dibujar_tabla_albumes_busqueda, dibujar_tabla_artistas_busqueda } from './helpers/tablas-busquedas.js'
 
+//MOSTRAR EL SELECT DE GÉNEROS CUANDO SE DECIDA REALIZAR UNA BUSQUEDA POR GENEROS
+var select_busqueda = document.getElementById("select-busqueda");
+var select_genero = document.getElementById("select-genero");
+select_busqueda.addEventListener('change',()=>{
+    if(select_busqueda.value=="genero"){
+        select_genero.style.display="block";
+    }else{
+        select_genero.style.display="none"; 
+    }
+})
+
 //FUNCION PARA REALIZAR UNA NUEVA BUSQUEDA
 var form_busqueda = document.getElementById("form-busqueda");
 var boton_buscar = document.getElementById("boton-buscar");
@@ -9,6 +20,7 @@ var contenedor_resultados = document.getElementById("contenedor-resultados");
 const realizar_busqueda = (e) => {
     e.preventDefault();
     let datos_form_buscar = new FormData(form_busqueda);
+    console.log(Object.fromEntries(datos_form_buscar.entries()));
     fetch('dashboard', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},

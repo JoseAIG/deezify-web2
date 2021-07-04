@@ -30,9 +30,6 @@ const crearArtista = async (req, res) => {
 //EDITAR UN ARTISTA EXISTENTE
 const editarArtista = async (req, res) => {
     try {
-        // const documento_artista = await ModeloArtista.findOne({_id:req.body.id_artista});
-        // documento_artista.nombre = req.body.artista;
-        // await documento_artista.save();
         await ModeloArtista.findByIdAndUpdate(req.body.id_artista,{nombre:req.body.artista});
         res.status(200).json({resultado:"Edicion de artista exitosa.", "status":200});
     } catch (error) {
@@ -57,9 +54,13 @@ const eliminarArtista = async (req, res) => {
                 //REMOVER EL DOCUMENTO DE LA CANCION
                 documentos_canciones_album[j].remove();
             }
+            //REMOVER EL REGISTRO DE ALBUM SEGUIDO EN LOS DOCUMENTOS DE LOS USUARIOS
+            await ModeloUsuario.updateMany({albumes_seguidos:documentos_albumes[i]._id},{$pull:{albumes_seguidos:documentos_albumes[i]._id}});
             //REMOVER EL ALBUM
             documentos_albumes[i].remove();
         }
+        //REMOVER EL REGISTRO DE ARTISTA SEGUIDO EN LOS DOCUMENTOS DE LOS USUARIOS
+        await ModeloUsuario.updateMany({artistas_seguidos:req.body.id_artista},{$pull:{artistas_seguidos:req.body.id_artista}});
         //REMOVER EL ARTISTA
         await ModeloArtista.findByIdAndDelete(req.body.id_artista);
         res.status(200).json({resultado:"Se ha eliminado el artista y todos sus albumes con canciones.", "status":200});

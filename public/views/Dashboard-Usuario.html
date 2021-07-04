@@ -53,9 +53,20 @@
         <form id="form-busqueda">
             <select name="select_busqueda" id="select-busqueda">
                 <option value="canciones">Canciones</option>
+                <option value="genero">Género</option>
                 <option value="artistas">Artistas</option>
                 <option value="albumes">Albumes</option>
                 <option value="listas">Listas</option>
+            </select>
+            <select name="select_genero" id="select-genero" style="display: none;">
+                <option value="Rock">Rock</option>
+                <option value="Metal">Metal</option>
+                <option value="Clasica">Clásica</option>
+                <option value="Rap">Rap</option>
+                <option value="Electronica">Electrónica</option>
+                <option value="Pop">Pop</option>
+                <option value="Hip-Hop">Hip-Hop</option>
+                <option value="Reggaeton">Reggaetón</option>
             </select>
             <input type="text" name="palabra_clave" id="input-busqueda" autocomplete="off">
             <button id="boton-buscar"><img src="../assets/icons/search.svg"></button>

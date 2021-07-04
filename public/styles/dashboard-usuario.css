@@ -81,14 +81,14 @@
 }
 
 #contenedor-favoritos input, #contenedor-input-canciones input, #contenedor-visualizar-canciones-lista input, #contenedor-visualizar-albumes-artista input, #contenedor-visualizar-canciones-album input{
-    width: 65%;
+    width: 55%;
     height: 3em;
     margin-bottom: 1.5em;
     margin-right: 0.5em;
     text-align: center;
 }
 
-#contenedor-favoritos button, #contenedor-visualizar-albumes-artista button, #contenedor-visualizar-canciones-album button, #contenedor-visualizar-canciones-lista button{
+#contenedor-favoritos button, #contenedor-input-canciones button, #contenedor-visualizar-albumes-artista button, #contenedor-visualizar-canciones-album button, #contenedor-visualizar-canciones-lista button{
     width: 3em;
     height: 3em;
     margin-right: 0.5em;

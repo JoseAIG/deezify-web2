@@ -3,7 +3,7 @@
 //------------------------------------------------------------ //
 
 //IMPORTS
-import { dibujar_contenido_editar_artista, dibujar_contenido_editar_album, dibujar_contenido_editar_cancion } from './contenido-modals.js';
+import { dibujar_contenido_editar_artista, dibujar_contenido_editar_album, dibujar_contenido_editar_cancion } from './contenido-modals-admin.js';
 import { editar_artista, eliminar_artista, editar_album, eliminar_album, editar_cancion, eliminar_cancion } from '../dashboard-admin.js';
 
 var contenedor_artistas = document.getElementById("contenedor-artistas");

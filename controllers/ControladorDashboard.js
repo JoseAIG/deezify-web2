@@ -51,6 +51,16 @@ const realizarBusqueda = async (req, res) => {
             const documentos_busqueda = await ModeloCancion.find({nombre_cancion: req.body.palabra_clave}).populate('artista album');
             res.send('{"status":200, "elementos":"canciones", "resultado_busqueda":'+JSON.stringify(documentos_busqueda)+'}');
         }
+        else if(req.body.select_busqueda == "genero"){
+            //SI SE REALIZA UNA BUSQUEDA POR GENERO SIN NOMBRE DE NINGUNA CANCION BUSCAR TODAS LAS CANCIONES DE ESE GENERO
+            if(req.body.palabra_clave == ""){
+                const documentos_busqueda = await ModeloCancion.find({genero: req.body.select_genero}).populate('artista album');
+                res.status(200).json({status:200, elementos:"canciones", resultado_busqueda:documentos_busqueda});
+            }else{
+                const documentos_busqueda = await ModeloCancion.find({nombre_cancion: req.body.palabra_clave, genero: req.body.select_genero}).populate('artista album');
+                res.status(200).json({status:200, elementos:"canciones", resultado_busqueda:documentos_busqueda});
+            }
+        }
         else if(req.body.select_busqueda == "listas"){
             const documentos_busqueda = await  ModeloLista.find({nombre_lista: req.body.palabra_clave})
             .populate({

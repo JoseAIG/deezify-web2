@@ -89,6 +89,8 @@ const eliminarAlbum = async (req, res) => {
         const documento_album = await ModeloAlbum.findOne({_id:req.body.id_album});
         //REMOVER EL ALBUM DEL ARREGLO DE ALBUMES DEL ARTISTA
         await ModeloArtista.findOneAndUpdate({_id:documento_album.artista._id},{$pull:{albumes:req.body.id_album}})
+        //REMOVER LOS REGISTROS DE ALBUMES SEGUIDOS EN LOS DOCUMENTOS DE LOS USUARIOS
+        await ModeloUsuario.updateMany({albumes_seguidos:req.body.id_album},{$pull:{albumes_seguidos:req.body.id_album}});
         //REMOVER EL DOCUMENTO DEL ALBUM
         documento_album.remove();
 
