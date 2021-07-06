@@ -277,8 +277,6 @@ const guardar_nueva_cancion = () => {
     }else{
         fetch('canciones', {
             method: 'POST',
-            //headers: {'Content-Type': 'application/json'},
-            //body: JSON.stringify(Object.fromEntries(datos_form_nueva_cancion.entries()))
             body: datos_form_nueva_cancion
         })
         .then(response => response.json())
@@ -286,7 +284,7 @@ const guardar_nueva_cancion = () => {
             console.log(data);
             alert(data.resultado);
             if(data.status==200){
-                //window.open("/admin","_self");
+                window.open("/admin","_self");
             }
         })	    
         .catch((error) => {
@@ -308,15 +306,14 @@ function editar_cancion(id_cancion){
         }else{
             fetch('canciones', {
                 method: 'PUT',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(Object.fromEntries(datos_form_editar_cancion.entries()))
+                body: datos_form_editar_cancion
             })
             .then(response => response.json())
             .then(data => {
                 console.log(data);
                 alert(data.resultado);
                 if(data.status==200){
-                    //window.open("/admin","_self");
+                    window.open("/admin","_self");
                 }
             })	    
             .catch((error) => {

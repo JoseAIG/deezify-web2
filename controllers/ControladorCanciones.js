@@ -49,14 +49,13 @@ const cargarCancion = async (req, res) => {
     console.log(req.body);
     console.log(req.file);
     try {
-        // const documento_cancion =  new ModeloCancion({nombre_cancion: req.body.titulo, genero: req.body.genero, artista: req.body.artista, album: req.body.album, propietario: req.session.objectid, reproducciones: 0, ruta_cancion: " "});
-        // await documento_cancion.save();
-        // await ModeloAlbum.updateOne({_id:req.body.album},{$push:{canciones:documento_cancion._id}});
-        // res.send('{"resultado":"Cancion guardada exitosamente", "status":200}');
-        res.status(200).json({resultado:"Operacion en proceso",status:200});
+        const documento_cancion =  new ModeloCancion({nombre_cancion: req.body.titulo, genero: req.body.genero, artista: req.body.artista, album: req.body.album, propietario: req.session.objectid, reproducciones: 0, ruta_cancion: req.file.path});
+        await documento_cancion.save();
+        await ModeloAlbum.updateOne({_id:req.body.album},{$push:{canciones:documento_cancion._id}});
+        res.status(200).json({resultado:"Cancion cargada exitosamente",status:200});
     } catch (error) {
         console.log(error);
-        res.send('{"resultado":"No se pudo guardar la cancion", "status":500}');
+        res.status(500).json({resultado:"No se pudo cargar la cancion",status:500});
     }
 }
 
@@ -95,6 +94,10 @@ const editarCancion = async (req, res) => {
             await ModeloAlbum.findByIdAndUpdate(req.body.album,{$push:{canciones:documento_cancion._id}});
             //ASIGNAR AL DOCUMENTO DE LA CANCION EL ID DEL NUEVO ALBUM
             documento_cancion.album = req.body.album;
+        }
+        //COMPROBAR SI SE ENVIO UNA CANCION
+        if(req.file){
+            documento_cancion.ruta_cancion = req.file.path;
         }
         //GUARDAR LOS CAMBIOS EN EL DOCUMENTO DE LA CANCION
         await documento_cancion.save();
