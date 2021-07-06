@@ -94,6 +94,15 @@
     margin-right: 0.5em;
 }
 
+.contenedor-botones button{
+    margin-left: 2em;
+    margin-right: 2em;
+}
+
+.icono-reproductor{
+    width: 30px;
+}
+
 /* #contenedor-resultados{
     width: 80%;
     margin: auto;

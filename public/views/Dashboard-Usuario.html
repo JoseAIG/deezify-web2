@@ -14,7 +14,7 @@
     <!-- JS MAIN -->
     <script src="../scripts/dashboard-perfil.js" defer></script>
     <script src="../scripts/dashboard-usuario.js" type="module" defer></script>
-    <script src="../scripts/dashboard-favoritos.js" defer></script>
+    <script src="../scripts/dashboard-favoritos.js" type="module" defer></script>
     <script src="../scripts/dashboard-busquedas.js" type="module" defer></script>
 
     <title>Deezify - Dashboard</title>
@@ -73,6 +73,26 @@
         </form>
         <div id="contenedor-resultados"></div>
     </section>
+    
+    <!-- BARRA DE REPRODUCCION INFERIOR -->
+    <nav id="nav-reproductor" class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div id="contenedor-botones">
+                <button id="boton-anterior-cancion">
+                    <img src="../assets/icons/anterior-cancion.svg" class="icono-reproductor">
+                </button>
+                &nbsp;
+                <button id="boton-reproducir-pausar">
+                    <img src="../assets/icons/reproducir.svg" class="icono-reproductor">
+                </button>
+                &nbsp;
+                <button id="boton-siguiente-cancion">
+                    <img src="../assets/icons/siguiente-cancion.svg" class="icono-reproductor">
+                </button>
+            </div>
+            <div id="contenedor-reproductor"></div>
+        </div>
+    </nav>
 
     <!-- MODAL EDITAR PERFIL -->
     <div class="modal fade" id="exampleModal"> 

@@ -1,3 +1,5 @@
+import { reproducir_cancion, reproducir_arreglo_canciones } from "./dashboard-reproduccion.js";
+
 var boton_ver_favoritos = document.getElementById("ver-favoritos");
 var contenedor_favoritos = document.getElementById("contenedor-favoritos");
 
@@ -27,6 +29,10 @@ function dibujar_favoritos(favoritos) {
             let boton_reproducir = document.createElement("button");
             boton_reproducir.innerHTML='<img src="../assets/icons/reproducir.svg" class="icono-boton">'
             div.appendChild(boton_reproducir);
+            //FUNCIONALIDAD PARA REPRODUCIR UNA CANCION EN FAVORITOS
+            boton_reproducir.addEventListener('click',()=>{
+                reproducir_cancion(favoritos[i]._id);
+            });
 
             let input = document.createElement("input")
             input.disabled=true;
@@ -48,6 +54,22 @@ function dibujar_favoritos(favoritos) {
         contenedor_favoritos.innerHTML="<h4>No tienes ninguna canción en favoritos. ¡Busca y añade alguna!";
     }
 }
+
+var boton_reproducir_favoritos = document.getElementById("reproducir-favoritos");
+function reproducir_favoritos(favoritos){
+    fetch('favoritos', {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'},
+    })
+    .then(response => response.json())
+    .then(data => {
+        reproducir_arreglo_canciones(data.favoritos);
+    })	    
+    .catch((error) => {
+        console.error('Error:', error);
+    }); 
+}
+boton_reproducir_favoritos.onclick = reproducir_favoritos;
 
 function remover_favorito(id_cancion) {
     fetch('favoritos', {

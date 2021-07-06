@@ -15,6 +15,7 @@ const rutasFavoritos = require('./routes/RutasFavoritos');
 const rutasSeguidos = require('./routes/RutasSeguidos');
 const rutasArtistas = require('./routes/RutasArtistas');
 const rutasAlbumes = require('./routes/RutasAlbumes');
+const rutasReproduccion = require('./routes/RutasReproduccion');
 
 //app.use(express.static("public"));
 app.use("/scripts", express.static(__dirname + '/public/scripts'));
@@ -42,6 +43,7 @@ app.use('/favoritos', rutasFavoritos);
 app.use('/seguidos', rutasSeguidos);
 app.use('/artistas', rutasArtistas);
 app.use('/albumes', rutasAlbumes);
+app.use('/reproduccion', rutasReproduccion);
 
 //CONECTARSE A LA BASE DE DATOS
 mongoose.connect('mongodb+srv://admin:Av4lanch@deezify-cluster.voizy.mongodb.net/deezify?retryWrites=true&w=majority',{

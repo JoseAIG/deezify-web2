@@ -1,6 +1,7 @@
 //IMPORTS
 import { establecer_listas_del_usuario } from './dashboard-busquedas.js';
 import { dibujar_contenido_lista_propietaria, dibujar_contenido_lista_ajena, dibujar_contenido_visualizar_artista, dibujar_contenido_visualizar_album } from './helpers/contenido-modals.js';
+import { reproducir_arreglo_canciones, reproducir_artista } from './dashboard-reproduccion.js';
 
 var boton_visualizar_aside = document.getElementById("visualizar-aside");
 var aside_principal = document.querySelector("#aside-principal");
@@ -83,6 +84,9 @@ function dibujar_listas_aside(datos){
             let reproducir = document.createElement("button");
             reproducir.innerHTML="<img src='../assets/icons/reproducir.svg' class='icono-boton'></img>"
             div.appendChild(reproducir);
+            reproducir.addEventListener('click',()=>{
+                reproducir_arreglo_canciones(listas[i].canciones);
+            });
             //PARRAFO NOMBRE DE LA LISTA
             let p = document.createElement("p");
             p.innerText = listas[i].nombre_lista;
@@ -95,12 +99,7 @@ function dibujar_listas_aside(datos){
             div.appendChild(editar);
     
             contenedor_listas.appendChild(div);
-    
-            //FUNCIONALIDAD PARA REPRODUCIR UNA LISTA
-            reproducir.addEventListener('click',()=>{
-                console.log("reproducir lista " + listas[i].nombre_lista);
-            })
-    
+            
             //COMPROBACION SI LA LISTA ES PROPIETARIA PARA MOSTRAR LOS ELEMENTOS DEL MODAL
             if(datos.id_usuario == listas[i].propietario){
                 editar.setAttribute('data-bs-target','#modal-editar-lista');
@@ -140,6 +139,9 @@ function dibujar_artistas_seguidos_aside(datos){
             let reproducir = document.createElement("button");
             reproducir.innerHTML="<img src='../assets/icons/reproducir.svg' class='icono-boton'></img>"
             div.appendChild(reproducir);
+            reproducir.addEventListener('click',()=>{
+                reproducir_artista(artistas_seguidos[i]);
+            });
             //PARRAFO NOMBRE DEL ARTISTA
             let p = document.createElement("p");
             p.innerText = artistas_seguidos[i].nombre;
@@ -159,11 +161,6 @@ function dibujar_artistas_seguidos_aside(datos){
             div.appendChild(visualizar);
     
             contenedor_artistas_seguidos.appendChild(div);
-    
-            //FUNCIONALIDAD PARA REPRODUCIR UNA ARTISTA
-            reproducir.addEventListener('click',()=>{
-                console.log("reproducir artista " + artistas_seguidos[i].nombre);
-            })
         }
     }
 }
@@ -184,6 +181,9 @@ function dibujar_albumes_seguidos_aside(datos) {
             let reproducir = document.createElement("button");
             reproducir.innerHTML="<img src='../assets/icons/reproducir.svg' class='icono-boton'></img>"
             div.appendChild(reproducir);
+            reproducir.addEventListener('click',()=>{
+                reproducir_arreglo_canciones(albumes_seguidos[i].canciones);
+            });
             //PARRAFO NOMBRE DEL ALBUM
             let p = document.createElement("p");
             p.innerText = albumes_seguidos[i].nombre_album;
@@ -203,11 +203,6 @@ function dibujar_albumes_seguidos_aside(datos) {
             div.appendChild(visualizar);
     
             contenedor_albumes_seguidos.appendChild(div);
-    
-            //FUNCIONALIDAD PARA REPRODUCIR UNA ARTISTA
-            reproducir.addEventListener('click',()=>{
-                console.log("reproducir album " + albumes_seguidos[i].nombre_album);
-            })
         }
     }
 }
@@ -234,7 +229,6 @@ const crear_lista = () => {
     .catch((error) => {
         console.error('Error:', error);
     });
-
 }
 boton_guardar_lista.onclick=crear_lista;
 

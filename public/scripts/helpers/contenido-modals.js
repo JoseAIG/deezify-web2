@@ -1,4 +1,5 @@
 //IMPORTS
+import { reproducir_cancion, reproducir_arreglo_canciones } from "../dashboard-reproduccion.js";
 import { seguir_album, agregar_cancion_a_favoritos } from "../dashboard-busquedas.js";
 
 //---------------------------------------------------------- //
@@ -19,6 +20,10 @@ function dibujar_contenido_lista_propietaria(listas, indice){
         let boton_reproducir = document.createElement("button");
         boton_reproducir.innerHTML='<img src="../assets/icons/reproducir.svg" class="icono-boton">'
         div.appendChild(boton_reproducir);
+        boton_reproducir.addEventListener('click',(e)=>{
+            e.preventDefault();
+            reproducir_cancion(listas[indice].canciones[i]._id);
+        });
         //INPUT PARA EL NOMBRE DE LA CANCION
         let input = document.createElement("input");
         input.type="text";
@@ -56,6 +61,10 @@ function dibujar_contenido_lista_ajena(listas, indice, seguido){
         let boton_reproducir = document.createElement("button");
         boton_reproducir.innerHTML='<img src="../assets/icons/reproducir.svg" class="icono-boton">'
         div.appendChild(boton_reproducir);
+        boton_reproducir.addEventListener('click',(e)=>{
+            e.preventDefault();
+            reproducir_cancion(listas[indice].canciones[i]._id);
+        });
         //INPUT QUE CONTIENE LOS DATOS DE LA CANCION
         let input = document.createElement("input");
         input.type="text";
@@ -88,10 +97,14 @@ function dibujar_contenido_visualizar_artista(artistas, indice, edicion) {
     for(let i=0; i<artistas[indice].albumes.length; i++){
         //CREAR EL CONTENEDOR DEL ALBUM
         let div = document.createElement("div");
-        //BOTON REPRODUCIR
+        //BOTON REPRODUCIR ALBUM EN LA PERSPECTIVA DE UN ARTISTA
         let boton_reproducir = document.createElement("button");
         boton_reproducir.innerHTML='<img src="../assets/icons/reproducir.svg" class="icono-boton">'
         div.appendChild(boton_reproducir);
+        boton_reproducir.addEventListener('click',(e)=>{
+            e.preventDefault();
+            reproducir_arreglo_canciones(artistas[indice].albumes[i].canciones);
+        });
         //INPUT NOMBRE ALBUM
         let input = document.createElement("input");
         input.type="text";
@@ -153,6 +166,10 @@ function dibujar_contenido_visualizar_album(contenido, indice, config){
         let boton_reproducir = document.createElement("button");
         boton_reproducir.innerHTML='<img src="../assets/icons/reproducir.svg" class="icono-boton">'
         div.appendChild(boton_reproducir);
+        boton_reproducir.addEventListener('click',(e)=>{
+            e.preventDefault();
+            reproducir_cancion(contenido[indice].canciones[i]._id);
+        });
 
         let input = document.createElement("input");
         input.type="text";

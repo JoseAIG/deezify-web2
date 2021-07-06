@@ -68,11 +68,6 @@ function dibujar_resultados(datos){
 // FUNCIONES DE UTILIDAD LLAMADAS EN "tablas-busquedas.js" //
 //-------------------------------------------------------- //
 
-//FUNCION PARA REPRODUCIR UNA CANCION
-function reproducir_cancion(ruta_cancion){
-    console.log("reproducir cancion en esta ruta", ruta_cancion);
-}
-
 //FUNCION PARA AGREGAR UNA CANCION A UNA LISTA DE REPRODUCCION
 function agregar_cancion_a_lista(id_lista,id_cancion) {
     console.log("agregar esta cancion: " + id_cancion + " a esta lista: " + id_lista);
@@ -184,7 +179,6 @@ export{
     //LLAMADAS EN TABLAS-BUSQUEDAS
     listas_propietarias,
     id_listas_propietarias,
-    reproducir_cancion,
     agregar_cancion_a_lista,
     agregar_cancion_a_favoritos,
     seguir_lista,

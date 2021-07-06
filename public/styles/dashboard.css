@@ -1,6 +1,10 @@
+nav{
+    height: 10vh;
+}
+
 aside{
     display: block;
-    height: 88vh;
+    height: 82vh;
     width: 25%;
     /* background-color: white; */
     color: white;
@@ -15,11 +19,16 @@ aside{
 }
 
 section{
-    height: 88vh;
+    height: 82vh;
     background-color: rgba(53, 56, 61, 1);
     text-align: center;
     padding-top: 2em;
     overflow-y: auto;
+}
+
+#nav-reproductor{
+    border-top: 1px solid rgb(25, 28, 34);
+    height: 8vh;
 }
 
 #section-principal-usuario{

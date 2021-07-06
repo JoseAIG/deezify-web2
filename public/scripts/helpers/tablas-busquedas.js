@@ -1,6 +1,7 @@
 //IMPORTS
+import { reproducir_arreglo_canciones, reproducir_artista, reproducir_cancion } from '../dashboard-reproduccion.js';
 import { editar_lista, eliminar_lista } from '../dashboard-usuario.js';
-import { listas_propietarias, id_listas_propietarias, reproducir_cancion, agregar_cancion_a_favoritos, agregar_cancion_a_lista, seguir_lista, seguir_artista, seguir_album } from '../dashboard-busquedas.js';
+import { listas_propietarias, id_listas_propietarias, agregar_cancion_a_favoritos, agregar_cancion_a_lista, seguir_lista, seguir_artista, seguir_album } from '../dashboard-busquedas.js';
 import { dibujar_contenido_lista_propietaria, dibujar_contenido_lista_ajena, dibujar_contenido_visualizar_artista, dibujar_contenido_visualizar_album } from './contenido-modals.js';
 
 //-------------------------------------------------//
@@ -17,7 +18,7 @@ function dibujar_tabla_canciones_busqueda(resultados){
             let tr = document.createElement('tr');
             tableBody.appendChild(tr);
             if(i==-1){
-                for (let j=0; j<7; j++) {
+                for (let j=0; j<8; j++) {
                     var td = document.createElement('td');
                     let contenido_celda = document.createElement('div');
                     if(j==0){
@@ -33,25 +34,28 @@ function dibujar_tabla_canciones_busqueda(resultados){
                         contenido_celda.innerHTML="Album";
                     }
                     else if(j==4){
-                        contenido_celda.innerHTML="Reproducciones";
+                        contenido_celda.innerHTML="Género";
                     }
                     else if(j==5){
-                        contenido_celda.innerHTML="Agregar a lista";
+                        contenido_celda.innerHTML="Reproducciones";
                     }
                     else if(j==6){
+                        contenido_celda.innerHTML="Agregar a lista";
+                    }
+                    else if(j==7){
                         contenido_celda.innerHTML="Favoritos";
                     }
                     td.appendChild(contenido_celda);
                     tr.appendChild(td);
                 }
             }else{
-                for (let j=0; j<7; j++) {
+                for (let j=0; j<8; j++) {
                     var td = document.createElement('td');
                     let contenido_celda = document.createElement('div');
                     if(j==0){
                         contenido_celda.innerHTML=`<button><img src='../assets/icons/reproducir.svg' class='icono-boton'></button>`;
                         contenido_celda.addEventListener('click',()=>{
-                            reproducir_cancion(resultados[i].ruta_cancion);
+                            reproducir_cancion(resultados[i]._id);
                         });
                     }
                     else if(j==1){
@@ -64,9 +68,12 @@ function dibujar_tabla_canciones_busqueda(resultados){
                         contenido_celda.innerHTML=resultados[i].album.nombre_album;
                     }
                     else if(j==4){
-                        contenido_celda.innerHTML=resultados[i].reproducciones;
+                        contenido_celda.innerHTML=resultados[i].genero;
                     }
                     else if(j==5){
+                        contenido_celda.innerHTML=resultados[i].reproducciones;
+                    }
+                    else if(j==6){
                         
                         //CONFIGURAR EL HTML SELECT CON LOS OPTION DE LAS LISTAS PROPIETARIAS DEL USUARIO
                         let select = document.createElement("select");
@@ -87,7 +94,7 @@ function dibujar_tabla_canciones_busqueda(resultados){
                             option_defecto.selected=true;
                         });
                     }
-                    else if(j==6){
+                    else if(j==7){
                         contenido_celda.innerHTML=`<button><img src='../assets/icons/corazon-vacio.svg' class='icono-boton'></button>`
                         contenido_celda.addEventListener('click',()=>{
                             agregar_cancion_a_favoritos(resultados[i]._id);
@@ -148,7 +155,7 @@ function dibujar_tabla_listas_busqueda(resultados) {
                     if(j==0){
                         contenido_celda.innerHTML=`<button><img src='../assets/icons/reproducir.svg' class='icono-boton'></button>`;
                         contenido_celda.addEventListener('click',()=>{
-                            //reproducir_cancion(resultados[i].ruta_cancion);
+                            reproducir_arreglo_canciones(resultados[i].canciones);
                         });
                     }
                     else if(j==1){
@@ -249,7 +256,7 @@ function dibujar_tabla_albumes_busqueda(resultados) {
                     if(j==0){
                         contenido_celda.innerHTML=`<button><img src='../assets/icons/reproducir.svg' class='icono-boton'></button>`;
                         contenido_celda.addEventListener('click',()=>{
-                            console.log("reproducir album");
+                            reproducir_arreglo_canciones(resultados[i].canciones);
                         });
                     }
                     else if(j==1){
@@ -335,7 +342,7 @@ function dibujar_tabla_artistas_busqueda(resultados) {
                     if(j==0){
                         contenido_celda.innerHTML=`<button><img src='../assets/icons/reproducir.svg' class='icono-boton'></button>`;
                         contenido_celda.addEventListener('click',()=>{
-                            console.log("reproducir artista");
+                            reproducir_artista(resultados[i]);
                         });
                     }
                     else if(j==1){

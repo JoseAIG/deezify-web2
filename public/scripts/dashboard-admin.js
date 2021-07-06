@@ -277,15 +277,16 @@ const guardar_nueva_cancion = () => {
     }else{
         fetch('canciones', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(Object.fromEntries(datos_form_nueva_cancion.entries()))
+            //headers: {'Content-Type': 'application/json'},
+            //body: JSON.stringify(Object.fromEntries(datos_form_nueva_cancion.entries()))
+            body: datos_form_nueva_cancion
         })
         .then(response => response.json())
         .then(data => {
             console.log(data);
             alert(data.resultado);
             if(data.status==200){
-                window.open("/admin","_self");
+                //window.open("/admin","_self");
             }
         })	    
         .catch((error) => {
