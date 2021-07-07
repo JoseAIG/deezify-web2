@@ -31,7 +31,7 @@ function dibujar_favoritos(favoritos) {
             div.appendChild(boton_reproducir);
             //FUNCIONALIDAD PARA REPRODUCIR UNA CANCION EN FAVORITOS
             boton_reproducir.addEventListener('click',()=>{
-                reproducir_cancion(favoritos[i]._id);
+                reproducir_cancion(favoritos[i]);
             });
 
             let input = document.createElement("input")

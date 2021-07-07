@@ -55,7 +55,7 @@ function dibujar_tabla_canciones_busqueda(resultados){
                     if(j==0){
                         contenido_celda.innerHTML=`<button><img src='../assets/icons/reproducir.svg' class='icono-boton'></button>`;
                         contenido_celda.addEventListener('click',()=>{
-                            reproducir_cancion(resultados[i]._id);
+                            reproducir_cancion(resultados[i]);
                         });
                     }
                     else if(j==1){

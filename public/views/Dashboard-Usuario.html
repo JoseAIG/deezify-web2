@@ -75,8 +75,8 @@
     </section>
     
     <!-- BARRA DE REPRODUCCION INFERIOR -->
-    <nav id="nav-reproductor" class="navbar navbar-dark bg-dark">
-        <div class="container-fluid">
+    <nav id="nav-reproductor" class="bg-dark">
+        <!-- <div class="container-fluid"> -->
             <div id="contenedor-botones">
                 <button id="boton-anterior-cancion">
                     <img src="../assets/icons/anterior-cancion.svg" class="icono-reproductor">
@@ -90,8 +90,11 @@
                     <img src="../assets/icons/siguiente-cancion.svg" class="icono-reproductor">
                 </button>
             </div>
+            <input type="range" class="w-25" id="rango-cancion" min=0 value="0" disabled>
+            <div id="contenedor-info-cancion"></div>
+            <!-- CONTENEDOR DONDE SE INCLUYE EL AUDIO TAG CON SRC DEL ENDPOINT /reproduccion/:id -->
             <div id="contenedor-reproductor"></div>
-        </div>
+        <!-- </div> -->
     </nav>
 
     <!-- MODAL EDITAR PERFIL -->

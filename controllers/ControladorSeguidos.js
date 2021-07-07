@@ -31,7 +31,10 @@ const obtenerSeguidos = async (req, res) => {
         .populate({
             path: "albumes_seguidos",
             populate:{
-                path:"artista canciones"
+                path:"artista canciones",
+                populate:{
+                    path:"artista album"
+                }
             }
         })
 

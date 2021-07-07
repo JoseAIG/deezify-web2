@@ -22,7 +22,7 @@ function dibujar_contenido_lista_propietaria(listas, indice){
         div.appendChild(boton_reproducir);
         boton_reproducir.addEventListener('click',(e)=>{
             e.preventDefault();
-            reproducir_cancion(listas[indice].canciones[i]._id);
+            reproducir_cancion(listas[indice].canciones[i]);
         });
         //INPUT PARA EL NOMBRE DE LA CANCION
         let input = document.createElement("input");
@@ -63,7 +63,7 @@ function dibujar_contenido_lista_ajena(listas, indice, seguido){
         div.appendChild(boton_reproducir);
         boton_reproducir.addEventListener('click',(e)=>{
             e.preventDefault();
-            reproducir_cancion(listas[indice].canciones[i]._id);
+            reproducir_cancion(listas[indice].canciones[i]);
         });
         //INPUT QUE CONTIENE LOS DATOS DE LA CANCION
         let input = document.createElement("input");
@@ -168,7 +168,7 @@ function dibujar_contenido_visualizar_album(contenido, indice, config){
         div.appendChild(boton_reproducir);
         boton_reproducir.addEventListener('click',(e)=>{
             e.preventDefault();
-            reproducir_cancion(contenido[indice].canciones[i]._id);
+            reproducir_cancion(contenido[indice].canciones[i]);
         });
 
         let input = document.createElement("input");
