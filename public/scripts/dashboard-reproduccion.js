@@ -19,7 +19,7 @@ function reproducir_cancion(cancion) {
     contenedor_reproductor.appendChild(audio);
     audio.play();
     // .then(function() {
-    //     // Automatic playback started!
+    //     //REPRODUCCION DE LA CANCION
     // }).catch(function(error) {
     //     console.log(error);
     // });
@@ -42,15 +42,12 @@ function reproducir_arreglo_canciones(canciones){
     console.log("reproducir arreglo de canciones", canciones);
     let i=0;
     reproducir_cancion(canciones[i]);
-    audio.addEventListener('ended', function () {
-        i = ++i < canciones.length ? i : 0;
-        console.log(i)
-        reproducir_cancion(canciones[i]);
-    }, true);
+    evento_siguiente_cancion(canciones, i);
 
     //FUNCIONALIDAD PARA REGRESAR LA CANCION AL PRINCIPIO
     boton_anterior_cancion.onclick = () => {
         reproducir_cancion(canciones[i]);
+        evento_siguiente_cancion(canciones, i);
     }
 
     //FUNCIONALIDAD PARA REPRODUCIR LA CANCION ANTERIOR AL DARLE DOBLE CLICK AL BOTON DEVOLVER
@@ -58,6 +55,7 @@ function reproducir_arreglo_canciones(canciones){
         if(i-1>=0){
             --i;
             reproducir_cancion(canciones[i]);
+            evento_siguiente_cancion(canciones, i);
         }else{
             console.log("Se está reproduciendo la primera cancion");
         }
@@ -68,10 +66,20 @@ function reproducir_arreglo_canciones(canciones){
         if(i+1<canciones.length){
             ++i;
             reproducir_cancion(canciones[i]);
+            evento_siguiente_cancion(canciones, i);
         }else{
             console.log("Se está reproduciendo la ultima cancion");
         }
     }
+}
+
+//FUNCION PARA ASIGNAR EL EVENTO DE FINALIZACION DE LA PISTA DE AUDIO PARA CONTINUAR LA REPRODUCCION CON LA PROXIMA CANCION
+function evento_siguiente_cancion(canciones, i){
+    audio.addEventListener('ended', function () {
+        //ESTABLECER EL NUEVO VALOR DE i CUANDO CULMINE LA PISTA.
+        i = ++i < canciones.length ? i : 0;
+        reproducir_cancion(canciones[i]);
+    }, true);
 }
 
 //FUNCIONALIDAD PARA REPRODUCIR UN ARTISTA
@@ -107,7 +115,6 @@ function reproducir_pausar(audio){
 //FUNCION PARA ACTUALIZAR EL INPUT TYPE RANGE A MEDIDA QUE AVANZA LA CANCION
 var rango_cancion = document.getElementById("rango-cancion");
 function actualizar_rango_cancion(tiempo_final, tiempo){
-    //console.log(tiempo_final, tiempo);
     //SI LA CANCION NO POSEE PISTA DE AUDIO DISPONIBLE DESHABILITAR EL RANGO DEL REPRODUCTOR
     if(Number.isNaN(tiempo_final)){
         rango_cancion.disabled = true;

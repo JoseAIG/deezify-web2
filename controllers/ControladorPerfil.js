@@ -1,4 +1,5 @@
 const ModeloUsuario = require('../models/Usuario');
+const bcrypt = require('bcrypt');
 
 const obtenerDatosPerfil = (req, res) => {
     console.log("ControladorPerfil - obtener datos perfil")
@@ -20,7 +21,9 @@ const actualizarDatosPerfil = async (req, res) => {
         documento_usuario.correo_usuario = req.body.correo;
         //SI EL PARAMETRO DE LA CLAVE NO ESTA VACIO, ACTUALIZARLA
         if(req.body.clave!=""){
-            documento_usuario.clave = req.body.clave;
+            //OBTENER EL HASH DE LA NUEVA CLAVE BRINDANDO LA CLAVE EN TEXTO PLANO Y 10 SALTROUNDS
+            const hash_clave = await bcrypt.hash(req.body.clave, 10);
+            documento_usuario.clave = hash_clave;
         }
         await documento_usuario.save();
         //COLOCAR LOS NUEVOS ATRIBUTOS DE LA SESION
