@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- BOOTSTRAP -->
     <link rel="stylesheet" href="../styles/bootstrap/bootstrap.min.css">
-    <!-- <script src="../scripts/bootstrap/bootstrap.min.js" defer></script> -->
     <script src="../scripts/bootstrap/bootstrap.bundle.min.js" defer></script>
     <!-- CSS'S -->
     <link rel="stylesheet" href="../styles/estilo-principal.css">
@@ -48,9 +47,7 @@
                     </button>
                   </h2>
                   <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
-                    <!-- <div class="accordion-body"> -->
-                        <div id="contenedor-artistas"></div>
-                    <!-- </div> -->
+                    <div id="contenedor-artistas"></div>
                   </div>
                 </div>
                 <div class="accordion-item bg-dark">
@@ -60,9 +57,7 @@
                     </button>
                   </h2>
                   <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-                    <!-- <div class="accordion-body"> -->
-                        <div id="contenedor-albumes"></div>
-                    <!-- </div> -->
+                    <div id="contenedor-albumes"></div>
                   </div>
                 </div>
                 <div class="accordion-item bg-dark">
@@ -72,13 +67,12 @@
                     </button>
                   </h2>
                   <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
-                    <!-- <div class="accordion-body"> -->
-                        <div id="contenedor-canciones"></div>
-                    <!-- </div> -->
+                    <div id="contenedor-canciones"></div>
                   </div>
                 </div>
-              </div>
-            <!-- <button id="boton-subir-cancion" data-bs-toggle="modal" data-bs-target="#modal-subir-cancion"><img src="../assets/icons/upload.svg" class="icono-boton"> Nueva canción</button> -->
+            </div>
+
+            <!-- BOTON DROPUP DE INTERACCION DEL ADMINISTRADOR, ABAJO IZQ -->
             <div class="btn-group dropup">
                 <button class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><img src="../assets/icons/add.svg" class="icono-boton"> Nuevo </button>
                 <ul class="dropdown-menu bg-dark">
@@ -97,7 +91,6 @@
             <div class="modal-content bg-dark">
                 <div class="modal-header">
                     <button class="boton-volver" data-bs-dismiss="modal">Cerrar</button>
-                    <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
                 </div>
                 <div class="modal-body text-center">
                     <h3>Editar perfil</h3>
@@ -124,10 +117,8 @@
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button id="boton-guardar-edicion-perfil">Guardar cambios</button>
-                    <button id="boton-eliminar-perfil" class="boton-eliminar">Eliminar perfil</button>
-                </div>
+                <button id="boton-guardar-edicion-perfil" class="mt-3 mb-3 w-auto mx-auto">Guardar cambios</button>
+                <button id="boton-eliminar-perfil" class="boton-eliminar mt-3 mb-4 w-auto mx-auto">Eliminar perfil</button>
             </div>
         </div>
     </div>
@@ -262,7 +253,7 @@
                 </div>
                 <div class="modal-body text-center">
                     <h3>Nuevo artista</h3>
-                    <form id="form-nuevo-artista">
+                    <form id="form-nuevo-artista" onkeydown="return event.key != 'Enter';">
                         <div>
                             <label for="artista">Nombre del artista / banda</label>
                             <br>
@@ -286,7 +277,7 @@
                 </div>
                 <div class="modal-body text-center">
                     <h3>Editar Artista</h3>
-                    <form id="form-editar-artista">
+                    <form id="form-editar-artista" onkeydown="return event.key != 'Enter';">
                         <div>
                             <label for="artista">Nombre del artista / banda</label>
                             <br>

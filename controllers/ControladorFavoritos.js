@@ -1,28 +1,19 @@
 const ModeloUsuario = require('../models/Usuario');
-const ModeloCancion = require('../models/Cancion');
 const ObjectId = require('mongoose').Types.ObjectId;
 
 //GET /favoritos
 //FUNCIONALIDAD PARA OBTENER LAS CANCIONES FAVORITAS DE UN USUARIO
 const obtenerFavoritos = async (req, res) => {
-    console.log("Obtener favoritos");
     try {
-        // const documento_usuario = await ModeloUsuario.findOne({_id:ObjectId(req.session.objectid)});
-        // //console.log(documento_usuario);
-        // const documentos_favoritos = await ModeloCancion.find({_id:{$in:documento_usuario.favoritos}});
-        // //console.log(documentos_favoritos);
-        // res.send('{"favoritos":'+JSON.stringify(documentos_favoritos)+',"status":200}');
-        
-        // const documento_usuario = await ModeloUsuario.findOne({_id:ObjectId(req.session.objectid)}).populate('favoritos');
+        //OBTENER EL DOCUMENTO DEL USUARIO Y POPULARLO CON LAS CANCIONES EN FAVORITOS Y ESTAS CANCIONES CON SU ARTISTA Y ALBUM
         const documento_usuario = await ModeloUsuario.findOne({_id:ObjectId(req.session.objectid)})
         .populate({
             path: 'favoritos',
             populate: {path: 'artista album'}
         });
-        //console.log(documento_usuario);
-        res.send('{"favoritos":'+JSON.stringify(documento_usuario.favoritos)+',"status":200}');
+        res.status(200).json({favoritos:documento_usuario.favoritos, status:200});
     } catch (error) {
-        res.send('{"resultado":"No se pudo obtener los favoritos", "status":500}');
+        res.status(500).json({resultado:"No se pudo obtener los favoritos", status:500});
     }
 }
 
@@ -33,25 +24,27 @@ const agregarFavorito = async (req, res) => {
         //COMPROBAR SI LA CANCION SE ENCUENTRA YA EN LA LISTA DE FAVORITOS
         const documento_usuario = await ModeloUsuario.findOne({_id:ObjectId(req.session.objectid), favoritos:ObjectId(req.body.id_cancion)});
         if(documento_usuario){
-            res.send('{"resultado":"La cancion ya se encuentra en favoritos", "status":400}');
+            //DE EXISTIR LA CANCION EN FAVORITOS, NOTIFICARLE AL USUARIO
+            res.status(400).json({resultado:"La cancion ya se encuentra en favoritos", status:400});
         }else{
+            //DE NO EXISTIR LA CANCION EN FAVORITOS, AGREGAR SU ID AL ARREGLO DE FAVORITOS DEL USUARIO
             await ModeloUsuario.updateOne({_id:ObjectId(req.session.objectid)},{$push:{favoritos:ObjectId(req.body.id_cancion)}});
-            res.send('{"resultado":"Cancion agregada a favoritos", "status":200}');
+            res.status(200).json({resultado:"Cancion agregada a favoritos", status:200});
         }
     } catch (error) {
-        res.send('{"resultado":"No se pudo agregar la cancion a favoritos", "status":500}');
+        res.status(500).json({resultado:"No se pudo agregar la cancion a favoritos", status:500});
     }
 }
 
 //DELETE /favoritos
 //FUNCIONALIDAD PARA REMOVER CANCIONES DE LA LISTA DE FAVORITOS DE UN USUARIO
 const removerFavorito = async (req, res) => {
-    console.log("remover fav", req.body);
     try {
+        //ACTUALIZAR EL DOCUMENTO DEL USUARIO REMOVIENDO DE LA LISTA DE FAVORITOS LA CANCION CON EL ID DE LA PETICION
         await ModeloUsuario.updateOne({_id:ObjectId(req.session.objectid)},{$pull:{favoritos:ObjectId(req.body.id_cancion)}});
-        res.send('{"resultado":"Cancion removida de favoritos", "status":200}');
+        res.status(200).json({resultado:"Cancion removida de favoritos", status:200});
     } catch (error) {
-        res.send('{"resultado":"No se pudo remover la cancion de favoritos", "status":500}');
+        res.status(500).json({resultado:"No se pudo remover la cancion de favoritos", status:500});
     }
 }
 

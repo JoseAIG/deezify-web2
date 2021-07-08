@@ -17,17 +17,21 @@ const rutasArtistas = require('./routes/RutasArtistas');
 const rutasAlbumes = require('./routes/RutasAlbumes');
 const rutasReproduccion = require('./routes/RutasReproduccion');
 
-//app.use(express.static("public"));
+//DIRECTORIOS Y RECURSOS ESTATICOS DE LA APP WEB 
+//NOTA: NO SE USA DIRECTAMENTE "public" COMO STATIC PARA QUE NO SE ACCEDAN A LAS VISTAS HTML POR ENTRYPOINTS
+app.use("/favicon.ico", express.static(__dirname + '/public/favicon.ico'));
 app.use("/scripts", express.static(__dirname + '/public/scripts'));
 app.use("/styles", express.static(__dirname + '/public/styles'));
 app.use("/assets", express.static(__dirname + '/public/assets'));
 
+//AJUSTES SESION
 app.use(session({
     secret: 'deezify-web2',
     resave: true,
     saveUninitialized: true
 }))
 
+//MIDDLEWARES
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
@@ -54,7 +58,6 @@ mongoose.connect('mongodb+srv://admin:Av4lanch@deezify-cluster.voizy.mongodb.net
 //DESPACHAR LA VISTA DE INICIO (LANDING) AL ENTRAR A LA APP SIN HACER LOGIN
 app.get("/",(req,res)=>{
     //SI SE POSEE UNA SESION, REDIRECCIONAR AL DASHBOARD
-    //console.log(req.session)
     if(req.session.usuario){
         res.redirect("/dashboard")
     }else{

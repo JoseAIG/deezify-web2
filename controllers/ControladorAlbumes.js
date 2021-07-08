@@ -10,8 +10,9 @@ const ObjectId = require('mongoose').Types.ObjectId;
 const obtenerAlbumes = async (req, res) => {
     try {
         if(req.headers['content-type']=='application/json'){
+            //BUSCAR LOS DOCUMENTOS DE LOS ALBUMES PERTENECIENTES AL PROPIETARIO Y POPULARLO CON LOS ARTISTAS
             const documentos_albumes = await ModeloAlbum.find({propietario:req.session.objectid}).populate('artista');
-            res.send('{"albumes":'+JSON.stringify(documentos_albumes)+',"status":200}');
+            res.status(200).json({albumes:documentos_albumes, status:200});
         }
     } catch (error) {
         res.status(500).json({resultado:"No se pudieron obtener los albumes.", status:500});

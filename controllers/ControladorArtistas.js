@@ -8,10 +8,13 @@ const ModeloCancion = require('../models/Cancion');
 //DEVOLVER LOS ARTISTAS QUE EL ADMINISTRADOR HA INGRESADO
 const obtenerArtistas = async (req, res) => {
     try {
-        const documentos_artistas = await ModeloArtista.find({propietario:req.session.objectid}).populate('albumes');
-        res.send('{"artistas":'+JSON.stringify(documentos_artistas)+',"status":200}');
+        if(req.headers['content-type']=='application/json'){
+            //OBTENER LOS DOCUMENTOS DE LOS ARTISTAS Y POPULAR SUS ALBUMES
+            const documentos_artistas = await ModeloArtista.find({propietario:req.session.objectid}).populate('albumes');
+            res.status(200).json({artistas:documentos_artistas, status:200});
+        }
     } catch (error) {
-        res.send('{"resultado":"No se pudieron obtener los artistas","status":500}');
+        res.status(500).json({resultado:"No se pudieron obtener los artistas",status:500});
     }
 }
 
@@ -20,9 +23,9 @@ const obtenerArtistas = async (req, res) => {
 const crearArtista = async (req, res) => {
     try {
         await new ModeloArtista({nombre:req.body.artista, propietario:req.session.objectid}).save();
-        res.send('{"resultado":"Artista creado exitosamente","status":200}');
+        res.status(200).json({resultado:"Artista creado exitosamente",status:200});
     } catch (error) {
-        res.send('{"resultado":"No se pudo crear el artista","status":500}');
+        res.status(500).json({resultado:"No se pudo crear el artista",status:500});
     }
 }
 
@@ -30,6 +33,7 @@ const crearArtista = async (req, res) => {
 //EDITAR UN ARTISTA EXISTENTE
 const editarArtista = async (req, res) => {
     try {
+        //BUSCAR EL DOCUMENTO DEL ARTISTA SEGUN EL ID DE LA SOLICITUD Y ACTUALIZAR SU NOMBRE
         await ModeloArtista.findByIdAndUpdate(req.body.id_artista,{nombre:req.body.artista});
         res.status(200).json({resultado:"Edicion de artista exitosa.", "status":200});
     } catch (error) {

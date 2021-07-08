@@ -10,9 +10,6 @@ const SchemaLista = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
-    // canciones: {
-    //     type: Array
-    // }
     canciones: [{type: mongoose.Schema.Types.ObjectId, ref:'Cancion'}]
 });
 

@@ -42,6 +42,22 @@ const iniciarReproduccion = async (req, res) => {
     }
 }
 
+//POST /reproduccion
+//FUNCION PARA INCREMENTAR EL CONTEO DE UNA REPRODUCCION DE UNA CANCION
+//NOTA: EL CONTEO NO ES LLEVADO A CABO EN EL MISMO METODO GET DADO QUE POR STREAM DE CANCION, SE REALIZAN DISTINTAS LLAMADAS Y EL CONTADOR SERIA INCONGRUENTE
+//DE IGUAL FORMA, ES NECESARIO QUE LA CANCION SEA ESCUCHADA AL MENOS 30 SEGUNDOS PARA QUE AUMENTE EL CONTADOR (INDIFERENTEMENTE SI SE ADELANTA O NO)
+const incrementarReproduccion = async (req, res) => {
+    try {
+        //ACTUALIZAR EL DOCUMENTO DE LA CANCION, INCREMENTANDO EN UNA UNIDAD LA CANTIDAD DE REPRODUCCIONES DE LA CANCION
+        await ModeloCancion.updateOne({_id:req.body.id}, {$inc:{reproducciones:1}});
+        res.status(200).json({resultado:"Incrementada las reproducciones.", status:200});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({resultado:"No se pudo tomar en cuenta la reproduccion.", status:500});
+    }
+}
+
 module.exports = {
-    iniciarReproduccion
+    iniciarReproduccion,
+    incrementarReproduccion
 }

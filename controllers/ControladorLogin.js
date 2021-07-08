@@ -29,7 +29,7 @@ const iniciarSesion = async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        res.send('{"resultado":"No se pudo iniciar sesion", "status":500}')
+        res.status(500).json({resultado:"No se pudo iniciar sesion / Usuario no registrado", status:500});
     }
 }
 

@@ -6,9 +6,6 @@ const controladorListas = require('../controllers/ControladorListas');
 
 //RUTAS /listas
 
-//ENDPOINT /listas METODO GET
-router.get("/",controladorListas.obtenerListas);
-
 //ENDPOINT /listas METODO POST
 router.post("/",controladorListas.crearLista);
 

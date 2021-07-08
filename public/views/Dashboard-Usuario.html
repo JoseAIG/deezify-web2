@@ -29,7 +29,7 @@
         <div style="position: absolute; right: 1em;">
             <button id="boton-vista-admin" onclick="location.href='/admin'" style="display: none;"> <img src="../assets/icons/admin.svg" class="icono-boton"> Administrador</button>
             &nbsp;
-            <button id="boton-editar-perfil" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"> <img src="../assets/icons/user.svg" class="icono-boton"> Editar perfil</button>
+            <button id="boton-editar-perfil" type="button" data-bs-toggle="modal" data-bs-target="#modal-editar-perfil"> <img src="../assets/icons/user.svg" class="icono-boton"> Editar perfil</button>
             &nbsp;
             <button id="boton-cerrar-sesion"> <img src="../assets/icons/logout.svg" class="icono-boton"> Cerrar sesión</button>
         </div>
@@ -76,34 +76,31 @@
     
     <!-- BARRA DE REPRODUCCION INFERIOR -->
     <nav id="nav-reproductor" class="bg-dark">
-        <!-- <div class="container-fluid"> -->
-            <div id="contenedor-botones">
-                <button id="boton-anterior-cancion">
-                    <img src="../assets/icons/anterior-cancion.svg" class="icono-reproductor">
-                </button>
-                &nbsp;
-                <button id="boton-reproducir-pausar">
-                    <img src="../assets/icons/reproducir.svg" class="icono-reproductor">
-                </button>
-                &nbsp;
-                <button id="boton-siguiente-cancion">
-                    <img src="../assets/icons/siguiente-cancion.svg" class="icono-reproductor">
-                </button>
-            </div>
-            <input type="range" class="w-25" id="rango-cancion" min=0 value="0" disabled>
-            <div id="contenedor-info-cancion"></div>
-            <!-- CONTENEDOR DONDE SE INCLUYE EL AUDIO TAG CON SRC DEL ENDPOINT /reproduccion/:id -->
-            <div id="contenedor-reproductor"></div>
-        <!-- </div> -->
+        <div id="contenedor-botones">
+            <button id="boton-anterior-cancion">
+                <img src="../assets/icons/anterior-cancion.svg" class="icono-reproductor">
+            </button>
+            &nbsp;
+            <button id="boton-reproducir-pausar">
+                <img src="../assets/icons/reproducir.svg" class="icono-reproductor">
+            </button>
+            &nbsp;
+            <button id="boton-siguiente-cancion">
+                <img src="../assets/icons/siguiente-cancion.svg" class="icono-reproductor">
+            </button>
+        </div>
+        <input type="range" class="w-25" id="rango-cancion" min=0 value="0" disabled>
+        <div id="contenedor-info-cancion"></div>
+        <!-- CONTENEDOR DONDE SE INCLUYE EL AUDIO TAG CON SRC DEL ENDPOINT /reproduccion/:id -->
+        <div id="contenedor-reproductor"></div>
     </nav>
 
     <!-- MODAL EDITAR PERFIL -->
-    <div class="modal fade" id="exampleModal"> 
+    <div class="modal fade" id="modal-editar-perfil"> 
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content bg-dark">
                 <div class="modal-header">
                     <button class="boton-volver" data-bs-dismiss="modal">Cerrar</button>
-                    <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
                 </div>
                 <div class="modal-body text-center">
                     <h3>Editar perfil</h3>
@@ -130,10 +127,8 @@
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button id="boton-guardar-edicion-perfil">Guardar cambios</button>
-                    <button id="boton-eliminar-perfil" class="boton-eliminar">Eliminar perfil</button>
-                </div>
+                <button id="boton-guardar-edicion-perfil" class="mt-3 mb-3 w-auto mx-auto">Guardar cambios</button>
+                <button id="boton-eliminar-perfil" class="boton-eliminar mt-3 mb-4 w-auto mx-auto">Eliminar perfil</button>
             </div>
         </div>
     </div>
@@ -160,11 +155,10 @@
             <div class="modal-content bg-dark">
                 <div class="modal-header">
                     <button class="boton-volver" data-bs-dismiss="modal">Cerrar</button>
-                    <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
                 </div>
                 <div class="modal-body text-center">
                     <h3>Crear lista de reproducción</h3>
-                    <form id="form-crear-lista">
+                    <form id="form-crear-lista" onkeydown="return event.key != 'Enter';">
                         <div>
                             <label for="nombre">Nombre de la lista</label>
                             <br>
@@ -172,9 +166,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button id="boton-guardar-lista">Guardar</button>
-                </div>
+                <button id="boton-guardar-lista" class="w-25 mx-auto mt-5 mb-4">Guardar</button>
             </div>
         </div>
     </div>
@@ -188,7 +180,7 @@
                 </div>
                 <div class="modal-body text-center">
                     <h3>Editar lista de reproducción</h3>
-                    <form id="form-editar-lista">
+                    <form id="form-editar-lista" onkeydown="return event.key != 'Enter';">
                         <div>
                             <label for="nombre">Nombre de la lista</label>
                             <br>

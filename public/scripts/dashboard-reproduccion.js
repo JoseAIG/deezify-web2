@@ -2,8 +2,10 @@
 var contenedor_reproductor = document.getElementById("contenedor-reproductor");
 var audio;
 function reproducir_cancion(cancion) {
-    console.log(cancion);
-    //LIMPIAR EL CONTENEDOR
+    //LIMPIAR EL AUDIO TAG Y CONTENEDOR
+    if(audio){
+        audio.remove();
+    }
     contenedor_reproductor.innerHTML="";
     //COLOCAR LA INFORMACION DE LA CANCION EN EL REPRODUCTOR INFERIOR
     establecer_info_cancion(cancion);
@@ -17,15 +19,26 @@ function reproducir_cancion(cancion) {
     //PONER INVISIBLE EL AUDIO TAG DADO QUE SE POSEE UN REPRODUCTOR PROPIO
     audio.style.display="none";
     contenedor_reproductor.appendChild(audio);
-    audio.play();
-    // .then(function() {
-    //     //REPRODUCCION DE LA CANCION
-    // }).catch(function(error) {
-    //     console.log(error);
-    // });
-    //CUANDO LA CANCION VAYA RODANDO, ACTUALIZAR EL INPUT TYPE RANGE DEL REPRODUCTOR 
+    audio.play(); //REPRODUCIR PISTA DE AUDIO QUE APUNTA AL ENDPOINT /reproduccion/:id
+    //CONTROL DEL TIEMPO DE REPRODUCCION DE LA CANCION
+    let segundos_escuchados = 0; //VARIABLE QUE TOMA CONTROL DE LOS SEGUNDOS ESCUCHADOS (AL LLEGAR A 30, SE INCREMENTA EN UNA UNIDAD LA REPRODUCCION DE LA CANCION)
+    let timeupdates = 0; //VARIABLE PARA LLEVAR CONTROL DEL EVENTO 'timeupdate' EL CUAL ACTUALIZA CUATRO (4) VECES POR SEGUNDO, ES DECIR, 4 LLAMADAS = 1seg
+    let reproduccion_contada = false; //BOOLEAN QUE REPRESENTA SI YA LA REPRODUCCION DE LA CANCION FUE CONTADA
     audio.addEventListener('timeupdate',()=>{
+        //CUANDO LA CANCION VAYA RODANDO, ACTUALIZAR EL INPUT TYPE RANGE DEL REPRODUCTOR 
         actualizar_rango_cancion(audio.duration, audio.currentTime);
+        //INCREMENTAR EL VALOR DE LA VARIABLE TIMEUPDATES
+        timeupdates++
+        //SI TIMEUPDATES ES 4, HA TRANSCURRIDO UN SEGUNDO, SE SETEA LA VARIABLE EN CERO Y SE INCREMENTA EN UNA UNIDAD LOS SEGUNDOS ESCUCHADOS
+        if(timeupdates==4){
+            timeupdates=0;
+            segundos_escuchados++;
+        }
+        //SI SE HA ESCUCHADO LA CANCION 30 SEGUNDOS (INDIFERENTEMENTE SI SE HA RODADO EL SLIDER O NO) AUMENTAR EL NUMERO DE REPRODUCCIONES DE LA CANCION EN UNA UNIDAD
+        if(segundos_escuchados==30 && !reproduccion_contada){
+            incrementar_reproducciones(cancion._id);
+            reproduccion_contada = true;
+        }
     })
     //HABILITAR EL EVENTO PARA CAMBIAR DE MINUTO:SEGUNDO DE LA CANCION CUANDO EL USUARIO MUEVE O CAMBIA EL INPUT TYPE RANGE DEL REPRODUCTOR
     evento_mover_rango(audio);
@@ -135,6 +148,22 @@ function evento_mover_rango(audio) {
 var contenedor_info_cancion = document.getElementById("contenedor-info-cancion");
 function establecer_info_cancion(cancion){
     contenedor_info_cancion.innerHTML=`<p>${cancion.nombre_cancion} - ${cancion.artista.nombre} - ${cancion.album.nombre_album}</p>`;
+}
+
+//FUNCION PARA INCREMENTAR EL CONTADOR DE REPRODUCCIONES DE LA CANCION CUANDO LA MISMA ES REPRODUCIDA
+function incrementar_reproducciones(id_cancion) {
+    fetch('reproduccion', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({id:id_cancion})
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    })	    
+    .catch((error) => {
+        console.error('Error:', error);
+    });
 }
 
 export{

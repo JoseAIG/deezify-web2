@@ -1,11 +1,11 @@
 const ModeloUsuario = require('../models/Usuario');
-const ModeloListas = require('../models/Lista');
 const ObjectId = require('mongoose').Types.ObjectId; 
 
 //GET /seguidos
 //OBTENER LOS ELEMENTOS QUE SIGUE UN USUARIO 
 const obtenerSeguidos = async (req, res) => {
     try {
+        //OBTENER EL DOCUMENTO DEL USUARIO Y POPULARLO. SE TIENE UN CHAIN DE POPULATE BASTANTE AMPLIO PARA MOSTRAR ADECUADAMENTE EN EL FRON DESDE LAS DISTINTAS PERSPECTIVAS LA INFORMACION
         const documento_usuario = await ModeloUsuario.findOne({_id:req.session.objectid})
         .populate({
             path: "listas",

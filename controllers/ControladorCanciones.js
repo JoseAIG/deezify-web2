@@ -1,6 +1,5 @@
 const ModeloUsuario = require('../models/Usuario');
 const ModeloListas = require('../models/Lista');
-const ModeloArtista = require('../models/Artista');
 const ModeloCancion = require('../models/Cancion');
 const ModeloAlbum = require('../models/Album');
 const ObjectId = require('mongoose').Types.ObjectId; 
@@ -8,14 +7,11 @@ const ObjectId = require('mongoose').Types.ObjectId;
 //GET /canciones
 //FUNCION PARA OBTENER CANCIONES
 const obtenerCanciones = async (req, res) => {
-    console.log("obtener canciones");
-    console.log(req.body);
-
     //SI EL QUE REALIZA LA PETICION ES UN ADMINISTRADOR Y NO ES POR MEDIO DE LA URL, OBTENER LAS CANCIONES QUE LE PERTENECEN PARA MOSTRAR SU INFORMACION EN LA VISTA DE ADMIN
     if(req.headers['content-type']=='application/json'){
         if((req.session.tipo=="administrador")){
             try {
-                // const documentos_canciones_admin = await ModeloCancion.find({"propietario": req.session.objectid}).populate('artista album');
+                //OBTENER LOS DOCUMENTOS DE LAS CANCIONES QUE SON PROPIETARIAS DEL ADMINISTRADOR
                 const documentos_canciones_admin = await ModeloCancion.find({"propietario": req.session.objectid})
                 .populate({
                     path: "album artista",
@@ -23,20 +19,11 @@ const obtenerCanciones = async (req, res) => {
                         path: "albumes"
                     }
                 });
-                //console.log("documentos canciones admin: ",documentos_canciones_admin);
-                res.send('{"status":200, "canciones":'+JSON.stringify(documentos_canciones_admin)+'}');
+                res.status(200).json({status:200, canciones:documentos_canciones_admin});
             } catch (error) {
-                res.send('{"resultado":"No se pudieron obtener las canciones del admin", "status":500}');
+                res.status(500).json({resultado:"No se pudieron obtener las canciones del admin", status:500});
             }
         }
-        // else if(req.session.tipo=="usuario"){
-        //     try {
-        //         console.log(req.body);
-        //         res.send('{"resultado":"Operacion en proceso", "status":200}');
-        //     } catch (error) {
-        //         res.send('{"resultado":"No se pudieron obtener las canciones", "status":500}');
-        //     }
-        // }
     }else{
         res.redirect("/dashboard");
     }
@@ -45,10 +32,8 @@ const obtenerCanciones = async (req, res) => {
 //POST /canciones
 //FUNCION PARA CARGAR UNA NUEVA CANCION A LA APLICACION (SOLO ADMINISTRADORES)
 const cargarCancion = async (req, res) => {
-    console.log("cargar cancion");
-    console.log(req.body);
-    console.log(req.file);
     try {
+        //CREAR UN NUEVO DOCUMENTO DE LA CANCION Y GUARDARLO EN LA COLECCION DE LA DB, ACTUALIZANDO DESPUES EL ALBUM AL QUE PERTENECE LA CANCION AGREGANDOLA A LA LISTA DE CANCIONES
         const documento_cancion =  new ModeloCancion({nombre_cancion: req.body.titulo, genero: req.body.genero, artista: req.body.artista, album: req.body.album, propietario: req.session.objectid, reproducciones: 0, ruta_cancion: req.file.path});
         await documento_cancion.save();
         await ModeloAlbum.updateOne({_id:req.body.album},{$push:{canciones:documento_cancion._id}});
@@ -62,7 +47,6 @@ const cargarCancion = async (req, res) => {
 //PUT /canciones
 //FUNCION PARA EDITAR UNA CANCION EXISTENTE (SOLO ADMINISTRADORES)
 const editarCancion = async (req, res) => {
-    console.log("modificar cancion", req.body);
     try {
         //OBTENER EL DOCUMENTO DE LA CANCION
         let documento_cancion = await ModeloCancion.findOne({_id: ObjectId(req.body.id_cancion)});
@@ -102,17 +86,16 @@ const editarCancion = async (req, res) => {
         //GUARDAR LOS CAMBIOS EN EL DOCUMENTO DE LA CANCION
         await documento_cancion.save();
         
-        res.send('{"resultado":"Cancion editada exitosamente", "status":200}');
+        res.status(200).json({resultado:"Cancion editada exitosamente",status:200});
     } catch (error) {
         console.log(error);
-        res.send('{"resultado":"No se pudo editar la cancion", "status":500}');
+        res.status(500).json({resultado:"No se pudo editar la cancion",status:500});
     }
 }
 
 //DELETE /canciones
 //FUNCION PARA ELIMINAR UNA CANCION DE LA BASE DE DATOS (SOLO ADMINISTRADORES)
 const eliminarCancion = async (req, res) => {
-    console.log("eliminar cancion");
     try {
         //OBTENER EL DOCUMENTO DE LA CANCION
         let documento_cancion = await ModeloCancion.findOne({_id: ObjectId(req.body.id_cancion)})
@@ -125,9 +108,9 @@ const eliminarCancion = async (req, res) => {
         //REMOVER LA CANCION ELIMINADA DE LAS LISTAS DE LOS USUARIOS
         await ModeloListas.updateMany({canciones:req.body.id_cancion},{$pull:{canciones:req.body.id_cancion}})
 
-        res.send('{"resultado":"Cancion eliminada exitosamente", "status":200}');
+        res.status(200).json({resultado:"Cancion eliminada exitosamente",status:200});
     } catch (error) {
-        res.send('{"resultado":"No se pudo eliminar la cancion", "status":500}');
+        res.status(500).json({resultado:"No se pudo eliminar la cancion",status:500});
     }
 }
 
