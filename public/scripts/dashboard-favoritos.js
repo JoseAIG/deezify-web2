@@ -56,7 +56,8 @@ function dibujar_favoritos(favoritos) {
 }
 
 var boton_reproducir_favoritos = document.getElementById("reproducir-favoritos");
-function reproducir_favoritos(favoritos){
+var boton_reproducir_modal_favoritos = document.getElementById("boton-reproducir-modal-favoritos");
+function reproducir_favoritos(){
     fetch('favoritos', {
         method: 'GET',
         headers: {'Content-Type': 'application/json'},
@@ -70,6 +71,7 @@ function reproducir_favoritos(favoritos){
     }); 
 }
 boton_reproducir_favoritos.onclick = reproducir_favoritos;
+boton_reproducir_modal_favoritos.onclick = reproducir_favoritos;
 
 function remover_favorito(id_cancion) {
     fetch('favoritos', {

@@ -49,7 +49,6 @@
     </aside>
     <!-- SECTION -->
     <section id="section-principal-usuario">
-        <button id="visualizar-aside">Aside</button>
         <form id="form-busqueda">
             <select name="select_busqueda" id="select-busqueda">
                 <option value="canciones">Canciones</option>
@@ -71,7 +70,43 @@
             <input type="text" name="palabra_clave" id="input-busqueda" autocomplete="off">
             <button id="boton-buscar"><img src="../assets/icons/search.svg"></button>
         </form>
-        <div id="contenedor-resultados"></div>
+        <!-- CONTENEDOR DE RESULTADOS QUE INICIALMENTE POSEE TARJETAS DE INFORMACION -->
+        <div id="contenedor-resultados">
+            <h3>¡Comencemos!</h3>
+            <div class="card-group">
+                <div class="contenedor-tarjeta" style="margin-top: 0px;">
+                    <div class="card text-white bg-dark mx-auto mt-5 tarjeta-inicio">
+                        <div class="text-center mt-2 mb-2">
+                            <h2>Listas de reproducción</h2>
+                            <img src="../assets/icons/playlist-play.svg">
+                            <p>Explora listas de reproducción de otros usuarios o crea las tuyas y agregale canciones.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contenedor-tarjeta" style="margin-top: 0px;">
+                    <div class="card text-white bg-dark mx-auto mt-5 tarjeta-inicio">
+                        <div class="text-center mt-2 mb-2">
+                            <h2>Géneros</h2>
+                            <img src="../assets/icons/rock.svg" style="color: #212429;">
+                            <p>Busca canciones por genero escribiendo una palabra clave o descubre todas si no brindas alguna.</p>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="contenedor-tarjeta" style="margin-top: 0px;">
+                    <div class="card text-white bg-dark mx-auto mt-5 tarjeta-inicio">
+                        <div class="text-center mt-2 mb-2">
+                            <h2>Favoritos y segidos</h2>
+                            <div>
+                                <img src="../assets/icons/corazon-vacio.svg">
+                            </div>
+                            <p>Agrega las canciones que mas te representen a favoritos. También puedes seguir artistas y álbumes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
     
     <!-- BARRA DE REPRODUCCION INFERIOR -->
@@ -89,7 +124,7 @@
                 <img src="../assets/icons/siguiente-cancion.svg" class="icono-reproductor">
             </button>
         </div>
-        <input type="range" class="w-25" id="rango-cancion" min=0 value="0" disabled>
+        <input type="range" id="rango-cancion" min=0 value="0" disabled>
         <div id="contenedor-info-cancion"></div>
         <!-- CONTENEDOR DONDE SE INCLUYE EL AUDIO TAG CON SRC DEL ENDPOINT /reproduccion/:id -->
         <div id="contenedor-reproductor"></div>
@@ -145,6 +180,7 @@
                     <br>
                     <div id="contenedor-favoritos"></div>
                 </div>
+                <button id="boton-reproducir-modal-favoritos" class="w-25 mx-auto mb-4"><img src="../assets/icons/reproducir.svg" class="icono-boton"></button>
             </div>
         </div>
     </div>

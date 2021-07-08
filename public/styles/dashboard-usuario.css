@@ -37,16 +37,11 @@
     margin-right: 0.5em;
 }
 
-#contenedor-favoritos{
-    margin-bottom: 3em;
-}
-
 .contenedor-elemento{
     /* height: 8em; */
     text-align: left;
     margin: 1em;
     font-size: large;
-    /* background-color: red; */
 }
 
 .contenedor-elemento h4{
@@ -93,63 +88,3 @@
     height: 3em;
     margin-right: 0.5em;
 }
-
-/* REPRODUCTOR DE MUSICA INFERIOR */
-#nav-reproductor{
-    display: flex;
-    align-items: center;
-    gap: 2em;
-
-    /* justify-content: space-between; */
-}
-
-#contenedor-info-cancion{
-    display: inline;
-    padding: 1em;
-}
-
-#contenedor-info-cancion p{
-    margin: auto;
-}
-
-.contenedor-botones{
-    flex-basis: 20%;
-    display: inline-block;
-    margin-top: auto;
-    margin-bottom: auto;
-}
-
-.contenedor-botones button{
-}
-
-.icono-reproductor{
-    width: 30px;
-}
-
-input[type='range'] {
-    overflow: hidden;
-    width: 80px;
-    -webkit-appearance: none;
-    background-color: rgba(95, 96, 101, 0.75);
-  }
-  
-  input[type='range']::-webkit-slider-runnable-track {
-    height: 10px;
-    -webkit-appearance: none;
-    color: #ff9100;
-    margin-top: -1px;
-  }
-  
-  input[type='range']::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 10px;
-    height: 10px;
-    border-radius: 25px;
-    background: white;
-    box-shadow: -250px 0 0 256px #ff9100;
-  }
-
-/* #contenedor-resultados{
-    width: 80%;
-    margin: auto;
-} */

@@ -86,6 +86,27 @@ button a:hover{
     color: white;
 }
 
+/* ESTILO DE INICIO */
+.body-inicio{
+    overflow: auto;
+}
+.tarjeta-inicio{
+    padding: 1em;
+    transition: transform 0.5s;
+}
+.tarjeta-inicio:hover{
+    transform: scale(1.05);
+}
+.tarjeta-inicio img{
+    margin-top: 1em;
+    padding: 2em;
+    width: 75%;
+}
+.tarjeta-inicio p{
+    font-size: larger;
+}
+
+
 /* AJUSTAR ELEMENTOS PARA PANTALLAS DE MENOR TAMANIO */
 @media (max-width: 850px) {
    

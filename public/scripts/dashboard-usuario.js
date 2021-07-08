@@ -3,33 +3,6 @@ import { establecer_listas_del_usuario } from './dashboard-busquedas.js';
 import { dibujar_contenido_lista_propietaria, dibujar_contenido_lista_ajena, dibujar_contenido_visualizar_artista, dibujar_contenido_visualizar_album } from './helpers/contenido-modals.js';
 import { reproducir_arreglo_canciones, reproducir_artista } from './dashboard-reproduccion.js';
 
-var boton_visualizar_aside = document.getElementById("visualizar-aside");
-var aside_principal = document.querySelector("#aside-principal");
-var section_principal_usuario = document.querySelector("#section-principal-usuario");
-
-// let ancho_inicial = getComputedStyle(section_principal_usuario).width;
-// let margen_inicial = getComputedStyle(section_principal_usuario).marginLeft;
-boton_visualizar_aside.addEventListener('click',()=>{
-    //GUARDAR LOS VALORES INICIALES DEL ANCHO Y MARGEN DEL SECTION (PARA MANTENER ORDEN EN FUNCION DE LA PANTALLA DEL USUARIO)
-    if(!(section_principal_usuario.style.marginLeft=="0px")){
-        ancho_inicial = getComputedStyle(section_principal_usuario).width;
-        margen_inicial = getComputedStyle(section_principal_usuario).marginLeft;
-    
-        console.log(getComputedStyle(section_principal_usuario).width);
-        console.log(getComputedStyle(section_principal_usuario).marginLeft);
-    }
-
-    if(aside_principal.style.display=="none"){
-        aside_principal.style.display="block";
-        section_principal_usuario.style.width=ancho_inicial;
-        section_principal_usuario.style.marginLeft=margen_inicial;
-    }else{
-        aside_principal.style.display="none";
-        section_principal_usuario.style.width="100%";
-        section_principal_usuario.style.marginLeft="0";
-    }
-});
-
 //AL CARGAR LA VISTA REFRESCAR LAS LISTAS DE REPRODUCCION DEL USUARIO
 window.onload = refrescar_listas;
 

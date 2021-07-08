@@ -9,19 +9,53 @@
     <link rel="stylesheet" href="../styles/estilo-principal.css">
     <title>Deezify</title>
 </head>
-<body>
+<body class="body-inicio">
+    <!-- BARRA DE NAVEGACION SUPERIOR -->
     <nav class="navbar navbar-dark bg-dark text-white">
         <div>
             <img src="../assets/icons/logo.svg" alt="d" class="w-25">
             <h1 class="d-inline align-middle">Deezify</h1>
         </div>
         <div style="position: absolute; right: 1em;">
-            <!-- <button><a href="/login">Ingresar</a></button> -->
             <button onclick="location.href='/login'">Ingresar</button>
             &nbsp;
-            <!-- <button><a href="/registro">Registrarse</a></button> -->
             <button onclick="location.href='/registro'">Registrarse</button>
         </div>
     </nav>
+
+    <!-- SECTION TARJETAS DE INFORMACION -->
+    <section>
+        <div class="card-group">
+            <div class="contenedor-tarjeta">
+                <div class="card text-white bg-dark mx-auto mt-5 tarjeta-inicio">
+                    <div class="text-center mt-2 mb-2">
+                        <h2>Canciones</h2>
+                        <img src="../assets/icons/compact-disc.svg" style="color: rgb(33, 36, 41);">
+                        <p>Busca canciones, reprodúcelas, agregalas a favoritos y a tus listas de reproduccion tal como lo desees.</p>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="contenedor-tarjeta">
+                <div class="card text-white bg-dark mx-auto mt-5 tarjeta-inicio">
+                    <div class="text-center mt-2 mb-2">
+                        <h2>Álbumes</h2>
+                        <img src="../assets/icons/album.svg">
+                        <p>Busca los álbumes de tus artistas favoritos, visualiza sus canciones, siguelo si quieres y reprodúcelo.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contenedor-tarjeta">
+                <div class="card text-white bg-dark mx-auto mt-5 tarjeta-inicio">
+                    <div class="text-center mt-2 mb-2">
+                        <h2>Artistas</h2>
+                        <img src="../assets/icons/group.svg">
+                        <p>Conoce nuevos artistas, visualiza sus álbumes, canciones y reproduce lo que gustes. ¡Expande tus gustos!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 </html>
