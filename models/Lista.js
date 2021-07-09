@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const ModeloCancion = require('./Cancion').schema;
 
 const SchemaLista = new mongoose.Schema({
     nombre_lista: {

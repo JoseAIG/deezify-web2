@@ -11,6 +11,7 @@ section{
     margin-bottom: 0.5em;
 }
 
+/* ESTILO BOTON DROPUP */
 .dropup{
     bottom: 2em;
     right: 2em;
@@ -22,7 +23,6 @@ section{
 .dropup button {
     border-radius: 25px;
     color: white;
-    /* background-color: rgb(40, 43, 49); */
     margin-top: 0.5em;
 }
 
@@ -30,18 +30,37 @@ section{
     border-radius: 25px;
 }
 
+/* ESTILO ACORDION */
 .accordion{
-    /* margin-top: 3.5em; */
     width: 75%;
+    border-radius: 25px;
+}
+
+.accordion-item{
+    margin: auto;
+    margin-left: 1em;
+    margin-right: 1em;
+    border: none;
+    border-bottom: 2px solid rgba(53, 56, 61, 1);
+}
+
+.accordion-item:last-child{
+    border-bottom: none;
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+}
+
+.accordion-button:after {
+    background-image: url('../assets/icons/down-arrow.svg') !important;
 }
 
 #contenedor-artistas, #contenedor-albumes, #contenedor-canciones{
-    /* display: flex; */
     margin: auto;
     margin-top: 2em;
     width: 100%;
     background-color: rgb(33, 36, 41);
-    /* background-color: rgba(53, 56, 61, 1); */
     border-radius: 25px;
     padding: 2em;
 }
@@ -66,15 +85,6 @@ select{
     width: 40%;
     left: 2em;
 }
-
-/* .accordion h2{
-    color: white;
-}
-
-.accordion, .accordion-button, .accordion-item, .accordion-header, .accordion-collapse{
-    border-radius: 25em;
-    border: 1px dashed red;
-} */
 
 @media (max-width: 900px) {
     .accordion{
