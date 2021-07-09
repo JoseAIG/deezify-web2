@@ -50,12 +50,6 @@ app.use('/artistas', rutasArtistas);
 app.use('/albumes', rutasAlbumes);
 app.use('/reproduccion', rutasReproduccion);
 
-//CONECTARSE A LA BASE DE DATOS
-mongoose.connect('mongodb+srv://admin:Av4lanch@deezify-cluster.voizy.mongodb.net/deezify?retryWrites=true&w=majority',{
-    useNewUrlParser: true, 
-    useUnifiedTopology: true 
-}).catch(error => console.log(error));
-
 //DESPACHAR LA VISTA DE INICIO (LANDING) AL ENTRAR A LA APP SIN HACER LOGIN
 app.get("/",(req,res)=>{
     //SI SE POSEE UNA SESION, REDIRECCIONAR AL DASHBOARD
@@ -72,6 +66,10 @@ app.use((req, res) => {
     res.status(404).sendFile("./public/views/404.html",{root: __dirname});
 });
 
-app.listen(puerto, ()=>{
+//CONECTARSE A LA BASE DE DATOS
+mongoose.connect('mongodb+srv://admin:Av4lanch@deezify-cluster.voizy.mongodb.net/deezify?retryWrites=true&w=majority',{
+    useNewUrlParser: true, 
+    useUnifiedTopology: true 
+}).then(result => app.listen(puerto, ()=>{
     console.log("Servidor en puerto "+puerto);
-});
+})).catch(error => console.log(error));

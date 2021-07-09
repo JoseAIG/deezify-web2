@@ -20,7 +20,6 @@ var contenedor_resultados = document.getElementById("contenedor-resultados");
 const realizar_busqueda = (e) => {
     e.preventDefault();
     let datos_form_buscar = new FormData(form_busqueda);
-    console.log(Object.fromEntries(datos_form_buscar.entries()));
     fetch('dashboard', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -29,7 +28,6 @@ const realizar_busqueda = (e) => {
     .then(response => response.json())
     .then(data => {
         //DIBUJAR LOS RESULTADOS DE LA PETICION
-        console.log(data);
         dibujar_resultados(data);
     })	    
     .catch((error) => {

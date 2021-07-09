@@ -38,7 +38,6 @@
 }
 
 .contenedor-elemento{
-    /* height: 8em; */
     text-align: left;
     margin: 1em;
     font-size: large;
@@ -106,4 +105,15 @@
 .caratula-album-cancion-reproductor{
     width: 50px;
     margin-left: 1em;
+}
+
+/* AJUSTE EN VISTA MOVIL */
+@media (max-width: 480px) {
+    #contenedor-favoritos input, #contenedor-input-canciones input, #contenedor-visualizar-canciones-lista input, #contenedor-visualizar-albumes-artista input, #contenedor-visualizar-canciones-album input{
+        width: 45%;
+        margin-right: 0.2em;
+    }
+    #contenedor-favoritos button, #contenedor-input-canciones button, #contenedor-visualizar-albumes-artista button, #contenedor-visualizar-canciones-album button, #contenedor-visualizar-canciones-lista button{
+        margin-right: 0.2em;
+    }
 }

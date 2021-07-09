@@ -19,13 +19,13 @@ const cerrarSesion = (req, res) => {
     res.status(200).json({resultado:"Sesion finalizada", status:200});
 }
 
-//FUNCION PARA REALIZAR BUSQUEDAS POR PARTE DE UN USUARIO
+//FUNCION PARA REALIZAR BUSQUEDAS POR PARTE DE UN USUARIO CON EXPRESIONES REGULARES (REGEX) EN EL CAMPO PALABRA CLAVE PARA OBTENER MAYORES COINCIDENCIAS
 const realizarBusqueda = async (req, res) => {
     try {
         //SI LA BUSQUEDA ES POR ARTISTAS
         if(req.body.select_busqueda=="artistas"){
             //BUSCAR LOS DOCUMENTOS DEL ARTISTA QUE COINCIDAN Y POPULARLOS
-            const documentos_busqueda = await ModeloArtista.find({nombre: req.body.palabra_clave})
+            const documentos_busqueda = await ModeloArtista.find({nombre:{'$regex':req.body.palabra_clave, '$options':'i'}})
             .populate({
                 path: 'albumes',
                 populate: {
@@ -40,7 +40,7 @@ const realizarBusqueda = async (req, res) => {
         //SI LA BUSQUEDA ES POR ALBUMES
         else if(req.body.select_busqueda=="albumes"){
             //BUSCAR LOS DOCUMENTOS DE LOS ALBUMES QUE COINCIDAN Y POPULARLOS
-            const documentos_busqueda = await ModeloAlbum.find({nombre_album: req.body.palabra_clave})
+            const documentos_busqueda = await ModeloAlbum.find({nombre_album:{'$regex':req.body.palabra_clave, '$options':'i'}})
             .populate({
                 path: "artista canciones",
                 populate: {
@@ -52,7 +52,7 @@ const realizarBusqueda = async (req, res) => {
         //SI LA BUSQUEDA ES POR CANCIONES
         else if(req.body.select_busqueda == "canciones"){
             //BUSCAR LOS DOCUMENTOS DE LAS CANCIONES QUE COINCIDAN Y POPULARLOS
-            const documentos_busqueda = await ModeloCancion.find({nombre_cancion: req.body.palabra_clave}).populate('artista album');
+            const documentos_busqueda = await ModeloCancion.find({nombre_cancion:{'$regex':req.body.palabra_clave, '$options':'i'}}).populate('artista album');
             res.status(200).json({status:200, elementos:"canciones", resultado_busqueda:documentos_busqueda});
         }
         //SI LA BUSQUEDA ES POR GENEROS
@@ -62,14 +62,14 @@ const realizarBusqueda = async (req, res) => {
                 const documentos_busqueda = await ModeloCancion.find({genero: req.body.select_genero}).populate('artista album');
                 res.status(200).json({status:200, elementos:"canciones", resultado_busqueda:documentos_busqueda});
             }else{
-                const documentos_busqueda = await ModeloCancion.find({nombre_cancion: req.body.palabra_clave, genero: req.body.select_genero}).populate('artista album');
+                const documentos_busqueda = await ModeloCancion.find({nombre_cancion:{'$regex':req.body.palabra_clave, '$options':'i'}, genero: req.body.select_genero}).populate('artista album');
                 res.status(200).json({status:200, elementos:"canciones", resultado_busqueda:documentos_busqueda});
             }
         }
         //SI LA BUSQUEDA ES POR LISTAS
         else if(req.body.select_busqueda == "listas"){
             //OBTENER LOS DOCUMENTOS DE LAS LISTAS QUE COINCIDEN Y POPULARLOS
-            const documentos_busqueda = await  ModeloLista.find({nombre_lista: req.body.palabra_clave})
+            const documentos_busqueda = await  ModeloLista.find({nombre_lista:{'$regex':req.body.palabra_clave, '$options':'i'}})
             .populate({
                 path: 'canciones',
                 populate: {path: 'artista album'}

@@ -12,9 +12,6 @@ router.get("/",controladorFavoritos.obtenerFavoritos);
 //ENDPOINT /listas METODO POST
 router.post("/",controladorFavoritos.agregarFavorito);
 
-//ENDPOINT /listas METODO PUT
-//router.put("/",controladorFavoritos.);
-
 //ENDPOINT /listas METODO DELETE
 router.delete("/",controladorFavoritos.removerFavorito);
 
