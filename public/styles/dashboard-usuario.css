@@ -88,3 +88,22 @@
     height: 3em;
     margin-right: 0.5em;
 }
+
+.caratula-visualizar-album{
+    width: 50%;
+    margin-bottom: 1em;
+    transition: transform 0.5s;
+}
+
+.caratula-visualizar-album:hover{
+    transform: scale(1.05);
+}
+
+.caratula-tabla-album{
+    width: 40%;
+}
+
+.caratula-album-cancion-reproductor{
+    width: 50px;
+    margin-left: 1em;
+}

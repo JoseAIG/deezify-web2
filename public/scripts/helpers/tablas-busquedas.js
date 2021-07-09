@@ -222,7 +222,7 @@ function dibujar_tabla_albumes_busqueda(resultados) {
             tableBody.appendChild(tr);
             //EN EL INDICE -1 DIBUJAR EL ENCABEZADO DE LA TABLA
             if(i==-1){
-                for (let j=0; j<7; j++) {
+                for (let j=0; j<8; j++) {
                     var td = document.createElement('td');
                     let contenido_celda = document.createElement('div');
                     if(j==0){
@@ -241,16 +241,19 @@ function dibujar_tabla_albumes_busqueda(resultados) {
                         contenido_celda.innerHTML="Canciones";
                     }
                     else if(j==5){
-                        contenido_celda.innerHTML="Seguir";
+                        contenido_celda.innerHTML="Carátula";
                     }
                     else if(j==6){
+                        contenido_celda.innerHTML="Seguir";
+                    }
+                    else if(j==7){
                         contenido_celda.innerHTML="Visualizar";
                     }
                     td.appendChild(contenido_celda);
                     tr.appendChild(td);
                 }
             }else{
-                for (let j=0; j<7; j++) {
+                for (let j=0; j<8; j++) {
                     var td = document.createElement('td');
                     let contenido_celda = document.createElement('div');
                     if(j==0){
@@ -272,12 +275,19 @@ function dibujar_tabla_albumes_busqueda(resultados) {
                         contenido_celda.innerHTML=resultados[i].canciones.length;
                     }
                     else if(j==5){
+                        if(resultados[i].ruta_caratula && resultados[i].ruta_caratula!=""){
+                            contenido_celda.innerHTML=`<img src="${resultados[i].ruta_caratula}" alt="caratula" class="caratula-tabla-album">`
+                        }else{
+                            contenido_celda.innerHTML="-"
+                        }
+                    }
+                    else if(j==6){
                         contenido_celda.innerHTML=`<button><img src='../assets/icons/add.svg' class='icono-boton'></button>`
                         contenido_celda.addEventListener('click',()=>{
                             seguir_album(resultados[i]._id);
                         });
                     }
-                    else if(j==6){
+                    else if(j==7){
                         contenido_celda.innerHTML=`<button data-bs-toggle="modal" data-bs-target="#modal-visualizar-album"><img src='../assets/icons/visualizar.svg' class='icono-boton'></button>`
                         contenido_celda.addEventListener('click',()=>{
                             console.log("visualizar album");

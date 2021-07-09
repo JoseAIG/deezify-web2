@@ -77,7 +77,7 @@ function dibujar_tabla_albumes_admin(albumes){
         let tr = document.createElement('tr');
         tableBody.appendChild(tr);
         if(i==-1){
-            for (let j=0; j<5; j++) {
+            for (let j=0; j<6; j++) {
                 var td = document.createElement('td');
                 let contenido_celda = document.createElement('div');
                 if(j==0){
@@ -93,17 +93,20 @@ function dibujar_tabla_albumes_admin(albumes){
                     contenido_celda.innerHTML="Canciones";
                 }
                 else if(j==4){
+                    contenido_celda.innerHTML="Carátula";
+                }
+                else if(j==5){
                     contenido_celda.innerHTML="Editar";
                 }
                 td.appendChild(contenido_celda);
                 tr.appendChild(td);
             }
         }else{
-            for (let j=0; j<5; j++) {
+            for (let j=0; j<6; j++) {
                 var td = document.createElement('td');
                 let contenido_celda = document.createElement('div');
                 if(j==0){
-                    contenido_celda.innerHTML=`<h4>${albumes[i].nombre_album}</h4>`;
+                    contenido_celda.innerHTML=`<h5>${albumes[i].nombre_album}</h5>`;
                 }
                 else if(j==1){
                     contenido_celda.innerHTML=albumes[i].artista.nombre;
@@ -115,6 +118,13 @@ function dibujar_tabla_albumes_admin(albumes){
                     contenido_celda.innerHTML=albumes[i].canciones.length;
                 }
                 else if(j==4){
+                    if(albumes[i].ruta_caratula && albumes[i].ruta_caratula!=""){
+                        contenido_celda.innerHTML=`<img src="${albumes[i].ruta_caratula}" alt="caratula" class="caratula-album">`;
+                    }else{
+                        contenido_celda.innerHTML="-";
+                    }
+                }
+                else if(j==5){
                     contenido_celda.innerHTML=`<button class='boton-gris' data-bs-toggle='modal' data-bs-target='#modal-editar-album'><img src='../assets/icons/edit.svg' class='icono-boton'></button>`;
                     contenido_celda.onclick = () => {
                         dibujar_contenido_editar_album(albumes[i]);

@@ -90,18 +90,15 @@ table button{
 }
 
 input[type="file"]{
-    display: none;
+    margin: auto;
+    width: 50%;
 }
 
-.label-cargar-archivo{
-    margin-top: 2em;
-    background-color: rgba(65, 66, 71, 0.75);
+input[type="file"]::-webkit-file-upload-button{
     border-radius: 25px;
-    border: 0cm;
-    padding: 0.4em;
+    border: none;
+    background-color: rgba(95, 96, 101, 0.75);
     color: white;
-    cursor: pointer;
-    width: 25%;
 }
 
 /* ESTILO DE LOS ELEMENTOS DE LA BUSQUEDA */
@@ -191,6 +188,7 @@ option{
 
 /* RANGO PERSONALIZADO REPRODUCTOR COMPATIBLE CON DISTINTOS NAVEGADORES */
 input[type='range'] {
+    margin-left: 1em;
     overflow: hidden;
     width: 30%;
     -webkit-appearance: none;

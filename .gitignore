@@ -1,6 +1,9 @@
 # Ruta canciones
 canciones/
 
+#R Ruta caratulas
+caratulas/
+
 # Logs
 logs
 *.log

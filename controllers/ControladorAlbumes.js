@@ -25,7 +25,15 @@ const obtenerAlbumes = async (req, res) => {
 const crearAlbum = async (req, res) => {
     try {
         console.log(req.body)
-        const documento_album = new ModeloAlbum({nombre_album:req.body.album, artista:req.body.artista, lanzamiento:req.body.fecha, propietario:req.session.objectid});
+        console.log(req.file);
+        //SI SE CARGO UNA CARATULA ESTABLECER LA RUTA DE LA MISMA EN EL CAMPO DEL DOCUMENTO
+        let ruta_caratula;
+        if(req.file){
+            ruta_caratula = req.file.path;
+        }else{
+            ruta_caratula = "";
+        }
+        const documento_album = new ModeloAlbum({nombre_album:req.body.album, artista:req.body.artista, lanzamiento:req.body.fecha, ruta_caratula:ruta_caratula, propietario:req.session.objectid});
         await documento_album.save();
         await ModeloArtista.updateOne({_id:ObjectId(req.body.artista)},{$push:{albumes:documento_album._id}});
         res.status(200).json({resultado:"Album creado exitosamente.", status:200});
@@ -40,6 +48,7 @@ const crearAlbum = async (req, res) => {
 const editarAlbum = async (req, res) => {
     try {
         console.log(req.body);
+        console.log(req.file);
         //OBTENER EL DOCUMENTO DEL ALBUM
         let documento_album = await ModeloAlbum.findOne({_id:req.body.id_album});
         //COMPROBAR SI SE HA CAMBIADO EL NOMBRE DEL ALBUM
@@ -64,6 +73,11 @@ const editarAlbum = async (req, res) => {
             //ESTABLECER EL ID DEL NUEVO ARTISTA EN EL CAMPO ARTISTA DEL ALBUM
             documento_album.artista = req.body.artista;
         }
+        //COMPROBAR SI SE CARGO UNA CARATULA
+        if(req.file){
+            documento_album.ruta_caratula = req.file.path
+        }
+        //GUARDAR LOS CAMBIOS DEL DOCUMENTO DEL ALBUM
         await documento_album.save();
 
         res.status(200).json({resultado:"Album editado exitosamente.", status:200});

@@ -168,10 +168,9 @@
                             </select>
                         </div>
                         <div>
-                            <label class="label-cargar-archivo">
-                                <input type="file" accept="audio/*" name="pista" id="input-pista">
-                                Pista de audio
-                            </label>
+                            <label for="pista">Pista de audio</label>
+                            <br>
+                            <input type="file" accept="audio/*" name="pista" id="input-pista">
                         </div>
                     </form>
                 </div>
@@ -228,10 +227,9 @@
                             </select>
                         </div>
                         <div>
-                            <label class="label-cargar-archivo">
-                                <input type="file" name="pista" id="input-editar-pista-cancion">
-                                Pista de audio
-                            </label>
+                            <label for="pista">Nueva pista de audio</label>
+                            <br>
+                            <input type="file" accept="audio/*" name="pista" id="input-editar-pista-cancion">
                         </div>
                     </form>
                 </div>
@@ -321,6 +319,11 @@
                                 <option value="">Seleccione un artista</option>
                             </select>
                         </div>
+                        <div>
+                            <label for="caratula">Carátula del álbum</label>
+                            <br>
+                            <input type="file" name="caratula" id="input-caratula">
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -356,6 +359,11 @@
                             <select name="artista" id="select-artista-editar-album">
                                 <option value="">Seleccione un artista</option>
                             </select>
+                        </div>
+                        <div>
+                            <label for="caratula">Nueva carátula del álbum</label>
+                            <br>
+                            <input type="file" name="caratula" id="input-editar-caratula-album">
                         </div>
                     </form>
                 </div>

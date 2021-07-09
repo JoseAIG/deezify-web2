@@ -145,13 +145,20 @@ function dibujar_contenido_visualizar_artista(artistas, indice, edicion) {
 // CONFIGURACION DE LOS ELEMENTOS PARA VISUALIZAR LOS ALBUMES //
 //----------------------------------------------------------- //
 //DIBUJADO DEL CONTENIDO PARA LA VISUALIZACION DE LA PERSPECTIVA DE UN ALBUM
+var contenedor_caratula_visualizar_album = document.getElementById("contenedor-caratula-visualizar-album");
 var nombre_visualizar_album = document.getElementById("nombre-visualizar-album");
 var nombre_artista_visualizar_album = document.getElementById("nombre-artista-visualizar-album");
 var lanzamiento_visualizar_album = document.getElementById("lanzamiento-visualizar-album");
 var contenedor_visualizar_canciones_album = document.getElementById("contenedor-visualizar-canciones-album");
 var boton_dejar_de_seguir_album = document.getElementById("boton-dejar-de-seguir-album");
 function dibujar_contenido_visualizar_album(contenido, indice, config){
-    console.log("funcion dibujar contenido albumes", contenido, indice, config);
+    //COMPROBAR SI EL ALBUM TIENE UNA IMAGEN PARA AGREGARLA A LA PERSPECTIVA
+    console.log(contenido[indice]);
+    if(contenido[indice].ruta_caratula && contenido[indice].ruta_caratula!=""){
+        contenedor_caratula_visualizar_album.innerHTML = `<img src="${contenido[indice].ruta_caratula}" alt="caratula" class="caratula-visualizar-album">`
+    }else{
+        contenedor_caratula_visualizar_album.innerHTML = "";
+    }
     nombre_visualizar_album.innerHTML=contenido[indice].nombre_album;
     //SI EL PARAMETRO CONFIG ES BRINDADO Y ES DISTINTO DE TRUE, QUIERE DECIR QUE ES EL NOMBRE DEL ARTISTA LO QUE SE ESTA ENVIANDO POR PARAMETROS
     if(config && config!==true){

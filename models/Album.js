@@ -14,6 +14,9 @@ const SchemaAlbum = new mongoose.Schema({
         type: String
     },
     canciones:[{type: mongoose.Schema.Types.ObjectId, ref:"Cancion"}],
+    ruta_caratula:{
+        type: String
+    },
     propietario: {
         type: mongoose.Schema.Types.ObjectId,
         required: true

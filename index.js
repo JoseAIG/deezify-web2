@@ -23,6 +23,7 @@ app.use("/favicon.ico", express.static(__dirname + '/public/favicon.ico'));
 app.use("/scripts", express.static(__dirname + '/public/scripts'));
 app.use("/styles", express.static(__dirname + '/public/styles'));
 app.use("/assets", express.static(__dirname + '/public/assets'));
+app.use("/caratulas", express.static(__dirname + '/caratulas'));
 
 //AJUSTES SESION
 app.use(session({

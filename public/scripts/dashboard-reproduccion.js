@@ -145,8 +145,14 @@ function evento_mover_rango(audio) {
 }
 
 //FUNCION PARA ESTABLECER LA INFORMACION DE LA CANCION
+var contenedor_imagen_album_cancion = document.getElementById("contenedor-imagen-album-cancion");
 var contenedor_info_cancion = document.getElementById("contenedor-info-cancion");
 function establecer_info_cancion(cancion){
+    if(cancion.album.ruta_caratula && cancion.album.ruta_caratula!=""){
+        contenedor_imagen_album_cancion.innerHTML = `<img src="${cancion.album.ruta_caratula}" alt="caratula" class="caratula-album-cancion-reproductor">`;
+    }else{
+        contenedor_imagen_album_cancion.innerHTML = "";
+    }
     contenedor_info_cancion.innerHTML=`<p>${cancion.nombre_cancion} - ${cancion.artista.nombre} - ${cancion.album.nombre_album}</p>`;
 }
 

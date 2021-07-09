@@ -40,7 +40,6 @@
             <button id="reproducir-favoritos"><img src="../assets/icons/reproducir.svg" class="icono-boton"></button>
             <h3>Favoritos</h3>
             <button id="ver-favoritos" class="boton-gris" data-bs-toggle="modal" data-bs-target="#modal-favoritos"><img src="../assets/icons/visualizar.svg" class="icono-boton"></button>
-            <!-- <button id="boton-favoritos" data-bs-toggle="modal" data-bs-target="#modal-favoritos"><img src="../assets/icons/corazon-lleno.svg" class="icono-boton"> Favoritos</button> -->
         </div>
         <div id="contenedor-listas" class="contenedor-elemento"></div>
         <button id="boton-crear-lista" data-bs-toggle="modal" data-bs-target="#modal-crear-lista"><img src="../assets/icons/crear-lista.svg" class="icono-boton"> Nueva lista</button>
@@ -126,6 +125,7 @@
         </div>
         <input type="range" id="rango-cancion" min=0 value="0" disabled>
         <div id="contenedor-info-cancion"></div>
+        <div id="contenedor-imagen-album-cancion"></div>
         <!-- CONTENEDOR DONDE SE INCLUYE EL AUDIO TAG CON SRC DEL ENDPOINT /reproduccion/:id -->
         <div id="contenedor-reproductor"></div>
     </nav>
@@ -278,6 +278,7 @@
                     <button class="boton-volver" data-bs-dismiss="modal">Cerrar</button>
                 </div>
                 <div class="modal-body text-center">
+                    <div id="contenedor-caratula-visualizar-album"></div>
                     <b><h3 id="nombre-visualizar-album">Album</h3></b>
                     <h5 id="nombre-artista-visualizar-album">Artista</h5>
                     <h6 id="lanzamiento-visualizar-album" class="mt-3 mb-4">Lanzamiento</h6>

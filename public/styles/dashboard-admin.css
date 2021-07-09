@@ -62,6 +62,12 @@ select{
     height: 2.5em;
 }
 
+.caratula-album{
+    width: 40%;
+    background-color: red;
+    left: 2em;
+}
+
 /* .accordion h2{
     color: white;
 }
@@ -73,11 +79,17 @@ select{
 
 @media (max-width: 900px) {
     .accordion{
-        width: 85%;
+        width: 100%;
+    }
+    .caratula-album{
+        width: 60%;
     }
 }
 @media (max-width: 480px) {
     .accordion{
         width: 100%;
+    }
+    .caratula-album{
+        width: 70%;
     }
 }

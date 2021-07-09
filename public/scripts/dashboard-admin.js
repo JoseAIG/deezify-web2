@@ -195,8 +195,7 @@ const guardar_nuevo_album = () => {
     }else{
         fetch('albumes', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(Object.fromEntries(datos_form_nuevo_album.entries()))
+            body: datos_form_nuevo_album
         })
         .then(response => response.json())
         .then(data => {
@@ -225,8 +224,7 @@ function editar_album(id_album){
         }else{
             fetch('albumes', {
                 method: 'PUT',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(Object.fromEntries(datos_form_editar_album.entries()))
+                body: datos_form_editar_album
             })
             .then(response => response.json())
             .then(data => {
